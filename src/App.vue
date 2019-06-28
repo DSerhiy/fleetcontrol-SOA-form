@@ -1,8 +1,8 @@
 <template>
-<div class="container-fluid">
+<div class="container">
   <app-header></app-header>
   <app-charterers-expenses></app-charterers-expenses>
-  
+  <div>{{$store.state.сomponentsData}}</div>
 </div> 
 </template>
 
@@ -11,6 +11,9 @@ import Header from './components/Header.vue';
 import CharterersExpenses from './components/CharterersExpenses/ExpensesForm.vue';
 
 export default {
+  created() {
+    this.$store.dispatch('initComponents');
+  },
   components: {
     appHeader: Header, 
     appCharterersExpenses: CharterersExpenses

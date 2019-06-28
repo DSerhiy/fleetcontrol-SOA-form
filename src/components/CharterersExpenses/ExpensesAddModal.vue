@@ -1,10 +1,11 @@
 <template>
 
+<div class="modal-layer">
   <div class="modal-dialog">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h5 class="modal-title text-white">New Expenses Item</h5>
+        <h5 class="modal-title text-white">New Item</h5>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
@@ -14,7 +15,7 @@
         </button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body bg-grey">
 
         <div class="form-group">
           <label for="input-1">Expenses descrition</label>
@@ -35,7 +36,7 @@
         </div>
       </div>
     
-      <div class="modal-footer">
+      <div class="modal-footer bg-grey">
         <button type="button" 
                 class="btn btn-inverse-success" 
                 data-dismiss="modal"
@@ -51,7 +52,7 @@
       
     </div>
   </div>  
-
+</div>
 </template>
 <script>
 export default {
@@ -74,10 +75,36 @@ export default {
 }
 </script>
 <style scoped>
+  .modal-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.541);
+    width: 100vw;
+    height: 100vh;
+  }
   .modal-dialog{
     position: absolute;
+    top: 20%;
     left: 50%;
-    transform: translateX(-50%)
+    transform: translateX(-50%);    
+  }
+
+  .border-success {
+    border-color: rgba(182, 255, 200, 0.514) !important;
+  }
+
+  .bg-success {
+    background-color: rgba(182, 255, 200, 0.322) !important;
+  }
+
+  .btn-success {
+    border-color: rgba(182, 255, 200, 0.514) !important;
+    background-color: rgba(182, 255, 200, 0.322) !important;
+  }
+
+  .bg-grey {
+    background-color: rgba(16, 47, 65, 0.37);
   }
 </style>
 
