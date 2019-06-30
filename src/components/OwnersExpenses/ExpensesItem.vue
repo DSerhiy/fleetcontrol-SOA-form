@@ -1,8 +1,8 @@
 <template>
   <tr>
     <td colspan="4">{{index}}. {{description}}</td>
-    <td class="debit-col"></td>
-    <td class="credit-col"><input type="text" readonly :value="value"></td>
+    <td class="debit-col"><input type="text" readonly :value="value"></td>
+    <td class="credit-col"></td>
   </tr>
 </template>
 <script>

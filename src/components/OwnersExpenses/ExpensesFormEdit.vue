@@ -5,12 +5,12 @@
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h5 class="modal-title text-white">Edit Items</h5>
+        <h2 class="modal-title text-white">Owners Expenses Edit Form</h2>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
                 aria-label="Close"
-                @click="cancel">
+                @click="cancel()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -26,19 +26,19 @@
 
         <hr>
 
-        <div class="row mb-2 pr-3 align-items-center" v-for="(item, index) in items" :key="index">
+        <div class="row mb-2 px-3 align-items-center" v-for="(item, index) in expensesList" :key="index">
           <div class="col-auto"><div>{{index + 1}}.</div></div>
           <div class="col">
             <input type="text" 
                    class="form-control"                  
-                   :value="item.name"
-                   @input="name = $event.target.value">
+                   :value="item.description"
+                   @input="item.description = $event.target.value">
           </div>
           <div class="col-2">
             <input type="number" 
                   class="form-control" 
-                  :value="item.credit"
-                  @input="value = $event.target.value">
+                  :value="item.value"
+                  @input="item.value = Number($event.target.value)">
          </div>
          <div class="col-1">
            <button type="button" 
@@ -46,22 +46,26 @@
                    @click="deleteItem(index)">  
                    X</button>
          </div>
-        </div>        
-        
+        </div>  
+
+        <hr>      
+        <button type="button" 
+                class="btn btn-success"
+                @click="addItem()">
+          <i class="fa fa-window-close"></i> Add New Item
+        </button>
       </div>
     
       <div class="modal-footer bg-grey">
         <button type="button" 
-                class="btn btn-inverse-success" 
-                data-dismiss="modal"
-                @click="cancel">
-          <i class="fa fa-times"></i> Close
+                class="btn btn-normal"
+                @click="cancel()">
+          <i class="fa fa-window-close"></i> Cancel
         </button>
         <button type="button" 
                 class="btn btn-success"
-                @click="sendData"
-                :disabled="btnStatus">
-          <i class="fa fa-check-square-o"></i> Save
+                @click="save()">
+          <i class="fa fa-check"></i> Save
         </button>
       </div>
       
@@ -71,37 +75,40 @@
 </template>
 <script>
 export default {
-  props: ['items'],
   data() {
     return {
-      name: null, 
-      value: null
-    }
-  }, 
-  computed: {
-    btnStatus() {
-      if(this.name === null && this.value === null)
-        return true;
-      
-      return true
+      expensesList: []
     }
   },
+  created(){
+    this.$store.getters.ownersExpensesList.forEach(el => {
+      this.expensesList.push({
+        description: el.description,
+        value: el.value
+      });      
+    });    
+  },
   methods: {
-     sendData() {
-       this.$emit('ok', this.expensesData);
+     addItem() {
+       this.expensesList.push({});
+     }, 
+     deleteItem(index) {
+       this.expensesList.splice(index, 1);
+     },
+     save() {
+       this.$store.dispatch('editOwnersExpenses', this.expensesList)
+       this.$emit('save');
      }, 
      cancel() {
        this.$emit('cancel');
-     }, 
-     deleteItem(index) {
-       this.$emit('deleteItem', index);
-     }
+     }     
    }
 }
 </script>
 <style scoped>
   .modal-layer {
     position: absolute;
+    z-index: 1000;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.541);
@@ -111,6 +118,7 @@ export default {
   .modal-dialog{
     min-width: 800px;
     position: absolute;
+    z-index: 1001;
     top: 20%;
     left: 50%;
     transform: translateX(-50%);    

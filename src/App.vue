@@ -1,22 +1,41 @@
 <template>
 <div class="container">
   <app-header></app-header>
-  <app-charterers-expenses></app-charterers-expenses>
-  <div>{{$store.state.сomponentsData}}</div>
+  <app-start-form v-if="showStartForm"
+                  @save="showStartForm = false"></app-start-form>
+  <template v-else>
+    <app-hire></app-hire>
+    <app-charterers-expenses></app-charterers-expenses>
+    <app-owners-expenses></app-owners-expenses>
+  </template>
 </div> 
 </template>
 
 <script>
 import Header from './components/Header.vue';
-import CharterersExpenses from './components/CharterersExpenses/ExpensesForm.vue';
+import Hire from './components/Hire/HireFormView.vue'
+import CharterersExpenses from './components/CharterersExpenses/ExpensesFormView.vue';
+import OwnersExpenses from './components/OwnersExpenses/ExpensesFormView.vue';
+import StartForm from './components/StartForm.vue';
 
 export default {
+  data() {
+    return {
+      showStartForm: true
+    }
+  },
   created() {
     this.$store.dispatch('initComponents');
+
+    if(this.$store.getters.isDelivered)
+      this.showStartForm = false; 
   },
   components: {
     appHeader: Header, 
-    appCharterersExpenses: CharterersExpenses
+    appHire: Hire,
+    appCharterersExpenses: CharterersExpenses, 
+    appOwnersExpenses: OwnersExpenses,
+    appStartForm: StartForm
   }
 }
 </script>

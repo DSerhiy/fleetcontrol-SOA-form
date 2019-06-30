@@ -1,15 +1,33 @@
 export default {
+  isDelivered: true,
   header: {
     vesselName: 'Marika',
     charterersName: 'BPG Shipping Company DMCC',
     cpDate: '26.06.2019'
   }, 
-  ownersExpenses: {
-    credit: null,
-    expenses: [{description: 'test1', value: null}]
+  hire: {
+    total() {},
+    data: [
+      {
+        hireRate: 5000,  
+        fromDate: {time: '01:01', date: '2019-06-30'}, 
+        toDate: {time: '01:01', date: '2019-07-01'}, 
+        addComm: 3.25,
+        brkComm: 1.25,
+        cevRate: 1250
+      }
+    ]
   },
   charterersExpenses: {
-    debit: null,
-    expenses: [{description: 'test2', value: null}]
+    total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
+    data: [
+      {description: null, value: null},      
+    ]
+  },
+  ownersExpenses: {
+    total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
+    data: [
+      {description: null, value: null}
+    ]
   }
 };

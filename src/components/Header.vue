@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="row">
     <div class="col-lg-12">
       <hr>
@@ -11,6 +12,22 @@
       <hr>
     </div>
   </div> 
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <tr>
+              <td colspan="4" class="not-bordered"></td>
+              <th scope="col" class="debit-col">DEBIT, USD</th>
+              <th scope="col" class="credit-col">CREDIT, USD</th>
+            </tr>
+          </table>          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';

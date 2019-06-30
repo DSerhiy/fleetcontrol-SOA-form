@@ -32,7 +32,7 @@
                 class="form-control" 
                 id="input-2" 
                 placeholder="Enter Total Amount Here"
-                @input="expensesData.amount = $event.target.value">
+                @input="expensesData.value = Number($event.target.value)">
         </div>
       </div>
     
@@ -45,7 +45,7 @@
         </button>
         <button type="button" 
                 class="btn btn-success"
-                @click="sendData">
+                @click="saveData">
           <i class="fa fa-check-square-o"></i> Save
         </button>
       </div>
@@ -60,16 +60,17 @@ export default {
     return {
       expensesData: {
         description: '', 
-        amount: null
+        value: null
       }
     }
   },
    methods: {
-     sendData() {
-       this.$emit('ok', this.expensesData)
+     saveData() {
+       this.$store.dispatch('addNewCharterersExpenses', this.expensesData);
+       this.$emit('save');
      }, 
      cancel() {
-       this.$emit('cancel')
+       this.$emit('cancel');
      }
    }
 }
