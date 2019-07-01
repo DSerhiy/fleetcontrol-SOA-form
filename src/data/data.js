@@ -21,13 +21,13 @@ export default {
   charterersExpenses: {
     total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
     data: [
-      {description: null, value: null},      
+      // {description: null, value: null},      
     ]
   },
   ownersExpenses: {
     total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
     data: [
-      {description: null, value: null}
+      // {description: null, value: null}
     ]
   }
 };

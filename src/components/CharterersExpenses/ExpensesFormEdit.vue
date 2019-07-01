@@ -107,7 +107,7 @@ export default {
 </script>
 <style scoped>
   .modal-layer {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -117,7 +117,7 @@ export default {
   }
   .modal-dialog{
     min-width: 800px;
-    position: absolute;
+    position: fixed;
     z-index: 1001;
     top: 20%;
     left: 50%;

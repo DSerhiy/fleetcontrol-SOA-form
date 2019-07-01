@@ -3,14 +3,15 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <div class="card-title">
+          <div class="card-title d-flex justify-content-between align-items-center">
             CHARTERERS EXPENSES : {{total}}
-            <div class="card-action">
-              <app-dropdown-menu 
-              :menuList="menuList"
-              @select="menuHandler">
-             </app-dropdown-menu>
-            </div>
+           
+              <button type="button" 
+                class="btn btn-success"
+                @click="addItem()">
+                <i class="fa fa-edit"></i> Add Item
+              </button>            
+          
           </div>
           <table class="table">
             <tbody>
@@ -41,9 +42,6 @@ import EditForm from './ExpensesFormEdit';
 export default {
   data() {
     return {
-      menuList: [
-        { name: 'Edit Items', iconClass: 'fa fa-edit' }
-      ],
       showExpensesEditForm: false
     }
   },
@@ -56,12 +54,8 @@ export default {
     }
   },
   methods: {
-    menuHandler(data) {
-      switch (data) {
-        case 'Edit Items':
-          this.showExpensesEditForm = true; 
-          break;         
-      }      
+    addItem() {
+      this.showExpensesEditForm = true;
     }
   },
   components: {

@@ -5,18 +5,29 @@
                   @save="showStartForm = false"></app-start-form>
   <template v-else>
     <app-hire></app-hire>
+    <app-bunkers-delivery></app-bunkers-delivery>
+    <app-holds-cleaning></app-holds-cleaning>
     <app-charterers-expenses></app-charterers-expenses>
     <app-owners-expenses></app-owners-expenses>
+    <app-off-hire></app-off-hire>
+    <app-speed-claim></app-speed-claim>
+    <app-remittances></app-remittances>
   </template>
 </div> 
 </template>
 
 <script>
+import StartForm from './components/StartForm.vue';
 import Header from './components/Header.vue';
-import Hire from './components/Hire/HireFormView.vue'
+import Hire from './components/Hire/HireFormView.vue';
+import BunkersDelivery from './components/Bunkers/BunkersDeliveryFormView.vue';
+import HoldsCleaning from './components/HoldsCleaning/HoldsCleaningFromView.vue';
 import CharterersExpenses from './components/CharterersExpenses/ExpensesFormView.vue';
 import OwnersExpenses from './components/OwnersExpenses/ExpensesFormView.vue';
-import StartForm from './components/StartForm.vue';
+import OffHire from './components/OffHire/OffHireFromView.vue';
+import SpeedClaim from './components/SpeedClaim/SpeedClaimFromView.vue';
+import Remittances from './components/Remittances/RemittancesFormView.vue';
+
 
 export default {
   data() {
@@ -31,11 +42,16 @@ export default {
       this.showStartForm = false; 
   },
   components: {
+    appStartForm: StartForm,
     appHeader: Header, 
     appHire: Hire,
+    appBunkersDelivery: BunkersDelivery,
+    appHoldsCleaning: HoldsCleaning,    
     appCharterersExpenses: CharterersExpenses, 
     appOwnersExpenses: OwnersExpenses,
-    appStartForm: StartForm
+    appOffHire: OffHire,
+    appSpeedClaim: SpeedClaim,
+    appRemittances: Remittances    
   }
 }
 </script>
