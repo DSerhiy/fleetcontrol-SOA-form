@@ -5,7 +5,7 @@
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h5 class="modal-title text-white">Charterers Expenses Edit Form</h5>
+        <h5 class="modal-title text-white">New Charterers Expenses Form</h5>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
@@ -30,15 +30,15 @@
           <div class="col-auto"><div></div></div>
           <div class="col">
             <input type="text" 
-                   class="form-control"                  
-                   :value="editedItem.description"
-                   @input="editedItem.description = $event.target.value">
+                   class="form-control"
+                   placeholder="Enter Item Description"                  
+                   @input="newExpenses.description = $event.target.value">
           </div>
           <div class="col-2">
             <input type="number" 
-                  class="form-control" 
-                  :value="editedItem.value"
-                  @input="editedItem.value = Number($event.target.value)">
+                  class="form-control"
+                  placeholder="Value" 
+                  @input="newExpenses.value = Number($event.target.value)">
          </div>
          <div class="col-1">
            
@@ -46,27 +46,17 @@
         </div>         
       </div>
     
-      <div class="modal-footer bg-grey row justify-content-between">
-        <div class="col-auto">
-          <button type="button" 
-                    class="btn btn-danger  waves-effect waves-light"
-                    @click="deleteItem()">
-                    <i class="zmdi zmdi-delete"></i>  
-                    Delete Item
-          </button>
-        </div>
-        <div class="col-auto">
-          <button type="button" 
-                  class="btn btn-normal"
-                  @click="close()">
-            <i class="fa fa-window-close"></i> Cancel
-          </button>
-          <button type="button" 
-                  class="btn btn-success"
-                  @click="update()">
-            <i class="fa fa-check"></i> Save
-          </button>
-        </div>        
+      <div class="modal-footer bg-grey">
+        <button type="button" 
+                class="btn btn-normal"
+                @click="close()">
+          <i class="fa fa-window-close"></i> Cancel
+        </button>
+        <button type="button" 
+                class="btn btn-success"
+                @click="save()">
+          <i class="fa fa-check"></i> Save
+        </button>
       </div>
       
     </div>
@@ -75,27 +65,17 @@
 </template>
 <script>
 export default {
-  props: ['index'],
   data() {
     return {
-      editedItem: { description: null, value: null }
+      newExpenses: { description: null, value: null }
     }
-  },
-  created(){
-    const item = this.$store.getters.charterersExpensesList[this.index]
-    this.editedItem.description = item.description;
-    this.editedItem.value =  item.value;
-  },
+  }, 
   methods: {
-    deleteItem() {
-       this.$store.dispatch('deleteCharterersItem', this.index);
-       this.close()
-     },
-    update() {
-       this.$store.dispatch('updateCharterersItem', {index: this.index, data: this.editedItem})
+     save() {
+       this.$store.dispatch('addNewCharterersItem', this.newExpenses)
        this.close();
      }, 
-    close() {
+     close() {
        this.$emit('close');
      }     
    }

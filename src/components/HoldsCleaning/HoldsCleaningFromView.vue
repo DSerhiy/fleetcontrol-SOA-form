@@ -1,56 +1,66 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <div class="card-title">
-        HOLDS CLEANING :
-        <div class="card-action">
-          <div class="dropdown">
-            <a href="javascript:void(0);" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" aria-expanded="false">
-              <i class="icon-options"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
-              style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(17px, 21px, 0px);">
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-plus"></i> Clone card
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-plus"></i> Add new before
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-plus"></i> Add new after
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-arrow-up"></i> Move top
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-arrow-down"></i> Move Down
-              </a>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="icon-trash"></i> Remove card
-              </a>
-            </div>
+      <div class="card-title d-flex justify-content-between align-items-center">
+        HOLDS CLEANING : {{total}}
+          <div>               
+          <button type="button" 
+            class="btn btn-success"
+            @click="addItem()">
+            <i class="fa fa-plus"></i> Add
+          </button>                        
           </div>
-        </div>
       </div>
       <table class="table">
         <tbody>
-          <tr>
-            <td colspan="4">1. ILIHC (description)</td>
-            <td class="debit-col"></td>
-            <td class="credit-col"><input type="text" readonly=""></td>
-          </tr>
-          <tr>
-            <td colspan="4">2. ILIHC (description)</td>
-            <td class="debit-col"></td>
-            <td class="credit-col"><input type="text" readonly=""></td>
-          </tr>
-          <tr>
-            <td colspan="4">3. ILOHC</td>
-            <td class="debit-col"></td>
-            <td class="credit-col"><input type="text" readonly=""></td>
-          </tr>
+          <app-cleaning-item v-for="(item, index) in holdsCleaningItmes"
+                             :key="index"
+                             :description="item.description"
+                             :value="item.value"
+                             :type="item.type"
+                             :index="index"                             
+                             >
+          </app-cleaning-item>     
         </tbody>
       </table>
     </div>
+    <!-- <app-edit-form v-if="showEditForm"
+                 :index="editItemIndex"
+                 @close="showEditForm = false">
+    </app-edit-form > -->
+    <app-add-form v-if="showAddForm"
+                  @close="showAddForm = false">
+    </app-add-form>
   </div>
 </template>
+<script>
+import CleaningItem from './HoldCleaningItem.vue';
+import AddForm from './HoldsCleaningFormAdd.vue';
+
+export default {
+  data() {
+    return {
+      showAddForm: false,
+    }
+  },
+  computed: {
+    total() {
+      return this.$store.getters.holdsCleaningTotal;
+    }, 
+    holdsCleaningItmes() {
+      return this.$store.getters.holdsCleaningItems;
+    }
+  }, 
+  methods: {
+    addItem() {
+      this.showAddForm = true
+    }
+  },
+  components: {
+    appCleaningItem: CleaningItem,
+    appAddForm: AddForm
+  }
+  
+}
+</script>
+

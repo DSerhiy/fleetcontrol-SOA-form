@@ -3,69 +3,75 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <div class="card-title">
+          <div class="card-title d-flex justify-content-between align-items-center">
             OWNERS EXPENSES : {{total}}
-            <div class="card-action">
-              <app-dropdown-menu 
-              :menuList="menuList"
-              @select="menuHandler">
-             </app-dropdown-menu>
-            </div>
+             <div>               
+              <button type="button" 
+                class="btn btn-success"
+                @click="addItem()">
+                <i class="fa fa-plus"></i> Add
+              </button>                        
+             </div>
           </div>
           <table class="table">
-            <app-expenses-item 
-              v-for="(item, index) in expensesList"
-              :key="index"
-              :index="index + 1"
-              :description="item.description"
-              :value="item.value">
-            </app-expenses-item>                
-          </table>                      
+            <tbody>
+              <app-expenses-item 
+                v-for="(item, index) in expensesList"
+                :key="index"
+                :index="index + 1"
+                :description="item.description"
+                :value="item.value"
+                @edit="editItem(index)">
+              </app-expenses-item>
+            </tbody>                
+          </table>             
         </div>
       </div>
     </div>
-  <app-edit-form v-if="showExpensesEditForm"
-                   @save="showExpensesEditForm = false"
-                   @cancel="showExpensesEditForm = false">
-  </app-edit-form>
+  <app-edit-form v-if="showEditForm"
+                 :index="editItemIndex"
+                 @close="showEditForm = false">
+  </app-edit-form >
+  <app-add-form v-if="showAddForm"
+                @close="showAddForm = false">
+  </app-add-form>
   </div>
 </template>
 <script>
 
-import ExpensesItem from './ExpensesItem.vue';
-import DropdownMenu from '../DropdownMenu.vue';
-import EditForm from './ExpensesFormEdit';
+import ExpensesItem from '../ExpensesItem.vue';
+import EditForm from './ExpensesFormEdit.vue';
+import AddForm from './ExpensesFormAdd.vue';
 
 export default {
   data() {
     return {
-      menuList: [
-        { name: 'Edit Items', iconClass: 'fa fa-edit' }
-      ],
-      showExpensesEditForm: false
+      showEditForm: false, 
+      showAddForm: false, 
+      editItemIndex: null
     }
   },
   computed: {
-    expensesList() {
-      return this.$store.getters.ownersExpensesList;
-    }, 
     total() {
       return this.$store.getters.ownersExpensesTotal;
+    }, 
+    expensesList() {
+      return this.$store.getters.ownersExpensesList;
     }
   },
   methods: {
-    menuHandler(data) {
-      switch (data) {
-        case 'Edit Items':
-          this.showExpensesEditForm = true; 
-          break;         
-      }      
+    editItem(index) {
+      this.editItemIndex = index;
+      this.showEditForm = true;
+    },
+    addItem() {
+      this.showAddForm = true;
     }
   },
   components: {
     appExpensesItem: ExpensesItem, 
-    appDropdownMenu: DropdownMenu, 
-    appEditForm: EditForm
+    appEditForm: EditForm, 
+    appAddForm: AddForm
   }
 }
 </script>

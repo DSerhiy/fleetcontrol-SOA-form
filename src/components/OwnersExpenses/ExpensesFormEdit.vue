@@ -5,12 +5,12 @@
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h2 class="modal-title text-white">Owners Expenses Edit Form</h2>
+        <h5 class="modal-title text-white">Owners Expenses Edit Form</h5>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
                 aria-label="Close"
-                @click="cancel()">
+                @click="close()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -26,47 +26,47 @@
 
         <hr>
 
-        <div class="row mb-2 px-3 align-items-center" v-for="(item, index) in expensesList" :key="index">
-          <div class="col-auto"><div>{{index + 1}}.</div></div>
+        <div class="row mb-2 px-3 align-items-center">
+          <div class="col-auto"><div></div></div>
           <div class="col">
             <input type="text" 
                    class="form-control"                  
-                   :value="item.description"
-                   @input="item.description = $event.target.value">
+                   :value="editedItem.description"
+                   @input="editedItem.description = $event.target.value">
           </div>
           <div class="col-2">
             <input type="number" 
                   class="form-control" 
-                  :value="item.value"
-                  @input="item.value = Number($event.target.value)">
+                  :value="editedItem.value"
+                  @input="editedItem.value = Number($event.target.value)">
          </div>
          <div class="col-1">
-           <button type="button" 
-                   class="btn btn-danger  waves-effect waves-light m-1"
-                   @click="deleteItem(index)">  
-                   X</button>
+           
          </div>
-        </div>  
-
-        <hr>      
-        <button type="button" 
-                class="btn btn-success"
-                @click="addItem()">
-          <i class="fa fa-window-close"></i> Add New Item
-        </button>
+        </div>         
       </div>
     
-      <div class="modal-footer bg-grey">
-        <button type="button" 
-                class="btn btn-normal"
-                @click="cancel()">
-          <i class="fa fa-window-close"></i> Cancel
-        </button>
-        <button type="button" 
-                class="btn btn-success"
-                @click="save()">
-          <i class="fa fa-check"></i> Save
-        </button>
+      <div class="modal-footer bg-grey row justify-content-between">
+        <div class="col-auto">
+          <button type="button" 
+                    class="btn btn-danger  waves-effect waves-light"
+                    @click="deleteItem()">
+                    <i class="zmdi zmdi-delete"></i>  
+                    Delete Item
+          </button>
+        </div>
+        <div class="col-auto">
+          <button type="button" 
+                  class="btn btn-normal"
+                  @click="close()">
+            <i class="fa fa-window-close"></i> Cancel
+          </button>
+          <button type="button" 
+                  class="btn btn-success"
+                  @click="update()">
+            <i class="fa fa-check"></i> Save
+          </button>
+        </div>        
       </div>
       
     </div>
@@ -75,39 +75,35 @@
 </template>
 <script>
 export default {
+  props: ['index'],
   data() {
     return {
-      expensesList: []
+      editedItem: { description: null, value: null }
     }
   },
   created(){
-    this.$store.getters.ownersExpensesList.forEach(el => {
-      this.expensesList.push({
-        description: el.description,
-        value: el.value
-      });      
-    });    
+    const item = this.$store.getters.ownersExpensesList[this.index]
+    this.editedItem.description = item.description;
+    this.editedItem.value =  item.value;
   },
   methods: {
-     addItem() {
-       this.expensesList.push({});
-     }, 
-     deleteItem(index) {
-       this.expensesList.splice(index, 1);
+    deleteItem() {
+       this.$store.dispatch('deleteOwnersItem', this.index);
+       this.close()
      },
-     save() {
-       this.$store.dispatch('editOwnersExpenses', this.expensesList)
-       this.$emit('save');
+    update() {
+       this.$store.dispatch('updateOwnersItem', {index: this.index, data: this.editedItem})
+       this.close();
      }, 
-     cancel() {
-       this.$emit('cancel');
+    close() {
+       this.$emit('close');
      }     
    }
 }
 </script>
 <style scoped>
   .modal-layer {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -117,7 +113,7 @@ export default {
   }
   .modal-dialog{
     min-width: 800px;
-    position: absolute;
+    position: fixed;
     z-index: 1001;
     top: 20%;
     left: 50%;

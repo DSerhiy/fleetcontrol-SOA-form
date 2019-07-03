@@ -29,5 +29,11 @@ export default {
     data: [
       // {description: null, value: null}
     ]
+  }, 
+  holdsCleaning: {
+    total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
+    data: [
+      {description: 'Fujairah', value: 4500, type: 'ILOH'}
+    ]
   }
 };

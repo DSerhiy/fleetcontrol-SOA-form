@@ -5,13 +5,13 @@
         <div class="card-body">
           <div class="card-title d-flex justify-content-between align-items-center">
             CHARTERERS EXPENSES : {{total}}
-           
+             <div>               
               <button type="button" 
                 class="btn btn-success"
                 @click="addItem()">
-                <i class="fa fa-edit"></i> Add Item
-              </button>            
-          
+                <i class="fa fa-plus"></i> Add
+              </button>                        
+             </div>
           </div>
           <table class="table">
             <tbody>
@@ -20,48 +20,58 @@
                 :key="index"
                 :index="index + 1"
                 :description="item.description"
-                :value="item.value">
+                :value="item.value"
+                @edit="editItem(index)">
               </app-expenses-item>
             </tbody>                
           </table>             
         </div>
       </div>
     </div>
-  <app-edit-form v-if="showExpensesEditForm"
-                   @save="showExpensesEditForm = false"
-                   @cancel="showExpensesEditForm = false">
-  </app-edit-form>
+  <app-edit-form v-if="showEditForm"
+                 :index="editItemIndex"
+                 @close="showEditForm = false">
+  </app-edit-form >
+  <app-add-form v-if="showAddForm"
+                @close="showAddForm = false">
+  </app-add-form>
   </div>
 </template>
 <script>
 
-import ExpensesItem from './ExpensesItem.vue';
-import DropdownMenu from '../DropdownMenu.vue';
-import EditForm from './ExpensesFormEdit';
+import ExpensesItem from '../ExpensesItem.vue';
+import EditForm from './ExpensesFormEdit.vue';
+import AddForm from './ExpensesFormAdd.vue';
 
 export default {
   data() {
     return {
-      showExpensesEditForm: false
+      showEditForm: false, 
+      showAddForm: false, 
+      editItemIndex: null
     }
   },
   computed: {
-    expensesList() {
-      return this.$store.getters.charterersExpensesList;
-    }, 
     total() {
       return this.$store.getters.charterersExpensesTotal;
+    }, 
+    expensesList() {
+      return this.$store.getters.charterersExpensesList;
     }
   },
   methods: {
+    editItem(index) {
+      this.editItemIndex = index;
+      this.showEditForm = true;
+    },
     addItem() {
-      this.showExpensesEditForm = true;
+      this.showAddForm = true;
     }
   },
   components: {
     appExpensesItem: ExpensesItem, 
-    appDropdownMenu: DropdownMenu, 
-    appEditForm: EditForm
+    appEditForm: EditForm, 
+    appAddForm: AddForm
   }
 }
 </script>

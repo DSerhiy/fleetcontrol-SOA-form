@@ -14,6 +14,7 @@ export const store = new Vuex.Store( {
     isDelivered(state) {
       return state.сomponentsData.isDelivered;
     },
+
     // Header component 
     vesselName(state) {
       return state.сomponentsData.header.vesselName;
@@ -33,16 +34,25 @@ export const store = new Vuex.Store( {
     // CharterersExpenses component
     charterersExpensesList(state) {
       return state.сomponentsData.charterersExpenses.data;
-    }, 
+    },
     charterersExpensesTotal(state) {
       return state.сomponentsData.charterersExpenses.total();
     },
+
     // OwnersExpenses component
     ownersExpensesList(state) {
       return state.сomponentsData.ownersExpenses.data;
     }, 
     ownersExpensesTotal(state) {
       return state.сomponentsData.ownersExpenses.total();
+    }, 
+
+    // Holds cleaning component
+    holdsCleaningItems(state) {
+      return state.сomponentsData.holdsCleaning.data;
+    },
+    holdsCleaningTotal(state) {
+      return state.сomponentsData.holdsCleaning.total();
     }
   }, 
   
@@ -54,26 +64,42 @@ export const store = new Vuex.Store( {
     // Hire component 
     
     // CharterersExpenses component
-    addNewCharterersExpenses(state, data) {
+    addNewCharterersItem(state, data) {
       state.сomponentsData.charterersExpenses.data.push(data);
-    },
-    editCharterersExpenses(state, newExpenses) {
-      state.сomponentsData.charterersExpenses.data = newExpenses;
-    },
-    //OwnersExpenses component
-    addNewOwnersExpenses(state, data) {
-      state.сomponentsData.ownersExpenses.data.push(data);
-    },
-    editOwnersExpenses(state, newExpenses) {
-      state.сomponentsData.ownersExpenses.data = newExpenses;
+    },   
+    updateCharterersItem(state, item) {
+      state.сomponentsData.charterersExpenses.data[item.index] = item.data;
     }, 
+    deleteCharterersItem(state, index) {
+      state.сomponentsData.charterersExpenses.data.splice(index, 1);
+    },
+
+    //OwnersExpenses component
+    addNewOwnersItem(state, item) {
+      state.сomponentsData.ownersExpenses.data.push(item);
+    },
+    updateOwnersItem(state, item) {
+      state.сomponentsData.ownersExpenses.data[item.index] = item.data;
+    }, 
+    deleteOwnersItem(state, index) {
+      state.сomponentsData.ownersExpenses.data.splice(index, 1);
+    },
+
+    // Holds cleaning component
+    addHoldCleaningItem(state, item) {
+      state.сomponentsData.holdsCleaning.data.push(item);
+    },
+    updateHoldCleaningItem(state, data) {
+      state.сomponentsData.holdsCleaning.data.push(data);
+    },
+    deleteHoldCleaningItem(state, index) {
+      state.сomponentsData.holdsCleaning.data.splice(index, 1);
+    },
 
     // Start Form componet
-
     changeDeliveryStatus(state, status) {
       state.isDelivered = status;
-    }, 
-
+    },
     addHireData(state, data) {
       state.сomponentsData.hire.data.push(data);
     }
@@ -85,27 +111,42 @@ export const store = new Vuex.Store( {
     }, 
 
     // CharterersExpenses component
-    addNewCharterersExpenses(context, data) {
-      context.commit('addNewCharterersExpenses', data);
+    addNewCharterersItem(context, data) {
+      context.commit('addNewCharterersItem', data);
+    },   
+    updateCharterersItem(context, payload) {
+      context.commit('updateCharterersItem', payload)
     },
-    editCharterersExpenses(context, payload) {
-      context.commit('editCharterersExpenses', payload);
+    deleteCharterersItem(context, payload) {
+      context.commit('deleteCharterersItem', payload);
     },
 
     // OwnersExpenses component
-    addNewOwnersExpenses(context, data) {
-      context.commit('addNewOwnersExpenses', data);
+    addNewOwnersItem(context, data) {
+      context.commit('addNewOwnersItem', data);
     },
-    editOwnersExpenses(context, payload) {
-      context.commit('editOwnersExpenses', payload);
+    updateOwnersItem(context, payload) {
+      context.commit('updateOwnersItem', payload)
+    },
+    deleteOwnersItem(context, payload) {
+      context.commit('deleteOwnersItem', payload);
+    },
+
+    // Holds cleaning component
+    addHoldCleaningItem(context, item) {
+      context.commit('addHoldCleaningItem', item);
+    },
+    updateHoldCleaningItem(context, item) {
+      context.commit('updateHoldCleaningItem', item);
+    },
+    deleteHoldCleaningItem(context, index) {
+      context.commit('adddeleteHoldCleaningItemHoldCleaningItem', index);
     },
 
     // StartForm componet
-
     changeDeliveryStatus(context, status) {
       context.commit('changeDeliveryStatus', status)
-    }, 
-
+    },
     addHireData(context, data) {
       context.commit('addHireData', data);
     }
