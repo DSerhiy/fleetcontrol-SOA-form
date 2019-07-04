@@ -16,19 +16,15 @@
       </div>
 
       <div class="modal-body bg-grey">
-
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col">Expenses Description</div>
-          <div class="col-2 pl-4">Amount</div>
-          <div class="col-1"></div>
+        <div class="row justify-content-center">          
+          <div class="col-9">Expenses Description</div>
+          <div class="col-2">Amount</div>          
         </div>
 
         <hr>
 
-        <div class="row mb-2 px-3 align-items-center">
-          <div class="col-auto"><div></div></div>
-          <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-9">
             <input type="text" 
                    class="form-control"
                    placeholder="Enter Item Description"                  
@@ -39,16 +35,13 @@
                   class="form-control"
                   placeholder="Value" 
                   @input="newExpenses.value = Number($event.target.value)">
-         </div>
-         <div class="col-1">
-           
-         </div>
+         </div>         
         </div>         
       </div>
     
       <div class="modal-footer bg-grey">
         <button type="button" 
-                class="btn btn-normal"
+                class="btn"
                 @click="close()">
           <i class="fa fa-window-close"></i> Cancel
         </button>

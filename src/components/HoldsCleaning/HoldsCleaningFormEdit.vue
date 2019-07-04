@@ -5,7 +5,7 @@
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h5 class="modal-title text-white">Charterers Expenses Edit Form</h5>
+        <h5 class="modal-title text-white">Holds Cleaning Edit Item</h5>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
@@ -16,13 +16,23 @@
       </div>
 
       <div class="modal-body bg-grey">
-        <div class="row justify-content-center">
-          <div class="col-9">Expenses Description</div>
-          <div class="col-2">Amount</div>
+
+        <div class="row px-3 align-items-center">
+          <div class="col-2">Type</div>
+          <div class="col">Description</div>
+          <div class="col-2">Amount</div>          
         </div>
+
         <hr>
-        <div class="row justify-content-center">
-          <div class="col-9">
+
+        <div class="row px-3 align-items-center">
+          <div class="col-2">
+            <select v-model="editedItem.type" class="form-control">
+              <option>ILOHC</option>
+              <option>ILIHC</option>
+            </select>
+          </div>
+          <div class="col">
             <input type="text" 
                    class="form-control"                  
                    :value="editedItem.description"
@@ -33,14 +43,15 @@
                   class="form-control" 
                   :value="editedItem.value"
                   @input="editedItem.value = Number($event.target.value)">
-         </div>         
+         </div>
+         
         </div>         
       </div>
     
       <div class="modal-footer bg-grey">
         <div class="col-auto">
           <button type="button" 
-                    class="btn btn-danger waves-effect waves-light"
+                    class="btn btn-danger  waves-effect waves-light"
                     @click="deleteItem()">
                     <i class="zmdi zmdi-delete"></i>  
                     Delete Item
@@ -69,21 +80,22 @@ export default {
   props: ['index'],
   data() {
     return {
-      editedItem: { description: null, value: null }
+      editedItem: { description: null, value: null, type: null },
     }
   },
   created(){
-    const item = this.$store.getters.charterersExpensesList[this.index]
+    const item = this.$store.getters.holdsCleaningItems[this.index]
     this.editedItem.description = item.description;
-    this.editedItem.value =  item.value;
+    this.editedItem.value = item.value;
+    this.editedItem.type = item.type;
   },
   methods: {
     deleteItem() {
-       this.$store.dispatch('deleteCharterersItem', this.index);
+       this.$store.dispatch('deleteHoldCleaningItem', this.index);
        this.close()
      },
     update() {
-       this.$store.dispatch('updateCharterersItem', {index: this.index, data: this.editedItem})
+       this.$store.dispatch('updateHoldCleaningItem', {index: this.index, data: this.editedItem})
        this.close();
      }, 
     close() {

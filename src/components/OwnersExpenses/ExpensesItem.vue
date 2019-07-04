@@ -1,24 +1,26 @@
 <template>
   <tr>
-    <td colspan="4">{{index + 1}}. {{type}} ({{description}})</td>
-    <td class="debit-col"></td>
-    <td class="credit-col text-right">{{value}}      
+    <td colspan="4">{{index}}. {{description}}</td>
+    <td class="debit-col text-right">{{value}}</td>    
+    <td class="credit-col">      
       <div class="btn-edit"
               @click="$emit('edit', index)">
               <i class="fa fa-edit"></i> 
       </div>
     </td>
+    
   </tr>
 </template>
 <script>
 export default {
-  props: ['index', 'type', 'description', 'value']
+  props: ['index', 'description', 'value']
 }
 </script>
+
 <style scoped>
-  td{
-    position: relative;
-  }
+td{
+  position: relative;
+}
 .btn-edit {
   /* border: 1px solid red; */
   border-radius: 5px;
@@ -34,4 +36,6 @@ export default {
   font-size: 1.5rem;
   padding: 0;
 }
- </style>
+
+</style>
+

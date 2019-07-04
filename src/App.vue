@@ -57,6 +57,11 @@ export default {
 </script>
 
 <style>
+
+ .card {
+   padding-right: 20px;
+ }
+
   #soa-form-layout table{
     table-layout: fixed;
   }

@@ -17,32 +17,32 @@
 
       <div class="modal-body bg-grey">
 
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col">Expenses Description</div>
-          <div class="col-2 pl-4">Amount</div>
-          <div class="col-1"></div>
+        <div class="row px-3 align-items-center">
+          <div class="col-2">Type</div>
+          <div class="col">Description</div>
+          <div class="col-2">Amount</div>          
         </div>
 
         <hr>
 
-        <div class="row mb-2 px-3 align-items-center">
-          <div class="col-auto"><div></div></div>
+        <div class="row px-3 align-items-center">
+          <div class="col-2">
+            <select @change="newItem.type = $event.target.value" class="form-control">
+              <option>ILOHC</option>
+              <option>ILIHC</option>
+            </select>
+          </div>
           <div class="col">
             <input type="text" 
                    class="form-control"
-                   placeholder="Enter Item Description"                  
                    @input="newItem.description = $event.target.value">
           </div>
           <div class="col-2">
             <input type="number" 
-                  class="form-control"
-                  placeholder="Value" 
+                  class="form-control"                 
                   @input="newItem.value = Number($event.target.value)">
          </div>
-         <div class="col-1">
-           
-         </div>
+         
         </div>         
       </div>
     
@@ -67,7 +67,7 @@
 export default {
   data() {
     return {
-      newItem: { description: null, value: null, type: null }
+      newItem: { description: null, value: null, type: 'ILOHC' }
     }
   }, 
   methods: {

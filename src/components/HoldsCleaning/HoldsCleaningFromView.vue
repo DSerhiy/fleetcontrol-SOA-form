@@ -18,16 +18,16 @@
                              :description="item.description"
                              :value="item.value"
                              :type="item.type"
-                             :index="index"                             
-                             >
+                             :index="index"
+                             @edit="editItem(index)">
           </app-cleaning-item>     
         </tbody>
       </table>
     </div>
-    <!-- <app-edit-form v-if="showEditForm"
+    <app-edit-form v-if="showEditForm"
                  :index="editItemIndex"
                  @close="showEditForm = false">
-    </app-edit-form > -->
+    </app-edit-form >
     <app-add-form v-if="showAddForm"
                   @close="showAddForm = false">
     </app-add-form>
@@ -36,11 +36,14 @@
 <script>
 import CleaningItem from './HoldCleaningItem.vue';
 import AddForm from './HoldsCleaningFormAdd.vue';
+import EditForm from './HoldsCleaningFormEdit.vue'
 
 export default {
   data() {
     return {
       showAddForm: false,
+      showEditForm: false, 
+      editItemIndex: null
     }
   },
   computed: {
@@ -54,11 +57,16 @@ export default {
   methods: {
     addItem() {
       this.showAddForm = true
+    }, 
+    editItem(index) {
+      this.editItemIndex = index;
+      this.showEditForm = true;
     }
   },
   components: {
     appCleaningItem: CleaningItem,
-    appAddForm: AddForm
+    appAddForm: AddForm,
+    appEditForm: EditForm
   }
   
 }

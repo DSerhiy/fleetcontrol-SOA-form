@@ -28,13 +28,13 @@
         <tr>
           <td colspan="6" class="not-bordered"></td>
         </tr>
-        <tr>
+        <tr v-if="isAddComm">
           <th colspan="3">ADD COMM :</th>
           <td><input type="text" readonly :value="addComm + '%'"></td>
           <td class="debit-col"><input type="text" readonly :value="addCommValue"></td>
           <td class="credit-col"></td>
         </tr>
-        <tr>
+        <tr v-if="isBrkComm">
           <th colspan="3">BRK COMM :</th>
           <td><input type="text" readonly :value="brkComm + '%'"></td>
           <td class="debit-col"><input type="text" readonly :value="brkCommValue"></td>
@@ -56,11 +56,12 @@
 </template>
 <script>
 export default {
-  props: ['hireRate', 'fromDate', 'toDate', 'addComm', 'brkComm', 'cev'],
+  props: ['hireRate', 'fromDate', 'toDate', 'addComm', 'brkComm', 'cev', 'isBallastBonus', 'ballastBonus'],
   computed: {
     hireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
       const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
+      console.log(toDate, fromDate);
       return (toDate - fromDate) / 60 / 60 / 24 / 1000;
     }, 
     hire() {
@@ -74,6 +75,13 @@ export default {
     }, 
     cevValue() {
       return this.cev / 30 * this.hireDays;
+    },
+    isAddComm(){  
+      console.log(this.$store.getters.isAddComm);   
+      return this.$store.getters.isAddComm;
+    },
+    isBrkComm() {
+      return this.$store.getters.isBrkComm;
     }
   }
 }

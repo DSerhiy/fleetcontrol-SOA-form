@@ -39,7 +39,7 @@
 </template>
 <script>
 
-import ExpensesItem from '../ExpensesItem.vue';
+import ExpensesItem from './ExpensesItem.vue';
 import EditForm from './ExpensesFormEdit.vue';
 import AddForm from './ExpensesFormAdd.vue';
 
