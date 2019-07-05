@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td colspan="4">{{index}}. {{description}}</td>
-    <td class="debit-col text-right">{{value}}</td>    
+    <td class="debit-col text-right">{{$myLib.formatNum(value)}}</td>    
     <td class="credit-col">      
       <div class="btn-edit"
               @click="$emit('edit', index)">

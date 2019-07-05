@@ -136,8 +136,7 @@
 
       },
       save() {
-        this.$store.dispatch('changeDeliveryStatus', true);
-        this.$emit('save');
+        this.$store.dispatch('changeDeliveryStatus', true);        
         this.$store.dispatch('setBallastBonus', this.checkbox.ballastBonus);
         this.$store.dispatch('setAddComm', this.checkbox.addComm);
         this.$store.dispatch('setBrkComm', this.checkbox.brkComm);
@@ -149,6 +148,7 @@
           brkComm: this.brkComm,
           cevRate: this.cevRate
         });
+        this.$emit('save');
       }
     }
   }

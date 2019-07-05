@@ -37,7 +37,7 @@ export default {
   holdsCleaning: {
     total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
     data: [
-      {description: 'Fujairah', value: 4500, type: 'ILOHC'}
+      // { description: 'Fujairah', value: 4500, type: 'ILOHC' }
     ]
   }
 };

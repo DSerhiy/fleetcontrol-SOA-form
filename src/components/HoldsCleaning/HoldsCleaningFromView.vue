@@ -3,13 +3,10 @@
     <div class="card-body">
       <div class="card-title d-flex justify-content-between align-items-center">
         HOLDS CLEANING : {{total}}
-          <div>               
-          <button type="button" 
-            class="btn btn-success"
-            @click="addItem()">
-            <i class="fa fa-plus"></i> Add
-          </button>                        
-          </div>
+        <div class="btn-add"
+             @click="addItem()">
+          <i class="zmdi zmdi-collection-plus"></i>
+        </div>  
       </div>
       <table class="table">
         <tbody>

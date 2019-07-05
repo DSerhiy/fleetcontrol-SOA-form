@@ -2,7 +2,7 @@
   <tr>
     <td colspan="4">{{index}}. {{description}}</td>
     <td class="debit-col"></td>    
-    <td class="credit-col text-right">{{value}}     
+    <td class="credit-col text-right">{{$myLib.formatNum(value)}}     
       <div class="btn-edit"
               @click="$emit('edit', index)">
               <i class="fa fa-edit"></i> 

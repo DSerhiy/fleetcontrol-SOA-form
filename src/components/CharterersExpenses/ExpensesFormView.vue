@@ -4,14 +4,11 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title d-flex justify-content-between align-items-center">
-            CHARTERERS EXPENSES : {{total}}
-             <div>               
-              <button type="button" 
-                class="btn btn-success"
-                @click="addItem()">
-                <i class="fa fa-plus"></i> Add
-              </button>                        
-             </div>
+            CHARTERERS EXPENSES : {{total}}                          
+            <div class="btn-add"
+              @click="addItem()">
+              <i class="zmdi zmdi-collection-plus"></i>
+            </div>
           </div>
           <table class="table">
             <tbody>

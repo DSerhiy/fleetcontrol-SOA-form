@@ -2,7 +2,7 @@
   <tr>
     <td colspan="4">{{index + 1}}. {{type}} ({{description}})</td>
     <td class="debit-col"></td>
-    <td class="credit-col text-right">{{value}}      
+    <td class="credit-col text-right">{{ $myLib.formatNum(value)}}      
       <div class="btn-edit"
               @click="$emit('edit', index)">
               <i class="fa fa-edit"></i> 
@@ -11,6 +11,7 @@
   </tr>
 </template>
 <script>
+
 export default {
   props: ['index', 'type', 'description', 'value']
 }

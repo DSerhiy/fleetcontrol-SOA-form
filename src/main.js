@@ -1,3 +1,4 @@
+import myLib from './lib.js';
 import Vue from 'vue'
 import App from './App.vue'
 
@@ -7,4 +8,6 @@ new Vue({
   el: '#app',
   store,
   render: h => h(App)
-})
+}); 
+
+Object.defineProperty(Vue.prototype, '$myLib', {value: myLib});
