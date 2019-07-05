@@ -1,5 +1,5 @@
 export default {
-  isDelivered: true,
+  isDelivered: false,
   header: {
     vesselName: 'Marika',
     charterersName: 'BPG Shipping Company DMCC',
@@ -15,7 +15,7 @@ export default {
         addComm: 3.25,
         brkComm: 1.25,
         cevRate: 1250
-      }
+      }   
     ]
   },
   charterersExpenses: {
@@ -33,7 +33,7 @@ export default {
   holdsCleaning: {
     total() {return this.data.reduce((acc, cur)=> acc + cur.value, 0)},
     data: [
-      {description: 'Fujairah', value: 4500, type: 'ILOH'}
+      // {description: 'Fujairah', value: 4500, type: 'ILOH'}
     ]
   }
 };
