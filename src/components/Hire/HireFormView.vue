@@ -9,6 +9,8 @@
         :toDate="item.toDate"
         :addComm="item.addComm"
         :brkComm="item.brkComm"
+        :isBallastBonus="item.isBallastBonus"
+        :ballastBonus="item.ballastBonus"
         :cev="item.cevRate"
         >
       </app-hire-item>    

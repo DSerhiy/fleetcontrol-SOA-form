@@ -3,13 +3,10 @@
     <div class="card-body">
       <div class="card-title d-flex justify-content-between align-items-center">
         HOLDS CLEANING : {{total}}
-          <div>               
-          <button type="button" 
-            class="btn btn-success"
-            @click="addItem()">
-            <i class="fa fa-plus"></i> Add
-          </button>                        
-          </div>
+        <div class="btn-add"
+             @click="addItem()">
+          <i class="zmdi zmdi-collection-plus"></i>
+        </div>  
       </div>
       <table class="table">
         <tbody>
@@ -18,16 +15,16 @@
                              :description="item.description"
                              :value="item.value"
                              :type="item.type"
-                             :index="index"                             
-                             >
+                             :index="index"
+                             @edit="editItem(index)">
           </app-cleaning-item>     
         </tbody>
       </table>
     </div>
-    <!-- <app-edit-form v-if="showEditForm"
+    <app-edit-form v-if="showEditForm"
                  :index="editItemIndex"
                  @close="showEditForm = false">
-    </app-edit-form > -->
+    </app-edit-form >
     <app-add-form v-if="showAddForm"
                   @close="showAddForm = false">
     </app-add-form>
@@ -36,11 +33,14 @@
 <script>
 import CleaningItem from './HoldCleaningItem.vue';
 import AddForm from './HoldsCleaningFormAdd.vue';
+import EditForm from './HoldsCleaningFormEdit.vue'
 
 export default {
   data() {
     return {
       showAddForm: false,
+      showEditForm: false, 
+      editItemIndex: null
     }
   },
   computed: {
@@ -54,11 +54,16 @@ export default {
   methods: {
     addItem() {
       this.showAddForm = true
+    }, 
+    editItem(index) {
+      this.editItemIndex = index;
+      this.showEditForm = true;
     }
   },
   components: {
     appCleaningItem: CleaningItem,
-    appAddForm: AddForm
+    appAddForm: AddForm,
+    appEditForm: EditForm
   }
   
 }

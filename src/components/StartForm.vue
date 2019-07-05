@@ -38,7 +38,7 @@
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter Hire Rate"
-                           @input="hireRate = $event.target.value">
+                           @input="hireRate = Number($event.target.value)">
                   </div>
                   <label class="col-sm-2 col-form-label">C/E/V:</label>
                   <div class="col-sm-3">
@@ -136,16 +136,19 @@
 
       },
       save() {
-        this.$store.dispatch('changeDeliveryStatus', true);
-        this.$emit('save');
+        this.$store.dispatch('changeDeliveryStatus', true);        
+        this.$store.dispatch('setBallastBonus', this.checkbox.ballastBonus);
+        this.$store.dispatch('setAddComm', this.checkbox.addComm);
+        this.$store.dispatch('setBrkComm', this.checkbox.brkComm);
         this.$store.dispatch('addHireData', {
           hireRate: this.hireRate,  
-          fromDate: {time: this.time, date: this.date}, 
-          toDate: {time: null, date: null}, 
+          fromDate: {time: this.time, date: this.date},
+          toDate: {time: this.time, date: this.date}, 
           addComm: this.addComm,
           brkComm: this.brkComm,
           cevRate: this.cevRate
         });
+        this.$emit('save');
       }
     }
   }

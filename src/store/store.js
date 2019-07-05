@@ -29,7 +29,16 @@ export const store = new Vuex.Store( {
     // Hire component
     hireData(state) {
       return state.сomponentsData.hire.data;
-    },    
+    },
+    isBallastBonus(state) {
+      return state.сomponentsData.hire.data.isBallastBonus;
+    },
+    isAddComm(state) {
+      return state.сomponentsData.hire.isAddComm;
+    },
+    isBrkComm(state) {
+      return state.сomponentsData.hire.isBrkComm;
+    },
 
     // CharterersExpenses component
     charterersExpensesList(state) {
@@ -62,6 +71,15 @@ export const store = new Vuex.Store( {
     },
 
     // Hire component 
+    setBallastBonus(state, is) {
+      state.сomponentsData.hire.data.isballastBonus = is;
+    },
+    setAddComm(state, is) {
+      state.сomponentsData.hire.isAddComm = is;
+    },
+    setBrkComm(state, is) {
+      state.сomponentsData.hire.isBrkComm = is;
+    },
     
     // CharterersExpenses component
     addNewCharterersItem(state, data) {
@@ -89,8 +107,8 @@ export const store = new Vuex.Store( {
     addHoldCleaningItem(state, item) {
       state.сomponentsData.holdsCleaning.data.push(item);
     },
-    updateHoldCleaningItem(state, data) {
-      state.сomponentsData.holdsCleaning.data.push(data);
+    updateHoldCleaningItem(state, item) {
+      state.сomponentsData.holdsCleaning.data[item.index] = item.data;
     },
     deleteHoldCleaningItem(state, index) {
       state.сomponentsData.holdsCleaning.data.splice(index, 1);
@@ -110,6 +128,17 @@ export const store = new Vuex.Store( {
       context.commit('initComponents', data)
     }, 
 
+    // Hire component
+    setBallastBonus(context, is) {
+      context.commit('setBallastBonus', is);
+    },
+    setAddComm(context, is) {
+      context.commit('setAddComm', is);
+    },
+    setBrkComm(context, is) {
+      context.commit('setBrkComm', is);
+    },
+   
     // CharterersExpenses component
     addNewCharterersItem(context, data) {
       context.commit('addNewCharterersItem', data);
@@ -140,7 +169,7 @@ export const store = new Vuex.Store( {
       context.commit('updateHoldCleaningItem', item);
     },
     deleteHoldCleaningItem(context, index) {
-      context.commit('adddeleteHoldCleaningItemHoldCleaningItem', index);
+      context.commit('deleteHoldCleaningItem', index);
     },
 
     // StartForm componet

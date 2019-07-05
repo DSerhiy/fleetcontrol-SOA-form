@@ -5,12 +5,11 @@
         <div class="card-body">
           <div class="card-title d-flex justify-content-between align-items-center">
             OWNERS EXPENSES : {{total}}
-             <div>               
-              <button type="button" 
-                class="btn btn-success"
+             <div>
+              <div class="btn-add"
                 @click="addItem()">
-                <i class="fa fa-plus"></i> Add
-              </button>                        
+                <i class="zmdi zmdi-collection-plus"></i>
+              </div>                        
              </div>
           </div>
           <table class="table">
@@ -39,7 +38,7 @@
 </template>
 <script>
 
-import ExpensesItem from '../ExpensesItem.vue';
+import ExpensesItem from './ExpensesItem.vue';
 import EditForm from './ExpensesFormEdit.vue';
 import AddForm from './ExpensesFormAdd.vue';
 
@@ -75,4 +74,6 @@ export default {
   }
 }
 </script>
+
+
 
