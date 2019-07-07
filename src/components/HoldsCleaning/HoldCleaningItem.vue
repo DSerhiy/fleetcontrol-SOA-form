@@ -26,7 +26,7 @@ export default {
   padding: 5px;
   position: absolute;
   right: -35px; 
-  top: 10px; 
+  top: 1px; 
   cursor: pointer;
   transition: 0.2s;
  }

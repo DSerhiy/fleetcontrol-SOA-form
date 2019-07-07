@@ -14,6 +14,12 @@ export const store = new Vuex.Store( {
     isDelivered(state) {
       return state.сomponentsData.isDelivered;
     },
+    addComm(state) {
+      return state.сomponentsData.addComm;
+    },
+    brkComm(state) {
+      return state.сomponentsData.brkComm;
+    },
 
     // Header component 
     vesselName(state) {
@@ -30,16 +36,7 @@ export const store = new Vuex.Store( {
     hireData(state) {
       return state.сomponentsData.hire.data;
     },
-    isBallastBonus(state) {
-      return state.сomponentsData.hire.data.isBallastBonus;
-    },
-    isAddComm(state) {
-      return state.сomponentsData.hire.isAddComm;
-    },
-    isBrkComm(state) {
-      return state.сomponentsData.hire.isBrkComm;
-    },
-
+    
     // CharterersExpenses component
     charterersExpensesList(state) {
       return state.сomponentsData.charterersExpenses.data;
@@ -69,17 +66,22 @@ export const store = new Vuex.Store( {
     initComponents(state, data) {
       state.сomponentsData = data;
     },
+    setAddComm(state, setup) {
+      state.сomponentsData.addComm.status = setup.status;
+      state.сomponentsData.addComm.value = setup.value;
+
+    },
+    setBrkComm(state, setup) {
+      state.сomponentsData.brkComm.status = setup.status;
+      state.сomponentsData.brkComm.value = setup.value;
+    },
 
     // Hire component 
-    setBallastBonus(state, is) {
-      state.сomponentsData.hire.data.isballastBonus = is;
+    setBallastBonus(state, setup) {
+      state.сomponentsData.hire.data.ballastBonus.status = setup.status;
+      state.сomponentsData.hire.data.ballastBonus.value = setup.value;
     },
-    setAddComm(state, is) {
-      state.сomponentsData.hire.isAddComm = is;
-    },
-    setBrkComm(state, is) {
-      state.сomponentsData.hire.isBrkComm = is;
-    },
+        
     
     // CharterersExpenses component
     addNewCharterersItem(state, data) {
@@ -126,19 +128,16 @@ export const store = new Vuex.Store( {
   actions: {
     initComponents(context) {      
       context.commit('initComponents', data)
+    },
+    setAddComm(context, setup) {
+      context.commit('setAddComm', setup);
+    },
+    setBrkComm(context, setup) {
+      context.commit('setBrkComm', setup);
     }, 
 
     // Hire component
-    setBallastBonus(context, is) {
-      context.commit('setBallastBonus', is);
-    },
-    setAddComm(context, is) {
-      context.commit('setAddComm', is);
-    },
-    setBrkComm(context, is) {
-      context.commit('setBrkComm', is);
-    },
-   
+      
     // CharterersExpenses component
     addNewCharterersItem(context, data) {
       context.commit('addNewCharterersItem', data);

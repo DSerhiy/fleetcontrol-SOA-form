@@ -45,7 +45,7 @@
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter C/E/V"
-                           @input="cevRate = $event.target.value">
+                           @input="cevRate = Number($event.target.value)">
                   </div>                  
                 </div>
                 <div class="form-group row justify-content-center">
@@ -59,7 +59,7 @@
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter Ballast Bonus"
-                           @input="ballastBonus = $event.target.value" 
+                           @input="ballastBonus = Number($event.target.value)" 
                            :disabled="!checkbox.ballastBonus">
                   </div>                                    
                 </div>                
@@ -77,7 +77,7 @@
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter Add Comm"
-                           @input="addComm = $event.target.value"
+                           @input="addComm = Number($event.target.value)"
                            :disabled="!checkbox.addComm">
                   </div>                                    
                 </div>  
@@ -92,7 +92,7 @@
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter BRK Comm"
-                           @input="brkComm = $event.target.value"
+                           @input="brkComm = Number($event.target.value)"
                            :disabled="!checkbox.brkComm">
                   </div>                                    
                 </div>               
@@ -136,16 +136,21 @@
 
       },
       save() {
-        this.$store.dispatch('changeDeliveryStatus', true);        
-        this.$store.dispatch('setBallastBonus', this.checkbox.ballastBonus);
-        this.$store.dispatch('setAddComm', this.checkbox.addComm);
-        this.$store.dispatch('setBrkComm', this.checkbox.brkComm);
+        this.$store.dispatch('changeDeliveryStatus', true); 
+        this.$store.dispatch('setAddComm', {
+          status: this.checkbox.addComm,
+          value: this.addComm 
+        });
+        this.$store.dispatch('setBrkComm', {
+          status: this.checkbox.brkComm,
+          value: this.brkComm 
+        });       
+                
         this.$store.dispatch('addHireData', {
           hireRate: this.hireRate,  
           fromDate: {time: this.time, date: this.date},
           toDate: {time: this.time, date: this.date}, 
-          addComm: this.addComm,
-          brkComm: this.brkComm,
+          ballastBonus:{status: this.checkbox.ballastBonus, value: this.ballastBonus},
           cevRate: this.cevRate
         });
         this.$emit('save');

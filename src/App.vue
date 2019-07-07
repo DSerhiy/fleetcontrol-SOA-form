@@ -5,12 +5,12 @@
                   @save="showStartForm = false"></app-start-form>
   <template v-else>
     <app-hire></app-hire>
-    <app-bunkers-delivery></app-bunkers-delivery>
-    <app-holds-cleaning></app-holds-cleaning>
+    <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
+    <!-- <app-holds-cleaning></app-holds-cleaning> -->
     <app-charterers-expenses></app-charterers-expenses>
     <app-owners-expenses></app-owners-expenses>
-    <app-off-hire></app-off-hire>
-    <app-speed-claim></app-speed-claim>
+    <!-- <app-off-hire></app-off-hire> -->
+    <!-- <app-speed-claim></app-speed-claim> -->
     <app-remittances></app-remittances>
   </template>
 </div> 
@@ -68,12 +68,14 @@ export default {
   #soa-form-layout td,
   #soa-form-layout th {
     border: 1px solid #464D54;
+    padding: 7px;
+    font-size: 1rem;
   }
   #soa-form-layout input{
     display: block;
     width: 100%;
     padding: 0 .75rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.5;
     background-color: rgba(0, 0, 0, 0.05);
     color: #fff;
