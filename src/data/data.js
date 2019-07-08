@@ -2,6 +2,9 @@ export default {
   isDelivered: true,
   addComm: { status: true, value: 3.75 },
   brkComm: { status: true, value: 1.25 },
+  deliveryDate: { time: '12:00', date: '2019-07-08'},
+  redeliveryDate: { time: null, date: null},
+  cevRate: 1250,
   header: {
     vesselName: 'Marika',
     charterersName: 'BPG Shipping Company DMCC',
@@ -14,8 +17,7 @@ export default {
         ballastBonus: { status: true, value: 125000 },     
         hireRate: 5000,  
         fromDate: { time: '01:01', date: '2019-06-01' }, 
-        toDate: { time: '01:01', date: '2019-06-05' }, 
-        cevRate: 1250
+        toDate: { time: '01:01', date: '2019-06-01' },        
       }
     ]
   },

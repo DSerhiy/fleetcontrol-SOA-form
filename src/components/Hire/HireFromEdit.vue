@@ -16,13 +16,13 @@
       </div>
 
       <div class="modal-body bg-grey">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-2"></div> 
           <div class="col-3">Time</div> 
           <div class="col-4">Date</div> 
           <div class="col-2 text-center">Days</div> 
         </div>
-        <div class="row">
+        <div class="row mb-3 align-items-center">
           <div class="col-2">From:</div> 
           <div class="col-3">
             <input type="time" readonly 
@@ -36,7 +36,7 @@
           </div> 
           <div class="col-2"></div> 
         </div>  
-         <div class="row">
+         <div class="row align-items-center">
           <div class="col-2">To:</div> 
           <div class="col-3">
             <input type="time" class="form-control" v-model="toDate.time">
@@ -44,15 +44,21 @@
           <div class="col-4">
             <input type="date" class="form-control" v-model="toDate.date">
           </div> 
-          <div class="col-2">{{total}}</div> 
+          <div class="col-2 text-center">{{total}}</div> 
         </div> 
         <hr>
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-2">
-            <input type="number" class="form-control" v-model="days">
+            <input type="number" 
+                   class="form-control" 
+                   :value="days"
+                   @input="days = Number($event.target.value)">
           </div>
-          <div class="col">
-            <button class="btn btn-success" @click="addDays">Add days</button>
+          <div class="col-auto">
+            <button class="btn btn-success" @click="addDays()">Add days</button>
+          </div>
+          <div class="col-auto">
+            <button class="btn" @click="resetDate()">rest</button>
           </div>
         </div>
       </div>
@@ -88,7 +94,6 @@ export default {
     const toDate = this.$store.getters.hireData[this.index].toDate;
     this.toDate.time = toDate.time;
     this.toDate.date = toDate.date;
-    console.log(toDate)
   },
   computed: {
     fromDate() {
@@ -102,7 +107,7 @@ export default {
   },
   methods: {    
     update() {
-      this.$store.dispatch('updateCharterersItem', {index: this.index, data: this.editedItem})
+      this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date})
       this.close();
     }, 
     close() {
@@ -110,12 +115,14 @@ export default {
     },
     addDays() {
       const toDate = new Date(this.toDate.date);
-      console.log(toDate);
-      toDate.setDate(toDate.getDate()+2)
-      console.log(toDate);
-     
-    }    
-   }
+      this.toDate.date = new Date(toDate.setDate(toDate.getDate() + this.days)).toISOuString();      
+    }, 
+    resetDate() {
+      const toDate = this.$store.getters.hireData[this.index].toDate;
+      this.toDate.time = toDate.time;
+      this.toDate.date = toDate.date;
+    }  
+  }
 }
 </script>
 <style scoped>
@@ -129,7 +136,7 @@ export default {
     height: 100vh;
   }
   .modal-dialog{
-    min-width: 500px;
+    min-width: 600px;
     position: fixed;
     z-index: 1001;
     top: 20%;

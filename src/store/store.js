@@ -14,12 +14,21 @@ export const store = new Vuex.Store( {
     isDelivered(state) {
       return state.сomponentsData.isDelivered;
     },
+    deliveryDate(state) {
+      return state.сomponentsData.deliveryDate;
+    },
+    redeliveryDate(state) {
+      return state.сomponentsData.redeliveryDate;
+    },
     addComm(state) {
       return state.сomponentsData.addComm;
     },
     brkComm(state) {
       return state.сomponentsData.brkComm;
     },
+    cevRate(state) {
+      return state.сomponentsData.cevRate;
+    },    
 
     // Header component 
     vesselName(state) {
@@ -75,11 +84,26 @@ export const store = new Vuex.Store( {
       state.сomponentsData.brkComm.status = setup.status;
       state.сomponentsData.brkComm.value = setup.value;
     },
+    setDeliveryDate(state, date) {
+      state.componentsDate.deliveryDate.time = date.time;
+      state.componentsDate.deliveryDate.date = date.date;
+    },
+    setRedeliveryDate(state, date) {
+      state.componentsDate.redeliveryDate.time = date.time;
+      state.componentsDate.redeliveryDate.date = date.date;
+    },
+    setCevRate(state, cev) {
+      return state.сomponentsData.cevRate = cev;
+    },
 
     // Hire component 
     setBallastBonus(state, setup) {
       state.сomponentsData.hire.data.ballastBonus.status = setup.status;
       state.сomponentsData.hire.data.ballastBonus.value = setup.value;
+    },
+    updateToDate(state, newToDate) {
+      state.сomponentsData.hire.data[newToDate.index].toDate.time = newToDate.time;
+      state.сomponentsData.hire.data[newToDate.index].toDate.date = newToDate.date;
     },
         
     
@@ -134,9 +158,21 @@ export const store = new Vuex.Store( {
     },
     setBrkComm(context, setup) {
       context.commit('setBrkComm', setup);
-    }, 
+    },
+    setDeliveryDate(context, date) {
+      context.commit('setDeliveryDate', date);
+    },
+    setRedeliveryDate(context, date) {
+      context.commit('setRedeliveryDate', date);
+    },
+    setCevRate(context, cev) {
+      context.commit('setCevRate', cev);
+    },
 
-    // Hire component
+    // Hire component    
+    updateToDate(context, newToDate) {
+      context.commit('updateToDate', newToDate)
+    },
       
     // CharterersExpenses component
     addNewCharterersItem(context, data) {
@@ -177,8 +213,6 @@ export const store = new Vuex.Store( {
     },
     addHireData(context, data) {
       context.commit('addHireData', data);
-    }
-
-    // Hire form component
+    }    
   }
 });

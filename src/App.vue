@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <app-header></app-header>
+  <app-header @settings="showStartForm = true"></app-header>
   <app-start-form v-if="showStartForm"
                   @save="showStartForm = false"></app-start-form>
   <template v-else>

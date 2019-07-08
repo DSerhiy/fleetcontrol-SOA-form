@@ -18,6 +18,12 @@ export default {
 
 Date.prototype.toString = function(div = '.') {
   const date = this.getDate() < 10 ? `0${this.getDate()}`: this.getDate();
-  const month = this.getMonth() < 10 ? `0${this.getMonth()}`: this.getMonth();
+  const month = this.getMonth() < 9 ? `0${this.getMonth() + 1}`: this.getMonth() + 1;
   return date + div + month + div + this.getFullYear();
+}
+
+Date.prototype.toISOuString = function() {
+  const date = this.getDate() < 10 ? `0${this.getDate()}`: this.getDate();
+  const month = this.getMonth() < 9 ? `0${this.getMonth() + 1}`: this.getMonth() + 1;
+  return this.getFullYear()  + '-' + month + '-' + date;
 }

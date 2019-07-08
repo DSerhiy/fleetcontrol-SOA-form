@@ -20,49 +20,48 @@
                   <div class="col-sm-3">
                     <input type="Time" 
                            class="form-control" 
-                           @input="time = $event.target.value">
+                           @input="deliveryDate.time = $event.target.value"
+                           :value="deliveryDate.time">
                   </div>
                   <label class="col-sm-2 col-form-label">Date:</label>
                   <div class="col-sm-3">
                     <input type="date" 
                            class="form-control" 
-                           @input="date = $event.target.value">
+                           @input="deliveryDate.date = $event.target.value"
+                           :value="deliveryDate.date">
+                  </div>
+                </div>
+                <hr>
+                <h4 class="mb-3">Redelivery Time:</h4>
+                <div class="form-group row justify-content-center">
+                  <label class="col-sm-2 col-form-label">Time:</label>
+                  <div class="col-sm-3">
+                    <input type="Time" 
+                           class="form-control" 
+                           @input="redeliveryDate.time = $event.target.value"
+                           :value="redeliveryDate.time">
+                  </div>
+                  <label class="col-sm-2 col-form-label">Date:</label>
+                  <div class="col-sm-3">
+                    <input type="date" 
+                           class="form-control" 
+                           @input="redeliveryDate.date = $event.target.value"
+                           :value="redeliveryDate.date">
                   </div>
                 </div>
                 <hr>
 
-                <h4 class="mb-3">Hire, C/E/V, Ballast Bonus:</h4>
+                <h4 class="mb-3">C/E/V</h4>
                 <div class="form-group row justify-content-center">
-                  <label class="col-sm-2 col-form-label">Hire Rate:</label>
-                  <div class="col-sm-3">
-                    <input type="number" 
-                           class="form-control" 
-                           placeholder="Enter Hire Rate"
-                           @input="hireRate = Number($event.target.value)">
-                  </div>
                   <label class="col-sm-2 col-form-label">C/E/V:</label>
                   <div class="col-sm-3">
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter C/E/V"
-                           @input="cevRate = Number($event.target.value)">
+                           @input="cevRate = Number($event.target.value)"
+                           :value="cevRate">
                   </div>                  
                 </div>
-                <div class="form-group row justify-content-center">
-                  <div class="col-sm-3">
-                    <div class="icheck-material-white">
-                      <input type="checkbox" id="user-checkbox1" v-model="checkbox.ballastBonus">
-                      <label for="user-checkbox1">Ballast bonus</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <input type="number" 
-                           class="form-control" 
-                           placeholder="Enter Ballast Bonus"
-                           @input="ballastBonus = Number($event.target.value)" 
-                           :disabled="!checkbox.ballastBonus">
-                  </div>                                    
-                </div>                
                 <hr>
 
                 <h4>Commission:</h4>
@@ -78,6 +77,7 @@
                            class="form-control" 
                            placeholder="Enter Add Comm"
                            @input="addComm = Number($event.target.value)"
+                           :value="addComm"
                            :disabled="!checkbox.addComm">
                   </div>                                    
                 </div>  
@@ -93,6 +93,7 @@
                            class="form-control" 
                            placeholder="Enter BRK Comm"
                            @input="brkComm = Number($event.target.value)"
+                           :value="brkComm"
                            :disabled="!checkbox.brkComm">
                   </div>                                    
                 </div>               
@@ -118,17 +119,31 @@
     data() {
       return {
         checkbox: {
-          ballastBonus: false,
           addComm: false,
-          brkComm: false
+          brkComm: false,
         },
-        time: null,
-        date: null,
-        hireRate: null,
-        cevRAte: null, 
-        ballastBonus: null,
+        deliveryDate: {time: null, date: null},
+        redeliveryDate: {time: null, date: null},
         addComm: null,
-        brkComm: null
+        brkComm: null,
+        cevRate: null
+      }
+    },
+    created() {
+      if(this.$store.getters.isDelivered) {
+        this.checkbox.addComm = this.$store.getters.addComm.status;
+        this.checkbox.brkComm = this.$store.getters.brkComm.status;
+        
+        this.addComm = this.$store.getters.addComm.value;
+        this.brkComm = this.$store.getters.brkComm.value;
+
+        this.deliveryDate.time = this.$store.getters.deliveryDate.time;
+        this.deliveryDate.date = this.$store.getters.deliveryDate.date;
+
+        this.redeliveryDate.time = this.$store.getters.redeliveryDate.time;
+        this.redeliveryDate.date = this.$store.getters.redeliveryDate.date;
+        
+        this.cevRate = this.$store.getters.cevRate;
       }
     },
     methods: {

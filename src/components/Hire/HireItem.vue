@@ -20,13 +20,13 @@
         <tr>
           <td align="right">From:</td>
           <td align="center">{{ fromDate.time }}</td>
-          <td align="center">{{ new Date(fromDate.date + 'toDate') }}</td> 
+          <td align="center">{{ new Date(fromDate.date) }}</td> 
           <td align="center">Days</td>  
         </tr>
         <tr>
           <td align="right">To:</td>
           <td align="center">{{ toDate.time }}</td>
-          <td align="center">{{ new Date(toDate.date).toString() }}</td>   
+          <td align="center">{{ new Date(toDate.date) }}</td>   
           <td align="center">{{ hireDays }}</td>
           <td class="debit-col"></td>
           <td class="credit-col text-right">{{ hireResult }}</td>
