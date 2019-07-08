@@ -20,7 +20,7 @@
         <tr>
           <td align="right">From:</td>
           <td align="center">{{ fromDate.time }}</td>
-          <td align="center">{{ new Date(fromDate.date).toString() }}</td> 
+          <td align="center">{{ new Date(fromDate.date + 'toDate') }}</td> 
           <td align="center">Days</td>  
         </tr>
         <tr>
@@ -70,7 +70,7 @@
 </template>
 <script>
 export default {
-  props: ['hireRate', 'fromDate', 'toDate', 'cev', 'ballastBonus'],
+  props: ['hireRate', 'fromDate', 'toDate', 'cev', 'ballastBonus', 'index'],
   computed: {
     addComm(){  
       return this.$store.getters.addComm;

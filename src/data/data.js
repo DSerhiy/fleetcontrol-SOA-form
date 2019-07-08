@@ -13,8 +13,8 @@ export default {
       {
         ballastBonus: { status: true, value: 125000 },     
         hireRate: 5000,  
-        fromDate: { time: '01:01', date: '2019-07-01' }, 
-        toDate: { time: '01:01', date: '2019-07-31' }, 
+        fromDate: { time: '01:01', date: '2019-06-01' }, 
+        toDate: { time: '01:01', date: '2019-06-05' }, 
         cevRate: 1250
       }
     ]

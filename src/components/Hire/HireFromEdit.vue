@@ -17,11 +17,44 @@
 
       <div class="modal-body bg-grey">
         <div class="row">
-          <div class="col-2">
-            <label>Add days</label>
-            <input v-model="days" type="number">              
+          <div class="col-2"></div> 
+          <div class="col-3">Time</div> 
+          <div class="col-4">Date</div> 
+          <div class="col-2 text-center">Days</div> 
+        </div>
+        <div class="row">
+          <div class="col-2">From:</div> 
+          <div class="col-3">
+            <input type="time" readonly 
+                   class="form-control" 
+                   :value="fromDate.time">
           </div> 
-        </div>       
+          <div class="col-4">
+            <input type="date" readonly 
+                   class="form-control" 
+                   :value="fromDate.date">
+          </div> 
+          <div class="col-2"></div> 
+        </div>  
+         <div class="row">
+          <div class="col-2">To:</div> 
+          <div class="col-3">
+            <input type="time" class="form-control" v-model="toDate.time">
+          </div> 
+          <div class="col-4">
+            <input type="date" class="form-control" v-model="toDate.date">
+          </div> 
+          <div class="col-2">{{total}}</div> 
+        </div> 
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <input type="number" class="form-control" v-model="days">
+          </div>
+          <div class="col">
+            <button class="btn btn-success" @click="addDays">Add days</button>
+          </div>
+        </div>
       </div>
     
       <div class="modal-footer bg-grey">
@@ -47,17 +80,41 @@ export default {
   props: ['index'],
   data() {
     return {
-      days: 15
+      days: 15,
+      toDate: { time: null, date: null}
     }
   },
-  methods: {
+  created() {
+    const toDate = this.$store.getters.hireData[this.index].toDate;
+    this.toDate.time = toDate.time;
+    this.toDate.date = toDate.date;
+    console.log(toDate)
+  },
+  computed: {
+    fromDate() {
+      return this.$store.getters.hireData[this.index].fromDate;
+    },
+    total() {
+      const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
+      const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
+      return this.$myLib.formatNum((toDate - fromDate) / 60 / 60 / 24 / 1000);
+    }    
+  },
+  methods: {    
     update() {
-       this.$store.dispatch('updateCharterersItem', {index: this.index, data: this.editedItem})
-       this.close();
-     }, 
+      this.$store.dispatch('updateCharterersItem', {index: this.index, data: this.editedItem})
+      this.close();
+    }, 
     close() {
-       this.$emit('close');
-     }     
+      this.$emit('close');
+    },
+    addDays() {
+      const toDate = new Date(this.toDate.date);
+      console.log(toDate);
+      toDate.setDate(toDate.getDate()+2)
+      console.log(toDate);
+     
+    }    
    }
 }
 </script>
@@ -72,7 +129,7 @@ export default {
     height: 100vh;
   }
   .modal-dialog{
-    min-width: 800px;
+    min-width: 500px;
     position: fixed;
     z-index: 1001;
     top: 20%;

@@ -8,15 +8,20 @@
       <app-hire-item 
         v-for="(item, index) in hireData" 
         :key="index"
+        :index="index"
         :hireRate="item.hireRate"
         :fromDate="item.fromDate"
         :toDate="item.toDate"
         :ballastBonus="item.ballastBonus"
         :cev="item.cevRate"
+        @edit="editItem(index)"
         >
       </app-hire-item>    
     </div>
-    <app-hire-form-edit></app-hire-form-edit>
+    <app-hire-form-edit v-if="showEditForm"
+                        :index="editItemIndex"
+                        @close="showEditForm = false">
+    </app-hire-form-edit>
     <!-- <app-hire-form-init v-if="showHireFormInit"></app-hire-form-init> -->
   </div>
 </template>
@@ -28,11 +33,20 @@
 
   export default {
     data() {
-      return {}
+      return {
+        showEditForm: false,
+        editItemIndex: null,
+      }
     },
     computed: {
       hireData() {
         return this.$store.getters.hireData;
+      }
+    },
+    methods: {
+      editItem(index) {
+        this.editItemIndex = index
+        this.showEditForm = true;
       }
     },
     components: {
