@@ -11,9 +11,7 @@
         :index="index"
         :hireRate="item.hireRate"
         :fromDate="item.fromDate"
-        :toDate="item.toDate"
-        :ballastBonus="item.ballastBonus"
-        :cev="item.cevRate"
+        :toDate="calcToDate(index)"
         @edit="editItem(index)"
         >
       </app-hire-item>    
@@ -40,13 +38,18 @@
     },
     computed: {
       hireData() {
-        return this.$store.getters.hireData;
+        return this.$store.getters.hireItems;
       }
     },
     methods: {
       editItem(index) {
         this.editItemIndex = index
         this.showEditForm = true;
+      },
+      calcToDate(index) {
+        if(index === this.hireData.length - 1 && this.$store.getters.redeliveryDate.date)          return this.$store.getters.redeliveryDate;
+        
+        return this.hireData[index].toDate;
       }
     },
     components: {

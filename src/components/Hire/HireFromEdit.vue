@@ -91,13 +91,13 @@ export default {
     }
   },
   created() {
-    const toDate = this.$store.getters.hireData[this.index].toDate;
+    const toDate = this.$store.getters.hireItems[this.index].toDate;
     this.toDate.time = toDate.time;
     this.toDate.date = toDate.date;
   },
   computed: {
     fromDate() {
-      return this.$store.getters.hireData[this.index].fromDate;
+      return this.$store.getters.hireItems[this.index].fromDate;
     },
     total() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
@@ -107,6 +107,7 @@ export default {
   },
   methods: {    
     update() {
+      console.log('update');
       this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date})
       this.close();
     }, 
@@ -118,7 +119,7 @@ export default {
       this.toDate.date = new Date(toDate.setDate(toDate.getDate() + this.days)).toISOuString();      
     }, 
     resetDate() {
-      const toDate = this.$store.getters.hireData[this.index].toDate;
+      const toDate = this.$store.getters.hireItems[this.index].toDate;
       this.toDate.time = toDate.time;
       this.toDate.date = toDate.date;
     }  

@@ -10,8 +10,11 @@ export const store = new Vuex.Store( {
 
   getters: {    
     // Settings 
-    isInit(state) {
-      return state.appData.settings.isInit;
+    firstStart(state) {
+      return state.appData.settings.firstStart;
+    },
+    basicHire(state) {
+      return state.appData.settings.basicHire;
     },
     deliveryDate(state) {
       return state.appData.settings.deliveryDate;
@@ -71,38 +74,45 @@ export const store = new Vuex.Store( {
   }, 
   
   mutations: {
-    // Settings
     initApp(state, data) {
       state.appData = data;
     },
+    setFirstStart(state, setup) {
+      state.appData.settings.firstStart = setup;
+    },
+
+    // Settings
+    setBasicHire(state, basicHire) {
+      state.appData.settings.basicHire = basicHire;
+    },
     setDeliveryDate(state, deliveryDate) {
-      state.appData.deliveryDate.time = deliveryDate.time;
-      state.appData.deliveryDate.date = deliveryDate.date;
+      state.appData.settings.deliveryDate.time = deliveryDate.time;
+      state.appData.settings.deliveryDate.date = deliveryDate.date;
     },
     setRedeliveryDate(state, redeliveryDate) {
-      state.appData.redeliveryDate.time = redeliveryDate.time;
-      state.appData.redeliveryDate.date = redeliveryDate.date;
+      state.appData.settings.redeliveryDate.time = redeliveryDate.time;
+      state.appData.settings.redeliveryDate.date = redeliveryDate.date;
     },
     setAddComm(state, addComm) {
-      state.appData.addComm.status = addComm.status;
-      state.appData.addComm.value = addComm.value;
+      state.appData.settings.addComm.status = addComm.status;
+      state.appData.settings.addComm.value = addComm.value;
     },
     setBrkComm(state, brkComm) {
-      state.appData.brkComm.status = brkComm.status;
-      state.appData.brkComm.value = brkComm.value;
+      state.appData.settings.brkComm.status = brkComm.status;
+      state.appData.settings.brkComm.value = brkComm.value;
     },    
     setCevRate(state, cevRate) {
-      state.appData.cevRate = cevRate;
+      state.appData.settings.cevRate = cevRate;
     },
     setBallastBonus(state, ballastBonus) {
-      state.appData.ballastBonus.status = ballastBonus.status;
-      state.appData.ballastBonus.value = ballastBonus.value;
+      state.appData.settings.ballastBonus.status = ballastBonus.status;
+      state.appData.settings.ballastBonus.value = ballastBonus.value;
     }, 
     setIlohc(state, ilohc) {
-      state.appData.ilohc = ilohc
+      state.appData.settings.ilohc = ilohc
     },
     setIlihc(state, ilihc) {
-      state.appData.ilihc = ilihc
+      state.appData.settings.ilihc = ilihc
     },
 
     // Hire component 
@@ -169,7 +179,13 @@ export const store = new Vuex.Store( {
   actions: {
     // Settings
     initApp(context) {      
-      context.commit('initApp', data)
+      context.commit('initApp', data);
+    },
+    setFirstStart(context, setup) {
+      context.commit('setFirstStart', setup);
+    },
+    setBasicHire(context, basicHire) {
+      context.commit('setBasicHire', basicHire);
     },
     setDeliveryDate(context, deliveryDate) {
       context.commit('setDeliveryDate', deliveryDate);

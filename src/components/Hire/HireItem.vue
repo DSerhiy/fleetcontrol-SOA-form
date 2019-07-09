@@ -70,7 +70,7 @@
 </template>
 <script>
 export default {
-  props: ['hireRate', 'fromDate', 'toDate', 'cev', 'ballastBonus', 'index'],
+  props: ['hireRate', 'fromDate', 'toDate', 'index'],
   computed: {
     addComm(){  
       return this.$store.getters.addComm;
@@ -95,9 +95,15 @@ export default {
       const result = (this.hireRate * this.hireDays + this.ballastBonus.value) * this.brkComm.value / 100;
       return this.$myLib.formatNum(result);
     }, 
+    cev() {
+      return this.$store.getters.cevRate;
+    },
     cevResult() {
       const result = this.cev / 30 * this.hireDays;
       return this.$myLib.formatNum(result);
+    }, 
+    ballastBonus() {
+      return this.$store.getters.ballastBonus;
     }, 
     ballastBonusValue() {
       return this.$myLib.formatNum(this.ballastBonus.value);

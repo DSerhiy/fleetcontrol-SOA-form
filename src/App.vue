@@ -1,23 +1,23 @@
 <template>
 <div class="container">
-  <app-header @settings="showStartForm = true"></app-header>
-  <app-start-form v-if="showStartForm"
-                  @save="showStartForm = false"></app-start-form>
+  <app-header @settings="showSettingsForm = true"></app-header>
+  <app-settings-form v-if="showSettingsForm"
+                  @save="showSettingsForm = false"></app-settings-form>
   <template v-else>
     <app-hire></app-hire>
     <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
     <!-- <app-holds-cleaning></app-holds-cleaning> -->
-    <app-charterers-expenses></app-charterers-expenses>
-    <app-owners-expenses></app-owners-expenses>
+    <!-- <app-charterers-expenses></app-charterers-expenses> -->
+    <!-- <app-owners-expenses></app-owners-expenses> -->
     <!-- <app-off-hire></app-off-hire> -->
     <!-- <app-speed-claim></app-speed-claim> -->
-    <app-remittances></app-remittances>
+    <!-- <app-remittances></app-remittances> -->
   </template>
 </div> 
 </template>
 
 <script>
-import StartForm from './components/StartForm.vue';
+import SettingsForm from './components/SettingsForm.vue';
 import Header from './components/Header.vue';
 import Hire from './components/Hire/HireFormView.vue';
 import BunkersDelivery from './components/Bunkers/BunkersDeliveryFormView.vue';
@@ -32,7 +32,7 @@ import Remittances from './components/Remittances/RemittancesFormView.vue';
 export default {
   data() {
     return {
-      showStartForm: true
+      showSettingsForm: true
     }
   },
   created() {
@@ -42,7 +42,7 @@ export default {
       this.showStartForm = false; 
   },
   components: {
-    appStartForm: StartForm,
+    appSettingsForm: SettingsForm,
     appHeader: Header, 
     appHire: Hire,
     appBunkersDelivery: BunkersDelivery,

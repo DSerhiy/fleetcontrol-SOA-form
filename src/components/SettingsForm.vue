@@ -4,7 +4,7 @@
       <div class="modal-content border-success">
 
         <div class="modal-header bg-success">
-          <h2 class="modal-title text-white">Start Form</h2>
+          <h2 class="modal-title text-white">Settings</h2>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="cancel()">
             <span aria-hidden="true">×</span>
           </button>
@@ -53,24 +53,38 @@
 
                 <h4 class="mb-3">Hire, Ballast Bonus, C/E/V</h4>
                 <div class="form-group row justify-content-center">
-                  <label class="col-sm-2 col-form-label">C/E/V:</label>
-                  <div class="col-sm-3">
+                  <label class="col-2 col-form-label">Basic Hire:</label>
+                  <div class="col-3">
+                    <input type="number" 
+                           class="form-control" 
+                           placeholder="Enter Hire Rate"
+                           @input="basicHire = Number($event.target.value)"
+                           :value="basicHire">
+                  </div>
+                  <label class="col-2 col-form-label">C/E/V:</label>
+                  <div class="col-3">
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter C/E/V"
                            @input="cevRate = Number($event.target.value)"
                            :value="cevRate">
-                  </div>                  
+                  </div>      
                 </div>
                 <div class="form-group row justify-content-center">
-                  <label class="col-sm-2 col-form-label">Basic Hire:</label>
+                 <div class="col-sm-3">
+                    <div class="icheck-material-white">
+                      <input type="checkbox" id="user-checkbox1" v-model="checkbox.ballastBonus">
+                      <label for="user-checkbox1">Ballast Bonus:</label>
+                    </div>
+                  </div>
                   <div class="col-sm-3">
                     <input type="number" 
                            class="form-control" 
-                           placeholder="Enter Hire Rate"
-                           @input="cevRate = Number($event.target.value)"
-                           :value="cevRate">
-                  </div>                  
+                           placeholder="Enter ballast bonus"
+                           @input="ballastBonus = Number($event.target.value)"
+                           :value="ballastBonus"
+                           :disabled="!checkbox.ballastBonus">
+                  </div>                     
                 </div>
                 <hr>
 
@@ -106,7 +120,27 @@
                            :value="brkComm"
                            :disabled="!checkbox.brkComm">
                   </div>                                    
-                </div>               
+                </div> 
+                <hr>
+                <h4>Holds cleaning:</h4>
+                <div class="form-group row justify-content-center">
+                  <label class="col-2 col-form-label">ILOHC:</label>
+                  <div class="col-3">
+                    <input type="number" 
+                           class="form-control" 
+                           placeholder="Enter ILOHC"
+                           @input="ilohc = Number($event.target.value)"
+                           :value="ilohc">
+                  </div>
+                  <label class="col-2 col-form-label">ILIHC:</label>
+                  <div class="col-3">
+                    <input type="number" 
+                           class="form-control" 
+                           placeholder="Enter ILIHC"
+                           @input="ilihc = Number($event.target.value)"
+                           :value="ilihc">
+                  </div>      
+                </div>    
               </form>
             </div>
           </div>          
@@ -133,6 +167,7 @@
           brkComm: false,
           ballastBonus: false
         },
+        basicHire: null,
         deliveryDate: {time: null, date: null},
         redeliveryDate: {time: null, date: null},
         addComm: null,
@@ -144,7 +179,9 @@
       }
     },
     created() {
-      if(!this.$store.getters.isInit) {
+      if(!this.$store.getters.firstStart) {
+
+        this.basicHire = this.$store.getters.basicHire;
 
         this.checkbox.addComm = this.$store.getters.addComm.status;
         this.checkbox.brkComm = this.$store.getters.brkComm.status;
@@ -157,8 +194,8 @@
         this.redeliveryDate.time = this.$store.getters.redeliveryDate.time;
         this.redeliveryDate.date = this.$store.getters.redeliveryDate.date;
         
-        this.checkbox.ballastBonus = this.$store.getters.ballastBonus.status;
         this.ballastBonus = this.$store.getters.ballastBonus.value;
+        this.checkbox.ballastBonus = this.$store.getters.ballastBonus.status;
 
         this.cevRate = this.$store.getters.cevRate;
         this.ilohc = this.$store.getters.ilohc;
@@ -170,7 +207,23 @@
 
       },
       save() {
-        this.$store.dispatch('changeDeliveryStatus', true); 
+        if(this.$store.getters.firstStart) {
+          this.$store.dispatch('addHireItem', {
+            hireRate: this.basicHire,
+            fromDate: this.deliveryDate, 
+            toDate: this.deliveryDate            
+          });
+          this.$store.dispatch('setFirstStart', false); 
+        }
+        
+        this.$store.dispatch('setDeliveryDate', this.deliveryDate);
+        this.$store.dispatch('setRedeliveryDate', this.redeliveryDate);
+        this.$store.dispatch('setBasicHire', this.basicHire);
+        this.$store.dispatch('setBallastBonus', {
+          status: this.checkbox.ballastBonus,
+          value: this.ballastBonus
+        });
+        this.$store.dispatch('setCevRate', this.cevRate);
         this.$store.dispatch('setAddComm', {
           status: this.checkbox.addComm,
           value: this.addComm 
@@ -178,15 +231,7 @@
         this.$store.dispatch('setBrkComm', {
           status: this.checkbox.brkComm,
           value: this.brkComm 
-        });       
-                
-        this.$store.dispatch('addHireData', {
-          hireRate: this.hireRate,  
-          fromDate: {time: this.time, date: this.date},
-          toDate: {time: this.time, date: this.date}, 
-          ballastBonus:{status: this.checkbox.ballastBonus, value: this.ballastBonus},
-          cevRate: this.cevRate
-        });
+        });        
         this.$emit('save');
       }
     }
