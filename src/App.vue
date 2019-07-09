@@ -36,9 +36,9 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('initComponents');
+    this.$store.dispatch('initApp');
 
-    if(this.$store.getters.isDelivered)
+    if(this.$store.getters.isInit)
       this.showStartForm = false; 
   },
   components: {

@@ -51,13 +51,23 @@
                 </div>
                 <hr>
 
-                <h4 class="mb-3">C/E/V</h4>
+                <h4 class="mb-3">Hire, Ballast Bonus, C/E/V</h4>
                 <div class="form-group row justify-content-center">
                   <label class="col-sm-2 col-form-label">C/E/V:</label>
                   <div class="col-sm-3">
                     <input type="number" 
                            class="form-control" 
                            placeholder="Enter C/E/V"
+                           @input="cevRate = Number($event.target.value)"
+                           :value="cevRate">
+                  </div>                  
+                </div>
+                <div class="form-group row justify-content-center">
+                  <label class="col-sm-2 col-form-label">Basic Hire:</label>
+                  <div class="col-sm-3">
+                    <input type="number" 
+                           class="form-control" 
+                           placeholder="Enter Hire Rate"
                            @input="cevRate = Number($event.target.value)"
                            :value="cevRate">
                   </div>                  
@@ -121,19 +131,23 @@
         checkbox: {
           addComm: false,
           brkComm: false,
+          ballastBonus: false
         },
         deliveryDate: {time: null, date: null},
         redeliveryDate: {time: null, date: null},
         addComm: null,
         brkComm: null,
-        cevRate: null
+        cevRate: null,
+        ballastBonus: null, 
+        ilohc: null, 
+        ilihc: null
       }
     },
     created() {
-      if(this.$store.getters.isDelivered) {
+      if(!this.$store.getters.isInit) {
+
         this.checkbox.addComm = this.$store.getters.addComm.status;
         this.checkbox.brkComm = this.$store.getters.brkComm.status;
-        
         this.addComm = this.$store.getters.addComm.value;
         this.brkComm = this.$store.getters.brkComm.value;
 
@@ -143,7 +157,12 @@
         this.redeliveryDate.time = this.$store.getters.redeliveryDate.time;
         this.redeliveryDate.date = this.$store.getters.redeliveryDate.date;
         
+        this.checkbox.ballastBonus = this.$store.getters.ballastBonus.status;
+        this.ballastBonus = this.$store.getters.ballastBonus.value;
+
         this.cevRate = this.$store.getters.cevRate;
+        this.ilohc = this.$store.getters.ilohc;
+        this.ilihc = this.$store.getters.ilihc;
       }
     },
     methods: {
@@ -189,7 +208,7 @@
     min-width: 800px;
     position: fixed;
     z-index: 1001;
-    top: 20%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
   }
