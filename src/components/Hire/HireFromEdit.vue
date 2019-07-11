@@ -90,7 +90,7 @@ export default {
       toDate: { time: null, date: null}
     }
   },
-  created() {
+  mounted() {
     const toDate = this.$store.getters.hireItems[this.index].toDate;
     this.toDate.time = toDate.time;
     this.toDate.date = toDate.date;
@@ -107,7 +107,7 @@ export default {
   },
   methods: {    
     update() {
-      console.log('update');
+      // console.log('update', this.index, this.toDate.time, this.toDate.date );
       this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date})
       this.close();
     }, 

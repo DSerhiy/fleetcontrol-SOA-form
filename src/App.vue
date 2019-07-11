@@ -1,8 +1,12 @@
 <template>
 <div class="container">
-  <app-header @settings="showSettingsForm = true"></app-header>
-  <app-settings-form v-if="showSettingsForm"
-                  @save="showSettingsForm = false"></app-settings-form>
+  <app-header 
+    @clickSettings="showSettingsForm = true">
+  </app-header>
+  <app-settings-form 
+    v-if="showSettingsForm || firstStart"
+    @save="showSettingsForm = false">
+  </app-settings-form>
   <template v-else>
     <app-hire></app-hire>
     <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
@@ -32,14 +36,21 @@ import Remittances from './components/Remittances/RemittancesFormView.vue';
 export default {
   data() {
     return {
-      showSettingsForm: true
+      showSettingsForm: false
     }
   },
+  computed: {
+    firstStart() {
+      return this.$store.getters.firstStart;
+    }    
+  },
   created() {
-    this.$store.dispatch('initApp');
-
-    if(this.$store.getters.isInit)
-      this.showStartForm = false; 
+    this.$store.dispatch('initHeader');
+    this.$store.dispatch('initSettings');
+    this.$store.dispatch('initHire');
+    this.$store.dispatch('initCharterersExpenses');
+    this.$store.dispatch('initOwnersExpeses');
+    this.$store.dispatch('initHoldsCleaning');    
   },
   components: {
     appSettingsForm: SettingsForm,

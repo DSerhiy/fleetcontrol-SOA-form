@@ -47,7 +47,8 @@
         this.showEditForm = true;
       },
       calcToDate(index) {
-        if(index === this.hireData.length - 1 && this.$store.getters.redeliveryDate.date)          return this.$store.getters.redeliveryDate;
+        if(index === this.hireData.length - 1 && this.$store.getters.redeliveryDate.date)
+          return this.$store.getters.redeliveryDate;
         
         return this.hireData[index].toDate;
       }

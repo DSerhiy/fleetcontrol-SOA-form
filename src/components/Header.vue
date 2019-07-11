@@ -19,7 +19,9 @@
           <table class="table">
             <tr>
               <td colspan="4" class="not-bordered">
-                <div class="btn-settings" @click="$emit('settings')"><i class="zmdi zmdi-settings"></i> <span>settings</span></div>
+                <div class="btn-settings" @click="$emit('clickSettings')">
+                  <i class="zmdi zmdi-settings"></i> <span>settings</span>
+                </div>
               </td>
               <th scope="col" class="debit-col">DEBIT, USD</th>
               <th scope="col" class="credit-col">CREDIT, USD</th>
@@ -41,7 +43,7 @@ export default {
       'charterersName',
       'cpDate'
     ])
-  }
+  },
 }
 </script>
 <style scoped>

@@ -1,273 +1,42 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// imitation of loading data from the server
 import data from '../data/data.js'
+
+// import modules
+import settings from './modules/settings.js';
+import header from './modules/header.js';
+import hire from './modules/hire.js';
+import charterersExpenses from './modules/charterersExpenses.js';
+import ownersExpenses from './modules/ownersExpenses.js';
+import holdsCleaning from './modules/holdsCleaning.js';
+
+
 
 Vue.use(Vuex); 
 
 export const store = new Vuex.Store( {
-  state: { appData: null },
-
-  getters: {    
-    // Settings 
-    firstStart(state) {
-      return state.appData.settings.firstStart;
-    },
-    basicHire(state) {
-      return state.appData.settings.basicHire;
-    },
-    deliveryDate(state) {
-      return state.appData.settings.deliveryDate;
-    },
-    redeliveryDate(state) {
-      return state.appData.settings.redeliveryDate;
-    },
-    addComm(state) {
-      return state.appData.settings.addComm;
-    },
-    brkComm(state) {
-      return state.appData.settings.brkComm;
-    },
-    cevRate(state) {
-      return state.appData.settings.cevRate;
-    },
-    ballastBonus(state) {
-      return state.appData.settings.ballastBonus;
-    },
-    ilohc(state) {
-      return state.appData.settings.ilohc; 
-    },
-    ilihc(state) {
-      return state.appData.settings.ilihc; 
-    },   
-
-    // Header component 
-    vesselName(state) {
-      return state.appData.header.vesselName;
-    },
-    charterersName(state) {
-      return state.appData.header.charterersName;
-    },
-    cpDate(state) {
-      return state.appData.header.cpDate;
-    }, 
-
-    // Hire component
-    hireItems(state) {
-      return state.appData.hire;
-    },
-    
-    // CharterersExpenses component
-    charterersExpensesItems(state) {
-      return state.appData.charterersExpenses;
-    },
-    
-    // OwnersExpenses component
-    ownersExpensesItmes(state) {
-      return state.appData.ownersExpenses;
-    }, 
-   
-    // Holds cleaning component
-    holdsCleaningItems(state) {
-      return state.appData.holdsCleaning;
-    }   
-  }, 
-  
+  state: {
+  },
   mutations: {
-    initApp(state, data) {
-      state.appData = data;
-    },
-    setFirstStart(state, setup) {
-      state.appData.settings.firstStart = setup;
-    },
-
-    // Settings
-    setBasicHire(state, basicHire) {
-      state.appData.settings.basicHire = basicHire;
-    },
-    setDeliveryDate(state, deliveryDate) {
-      state.appData.settings.deliveryDate.time = deliveryDate.time;
-      state.appData.settings.deliveryDate.date = deliveryDate.date;
-    },
-    setRedeliveryDate(state, redeliveryDate) {
-      state.appData.settings.redeliveryDate.time = redeliveryDate.time;
-      state.appData.settings.redeliveryDate.date = redeliveryDate.date;
-    },
-    setAddComm(state, addComm) {
-      state.appData.settings.addComm.status = addComm.status;
-      state.appData.settings.addComm.value = addComm.value;
-    },
-    setBrkComm(state, brkComm) {
-      state.appData.settings.brkComm.status = brkComm.status;
-      state.appData.settings.brkComm.value = brkComm.value;
-    },    
-    setCevRate(state, cevRate) {
-      state.appData.settings.cevRate = cevRate;
-    },
-    setBallastBonus(state, ballastBonus) {
-      state.appData.settings.ballastBonus.status = ballastBonus.status;
-      state.appData.settings.ballastBonus.value = ballastBonus.value;
-    }, 
-    setIlohc(state, ilohc) {
-      state.appData.settings.ilohc = ilohc
-    },
-    setIlihc(state, ilihc) {
-      state.appData.settings.ilihc = ilihc
-    },
-
-    // Hire component 
-    addHireItem(state, hireItem) {
-      state.appData.hire.push(hireItem);
-    },
-    deleteHireItem(state, index) {
-      state.appData.hire.splice(index, 1);
-    },     
-    updateToDate(state, newToDate) {
-      state.appData.hire[newToDate.index].toDate.time = newToDate.time;
-      state.appData.hire[newToDate.index].toDate.date = newToDate.date;
-    },
-    updateFromDate(state, newFromDate) {
-      state.appData.hire[newFromDate.index].toDate.time = newFromDate.time;
-      state.appData.hire[newFromDate.index].toDate.date = newFromDate.date;
-    },
-    updateHireRate(state, newHireRate) {
-      state.appData.hire[newHireRate.index].newHireRate = newHireRate.value; 
-    },         
-    
-    // CharterersExpenses component
-    addCharterersItem(state, item) {
-      state.appData.charterersExpenses.push(item);
-    },   
-    updateCharterersItem(state, item) {
-      state.appData.charterersExpenses[item.index] = item.data;
-    }, 
-    deleteCharterersItem(state, index) {
-      state.appData.charterersExpenses.splice(index, 1);
-    },
-
-    //OwnersExpenses component
-    addOwnersItem(state, item) {
-      state.appData.ownersExpenses.push(item);
-    },
-    updateOwnersItem(state, item) {
-      state.appData.ownersExpenses[item.index] = item.data;
-    }, 
-    deleteOwnersItem(state, index) {
-      state.appData.ownersExpenses.splice(index, 1);
-    },
-
-    // Holds cleaning component
-    addHoldCleaningItem(state, item) {
-      state.appData.holdsCleaning.push(item);
-    },
-    updateHoldCleaningItem(state, item) {
-      state.appData.holdsCleaning[item.index] = item.data;
-    },
-    deleteHoldCleaningItem(state, index) {
-      state.appData.holdsCleaning.splice(index, 1);
-    },
-
     // Start Form componet
     changeInitStatus(state, status) {
-      state.appData.isInit = status;
-    },
-    addHireData(state, data) {
-      state.appData.hire.data.push(data);
-    }
-  },
-  
-  actions: {
-    // Settings
-    initApp(context) {      
-      context.commit('initApp', data);
-    },
-    setFirstStart(context, setup) {
-      context.commit('setFirstStart', setup);
-    },
-    setBasicHire(context, basicHire) {
-      context.commit('setBasicHire', basicHire);
-    },
-    setDeliveryDate(context, deliveryDate) {
-      context.commit('setDeliveryDate', deliveryDate);
-    },
-    setRedeliveryDate(context, redeliveryDate) {
-      context.commit('setRedeliveryDate', redeliveryDate);
-    },
-    setAddComm(context, addComm) {
-      context.commit('setAddComm', addComm);
-    },
-    setBrkComm(context, brkComm) {
-      context.commit('setBrkComm', brkComm);
+      state.isInit = status;
     },    
-    setCevRate(context, cevRate) {
-      context.commit('setCevRate', cevRate);
-    },
-    setBallastBonus(context, ballastBonus) {
-      context.commit('setBallastBonus', ballastBonus);
-    }, 
-    setIlohc(context, ilohc) {
-      context.commit('setIlohc', ilohc);
-    },
-    setIlihc(context, ilihc) {
-      context.commit('setIlihc', ilihc);
-    },
-
-    // Hire component
-    addHireItem(context, hireItem) {
-      context.commit('addHireItem', hireItem);
-    },
-    deleteHireItem(context, index) {
-      context.commit('deleteHireItem', index);
-    },        
-    updateToDate(context, newToDate) {
-      context.commit('updateToDate', newToDate);
-    },
-    updateFromDate(context, newFromDate) {
-      context.commit('updateFromDate', newFromDate);
-    },
-    updateHireRate(context, newHireRate) {
-      context.commit('updateHireRate', newHireRate);
-    }, 
-      
-    // CharterersExpenses component
-    addCharterersItem(context, item) {
-      context.commit('addCharterersItem', item);
-    },   
-    updateCharterersItem(context, item) {
-      context.commit('updateCharterersItem', item);
-    },
-    deleteCharterersItem(context, index) {
-      context.commit('deleteCharterersItem', index);
-    },
-
-    // OwnersExpenses component
-    addOwnersItem(context, item) {
-      context.commit('addOwnersItem', item);
-    },
-    updateOwnersItem(context, item) {
-      context.commit('updateOwnersItem', item)
-    },
-    deleteOwnersItem(context, index) {
-      context.commit('deleteOwnersItem', index);
-    },
-
-    // Holds cleaning component
-    addHoldCleaningItem(context, item) {
-      context.commit('addHoldCleaningItem', item);
-    },
-    updateHoldCleaningItem(context, item) {
-      context.commit('updateHoldCleaningItem', item);
-    },
-    deleteHoldCleaningItem(context, index) {
-      context.commit('deleteHoldCleaningItem', index);
-    },
-
+  },  
+  actions: {    
     // StartForm componet
     changeInitStatus(context, status) {
       context.commit('changeInitStatus', status)
-    },
-    addHireData(context, data) {
-      context.commit('addHireData', data);
-    }    
+    },       
+  }, 
+  modules: {
+    settings,
+    header,
+    hire,
+    charterersExpenses,
+    ownersExpenses,
+    holdsCleaning 
   }
 });

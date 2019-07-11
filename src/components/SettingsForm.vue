@@ -209,9 +209,9 @@
       save() {
         if(this.$store.getters.firstStart) {
           this.$store.dispatch('addHireItem', {
-            hireRate: this.basicHire,
-            fromDate: this.deliveryDate, 
-            toDate: this.deliveryDate            
+            // hireRate: this.basicHire,
+            fromDate: {time: this.deliveryDate.time, date: this.deliveryDate.date}, 
+            toDate: {time: this.deliveryDate.time, date: this.deliveryDate.date}            
           });
           this.$store.dispatch('setFirstStart', false); 
         }
@@ -219,6 +219,7 @@
         this.$store.dispatch('setDeliveryDate', this.deliveryDate);
         this.$store.dispatch('setRedeliveryDate', this.redeliveryDate);
         this.$store.dispatch('setBasicHire', this.basicHire);
+        this.$store.dispatch('updateHireRate', {index: 0, value: this.basicHire});
         this.$store.dispatch('setBallastBonus', {
           status: this.checkbox.ballastBonus,
           value: this.ballastBonus
