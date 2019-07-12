@@ -1,5 +1,3 @@
-import { holdsCleaning } from '../../data/data.js';
-
 const state = {
   holdsCleaning: null
 }
@@ -29,8 +27,8 @@ const mutations = {
 
 const actions = {
   // Holds cleaning component
-  initHoldsCleaning({ commit }) {
-    commit('initHoldsCleaning', holdsCleaning)
+  initHoldsCleaning({ commit }, data) {
+    commit('initHoldsCleaning', data)
   },
   addHoldCleaningItem(context, item) {
     context.commit('addHoldCleaningItem', item);

@@ -1,5 +1,3 @@
-import { ownersExpenses } from '../../data/data.js';
-
 const state = {
   ownersExpenses: null
 };
@@ -29,8 +27,8 @@ const mutations = {
 
 const actions = {
   // OwnersExpenses component
-  initOwnersExpeses({ commit }) {
-    commit('initOwnersExpeses', ownersExpenses);
+  initOwnersExpeses({ commit }, data) {
+    commit('initOwnersExpeses', data);
   },
   addOwnersItem(context, item) {
     context.commit('addOwnersItem', item);

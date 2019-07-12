@@ -1,5 +1,3 @@
-import { header } from '../../data/data.js';
-
 // Data stracture: 
 // ===============
 // header = {
@@ -32,8 +30,9 @@ const mutations = {
 };
 
 const actions = {
-  initHeader({ commit }) {
-    commit('initHeader', header)
+  initHeader({ commit }, data) {
+    console.log('initHeader', data);
+    commit('initHeader', data);
   }
 }
 

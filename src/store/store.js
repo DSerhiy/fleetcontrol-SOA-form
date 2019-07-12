@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// imitation of loading data from the server
-import data from '../data/data.js'
-
 // import modules
 import settings from './modules/settings.js';
 import header from './modules/header.js';
@@ -13,11 +10,15 @@ import ownersExpenses from './modules/ownersExpenses.js';
 import holdsCleaning from './modules/holdsCleaning.js';
 
 
-
 Vue.use(Vuex); 
 
 export const store = new Vuex.Store( {
   state: {
+  },
+  getters: {
+    appData(state) {
+      return state;
+    }
   },
   mutations: {
     // Start Form componet

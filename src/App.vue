@@ -1,5 +1,6 @@
 <template>
-<div class="container">
+<div v-if="loaded" class="container"> 
+  <div>loaded</div>
   <app-header 
     @clickSettings="showSettingsForm = true">
   </app-header>
@@ -36,6 +37,7 @@ import Remittances from './components/Remittances/RemittancesFormView.vue';
 export default {
   data() {
     return {
+      loaded: false,
       showSettingsForm: false
     }
   },
@@ -44,13 +46,18 @@ export default {
       return this.$store.getters.firstStart;
     }    
   },
-  created() {
-    this.$store.dispatch('initHeader');
-    this.$store.dispatch('initSettings');
-    this.$store.dispatch('initHire');
-    this.$store.dispatch('initCharterersExpenses');
-    this.$store.dispatch('initOwnersExpeses');
-    this.$store.dispatch('initHoldsCleaning');    
+  mounted() {
+    fetch('../appData.json')
+      .then(response => response.json())
+      .then(appData => {        
+        this.$store.dispatch('initHeader', appData.header);
+        this.$store.dispatch('initSettings', appData.settings);
+        this.$store.dispatch('initHire', appData.hire);
+        this.$store.dispatch('initCharterersExpenses', appData.charterersExpenses);
+        this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);
+        this.$store.dispatch('initHoldsCleaning', appData.holdsCleaning);
+        this.loaded = true;        
+      });              
   },
   components: {
     appSettingsForm: SettingsForm,

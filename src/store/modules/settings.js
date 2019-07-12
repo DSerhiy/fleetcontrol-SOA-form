@@ -1,5 +1,3 @@
-import { settings } from '../../data/data.js';
-
 const state = {
   settings: null
 };
@@ -82,8 +80,9 @@ const mutations = {
 
 const actions = {
   // Settings
-  initSettings ({ commit }) {
-    commit('initSettings', settings)
+  initSettings ({ commit }, data) {
+    console.log('initSettings', data)
+    commit('initSettings', data)
   },
   setFirstStart(context, setup) {
     context.commit('setFirstStart', setup);

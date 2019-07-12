@@ -1,5 +1,3 @@
-import { charterersExpenses } from '../../data/data.js';
-
  // Data structure 
  //================
  // charterersExpenses = [
@@ -35,8 +33,8 @@ const mutations = {
 
 const actions = {
   // CharterersExpenses component
-  initCharterersExpenses({ commit }) {
-      commit('initCharterersExpenses', charterersExpenses)
+  initCharterersExpenses({ commit }, data) {
+      commit('initCharterersExpenses', data)
   },
   addCharterersItem(context, item) {
     context.commit('addCharterersItem', item);

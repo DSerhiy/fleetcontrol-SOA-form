@@ -1,5 +1,3 @@
-import { hire } from '../../data/data.js';
-
 // Data structure
 // hire = [
 // {      
@@ -32,12 +30,10 @@ const mutations = {
     state.hire.splice(index, 1);
   },     
   updateToDate(state, newToDate) {
-    console.log('updateToDate', state, newToDate)
     state.hire[newToDate.index].toDate.time = newToDate.time;
     state.hire[newToDate.index].toDate.date = newToDate.date;
   },
   updateFromDate(state, newFromDate) {
-    console.log('updateFromDate', newFromDate)
     state.hire[newFromDate.index].fromDate.time = newFromDate.time;
     state.hire[newFromDate.index].fromDate.date = newFromDate.date;
   },
@@ -48,8 +44,8 @@ const mutations = {
 
 const actions = {
   // Hire component
-  initHire({ commit }) {
-    commit('initHire', hire);
+  initHire({ commit }, data) {
+    commit('initHire', data);
   },
   addHireItem(context, hireItem) {
     context.commit('addHireItem', hireItem);
