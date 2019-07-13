@@ -1,11 +1,11 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="update()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
-        <h5 class="modal-title text-white">Charterers Expenses Edit Form</h5>
+        <h5 class="modal-title text-white">Hire edit form</h5>
         <button type="button" 
                 class="close text-white" 
                 data-dismiss="modal" 
@@ -16,6 +16,17 @@
       </div>
 
       <div class="modal-body bg-grey">
+        <div class="row mb-2 align-items-center">
+          <div class="col-2"></div> 
+          <div class="col-3">Hire rate:</div> 
+          <div class="col-4">
+            <input type="number" 
+                   class="form-control" 
+                   v-model="hireRate">
+          </div> 
+          <div class="col-2 text-center"></div> 
+        </div>
+        <hr>
         <div class="row mb-2">
           <div class="col-2"></div> 
           <div class="col-3">Time</div> 
@@ -66,6 +77,15 @@
       <div class="modal-footer bg-grey">
         <div class="col-auto">
           <button type="button" 
+                    class="btn btn-danger  waves-effect waves-light"
+                    @click="deleteItem()"
+                    :disabled="!deleteAllowed">
+                    <i class="zmdi zmdi-delete"></i>  
+                    Delete Item
+          </button>
+        </div>
+        <div class="col-auto">
+          <button type="button" 
                   class="btn mr-1"
                   @click="close()">
             <i class="fa fa-window-close"></i> Cancel
@@ -87,13 +107,17 @@ export default {
   data() {
     return {
       days: 15,
-      toDate: { time: null, date: null}
+      toDate: { time: null, date: null}, 
+      hireRate: null,
+      deleteAllowed: null
     }
   },
   mounted() {
     const toDate = this.$store.getters.hireItems[this.index].toDate;
     this.toDate.time = toDate.time;
     this.toDate.date = toDate.date;
+    this.hireRate = this.$store.getters.hireItems[this.index].hireRate;
+    this.deleteAllowed = this.index === 0 ? false: true;
   },
   computed: {
     fromDate() {
@@ -105,15 +129,23 @@ export default {
       return this.$myLib.formatNum((toDate - fromDate) / 60 / 60 / 24 / 1000);
     }    
   },
-  methods: {    
-    update() {
-      // console.log('update', this.index, this.toDate.time, this.toDate.date );
-      this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date})
-      this.close();
-    }, 
-    close() {
+  methods: {  
+     close() {
       this.$emit('close');
+    }, 
+    deleteItem() {
+      this.$store.dispatch('deleteHireItem', this.index);
+      this.close();
     },
+    update() {
+      this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date});
+      this.$store.dispatch('updateHireRate', {index: this.index, value: this.hireRate});
+      
+      if (this.index === 0) 
+        this.$store.dispatch('setBasicHire', this.hireRate);
+      
+      this.close();
+    },     
     addDays() {
       const toDate = new Date(this.toDate.date);
       this.toDate.date = new Date(toDate.setDate(toDate.getDate() + this.days)).toISOuString();      
@@ -122,7 +154,8 @@ export default {
       const toDate = this.$store.getters.hireItems[this.index].toDate;
       this.toDate.time = toDate.time;
       this.toDate.date = toDate.date;
-    }  
+    }
+   
   }
 }
 </script>

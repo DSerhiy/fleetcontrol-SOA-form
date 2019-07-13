@@ -23,8 +23,8 @@
                   <i class="zmdi zmdi-settings"></i> <span>settings</span>
                 </div>
               </td>
-              <th scope="col" class="debit-col">DEBIT, USD</th>
-              <th scope="col" class="credit-col">CREDIT, USD</th>
+              <th scope="col" class="debit-col text-center">DEBIT, USD</th>
+              <th scope="col" class="credit-col text-center">CREDIT, USD</th>
             </tr>
           </table>          
         </div>

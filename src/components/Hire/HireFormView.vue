@@ -16,11 +16,13 @@
         >
       </app-hire-item>    
     </div>
-    <app-hire-form-edit v-if="showEditForm"
+    <app-form-edit v-if="showEditForm"
                         :index="editItemIndex"
                         @close="showEditForm = false">
-    </app-hire-form-edit>
-    <!-- <app-hire-form-init v-if="showHireFormInit"></app-hire-form-init> -->
+    </app-form-edit>
+    <app-form-add v-if="showAddForm"
+                  @close="showAddForm = false">
+    </app-form-add>
   </div>
 </template>
 
@@ -33,6 +35,7 @@
     data() {
       return {
         showEditForm: false,
+        showAddForm: false,
         editItemIndex: null,
       }
     },
@@ -43,8 +46,11 @@
     },
     methods: {
       editItem(index) {
-        this.editItemIndex = index
+        this.editItemIndex = index;
         this.showEditForm = true;
+      },
+      addItem() {
+        this.showAddForm = true;
       },
       calcToDate(index) {
         if(index === this.hireData.length - 1 && this.$store.getters.redeliveryDate.date)
@@ -55,8 +61,8 @@
     },
     components: {
       appHireItem: HireItem, 
-      appHireFormInit: HireFormAdd,
-      appHireFormEdit: HireFormEdit
+      appFormAdd: HireFormAdd,
+      appFormEdit: HireFormEdit
     }
   }
 </script>

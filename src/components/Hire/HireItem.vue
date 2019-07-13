@@ -27,30 +27,30 @@
           <td align="right">To:</td>
           <td align="center">{{ toDate.time }}</td>
           <td align="center">{{ new Date(toDate.date) }}</td>   
-          <td align="center">{{ hireDays }}</td>
+          <td align="center">{{ $myLib.formatNum(hireDays) }}</td>
           <td class="debit-col"></td>
-          <td class="credit-col text-right">{{ hireResult }}</td>
+          <td class="credit-col text-right">{{ $myLib.formatNum(hireResult) }}</td>
         </tr>
-        <tr v-if="ballastBonus.status">
+        <tr v-if="ballastBonus.status && index === 0">
           <th colspan="4">GROSS BALLAST BONUS :</th>
           <td class="debit-col"></td>
-          <td class="credit-col text-right">{{ ballastBonusValue }}</td>
+          <td class="credit-col text-right">{{ $myLib.formatNum(ballastBonusValue) }}</td>
         </tr>
         <tr>
           <td colspan="6" class="not-bordered"></td>
         </tr>
         <tr v-if="addComm.status">
           <th> ADD COMM : </th>
-          <td align="center">{{ addComm.value + '%' }}</td>
+          <td align="center">{{ $myLib.formatNum(addComm.value) + '%' }}</td>
           <td colspan="2"></td>
-          <td class="debit-col text-right">{{ addCommResult }}</td>
+          <td class="debit-col text-right">{{ $myLib.formatNum(addCommResult) }}</td>
           <td class="credit-col"></td>
         </tr>
         <tr v-if="brkComm.status">
           <th>BRK COMM :</th>
-          <td align="center">{{ brkComm.value + '%' }}</td>
+          <td align="center">{{ $myLib.formatNum(brkComm.value) + '%' }}</td>
           <td colspan="2"></td>
-          <td class="debit-col text-right">{{ brkCommResult }}</td>
+          <td class="debit-col text-right">{{ $myLib.formatNum(brkCommResult) }}</td>
           <td class="credit-col"></td>
         </tr>
         <tr>
@@ -62,7 +62,7 @@
           <td align="center">{{ cev }} </td>
           <td align="center"></td>
           <td class="debit-col"></td>
-          <td class="credit-col text-right">{{ cevResult }}</td>
+          <td class="credit-col text-right">{{ $myLib.formatNum(cevResult) }}</td>
         </tr>
       </table>
     </div>
@@ -81,32 +81,32 @@ export default {
     hireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
       const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
-      return this.$myLib.formatNum((toDate - fromDate) / 60 / 60 / 24 / 1000);
+      return (toDate - fromDate) / 60 / 60 / 24 / 1000;
     }, 
     hireResult() {
       const result = this.hireDays * this.hireRate;
-      return this.$myLib.formatNum(result);
+      return result;
     }, 
     addCommResult() {
       const result = (this.hireRate * this.hireDays + this.ballastBonus.value) * this.addComm.value / 100;
-      return this.$myLib.formatNum(result);
+      return result;
     },
     brkCommResult() {
       const result = (this.hireRate * this.hireDays + this.ballastBonus.value) * this.brkComm.value / 100;
-      return this.$myLib.formatNum(result);
+      return result;
     }, 
     cev() {
       return this.$store.getters.cevRate;
     },
     cevResult() {
       const result = this.cev / 30 * this.hireDays;
-      return this.$myLib.formatNum(result);
+      return result;
     }, 
     ballastBonus() {
       return this.$store.getters.ballastBonus;
     }, 
     ballastBonusValue() {
-      return this.$myLib.formatNum(this.ballastBonus.value);
+      return this.ballastBonus.value;
     }    
   }
 }

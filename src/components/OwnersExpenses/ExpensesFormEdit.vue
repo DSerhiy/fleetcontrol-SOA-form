@@ -1,7 +1,7 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="update()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -73,7 +73,7 @@ export default {
     }
   },
   created(){
-    const item = this.$store.getters.ownersExpensesList[this.index]
+    const item = this.$store.getters.ownersExpensesItems[this.index]
     this.editedItem.description = item.description;
     this.editedItem.value =  item.value;
   },

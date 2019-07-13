@@ -63,7 +63,7 @@ export default {
   }, 
   methods: {
      save() {
-       this.$store.dispatch('addNewCharterersItem', this.newExpenses)
+       this.$store.dispatch('addCharterersItem', this.newExpenses)
        this.close();
      }, 
      close() {

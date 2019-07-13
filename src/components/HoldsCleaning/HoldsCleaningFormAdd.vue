@@ -1,7 +1,7 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="save()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -33,8 +33,8 @@
             </select>
           </div>
           <div class="col">
-            <input type="text" 
-                   class="form-control"
+            <input type="text" autofocus
+                   class="form-control"                   
                    @input="newItem.description = $event.target.value">
           </div>
           <div class="col-2">

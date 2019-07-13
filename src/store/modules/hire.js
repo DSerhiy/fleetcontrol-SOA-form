@@ -27,6 +27,9 @@ const mutations = {
     state.hire.push(hireItem);
   },
   deleteHireItem(state, index) {
+    if(state.hire[index + 1])
+      state.hire[index + 1].fromDate = state.hire[index - 1].toDate;
+
     state.hire.splice(index, 1);
   },     
   updateToDate(state, newToDate) {

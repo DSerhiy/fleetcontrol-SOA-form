@@ -1,7 +1,7 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="save()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -65,7 +65,7 @@ export default {
   }, 
   methods: {
      save() {
-       this.$store.dispatch('addNewOwnersItem', this.newExpenses)
+       this.$store.dispatch('addOwnersItem', this.newExpenses)
        this.close();
      }, 
      close() {

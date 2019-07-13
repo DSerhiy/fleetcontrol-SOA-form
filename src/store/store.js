@@ -8,6 +8,7 @@ import hire from './modules/hire.js';
 import charterersExpenses from './modules/charterersExpenses.js';
 import ownersExpenses from './modules/ownersExpenses.js';
 import holdsCleaning from './modules/holdsCleaning.js';
+import remittances from './modules/remittances.js';
 
 
 Vue.use(Vuex); 
@@ -38,6 +39,7 @@ export const store = new Vuex.Store( {
     hire,
     charterersExpenses,
     ownersExpenses,
-    holdsCleaning 
+    holdsCleaning,
+    remittances
   }
 });

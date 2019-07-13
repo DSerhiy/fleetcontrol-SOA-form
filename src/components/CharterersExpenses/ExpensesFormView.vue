@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title d-flex justify-content-between align-items-center">
-            CHARTERERS EXPENSES : {{total}}                          
+            CHARTERERS EXPENSES :                        
             <div class="btn-add"
               @click="addItem()">
               <i class="zmdi zmdi-collection-plus"></i>
@@ -49,11 +49,8 @@ export default {
     }
   },
   computed: {
-    total() {
-      return this.$store.getters.charterersExpensesTotal;
-    }, 
     expensesList() {
-      return this.$store.getters.charterersExpensesList;
+      return this.$store.getters.charterersExpensesItems;
     }
   },
   methods: {

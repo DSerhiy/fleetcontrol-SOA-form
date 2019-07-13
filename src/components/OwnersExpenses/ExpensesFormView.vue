@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title d-flex justify-content-between align-items-center">
-            OWNERS EXPENSES : {{total}}
+            OWNERS EXPENSES :
              <div>
               <div class="btn-add"
                 @click="addItem()">
@@ -51,11 +51,8 @@ export default {
     }
   },
   computed: {
-    total() {
-      return this.$store.getters.ownersExpensesTotal;
-    }, 
     expensesList() {
-      return this.$store.getters.ownersExpensesList;
+      return this.$store.getters.ownersExpensesItems;
     }
   },
   methods: {

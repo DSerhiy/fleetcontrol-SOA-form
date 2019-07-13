@@ -1,11 +1,11 @@
 <template>
   <div class="modal-layer">
-    <div class="modal-dialog">
+    <div class="modal-dialog" @keydown.enter="save()">
       <div class="modal-content border-success">
 
         <div class="modal-header bg-success">
           <h2 class="modal-title text-white">Settings</h2>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="cancel()">
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="close()">
             <span aria-hidden="true">×</span>
           </button>
         </div>
@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-lg-12">
               <form>
-                <h4 class="mb-3">Delivery Time:</h4>
+                <h4 class="mb-3">Delivery :</h4>
                 <div class="form-group row justify-content-center">
                   <label class="col-sm-2 col-form-label">Time:</label>
                   <div class="col-sm-3">
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <hr>
-                <h4 class="mb-3">Redelivery Time:</h4>
+                <h4 class="mb-3">Redelivery :</h4>
                 <div class="form-group row justify-content-center">
                   <label class="col-sm-2 col-form-label">Time:</label>
                   <div class="col-sm-3">
@@ -147,7 +147,7 @@
         </div>
 
         <div class="modal-footer bg-grey">
-          <button type="button" class="btn btn-normal" @click="cancel()">
+          <button type="button" class="btn btn-normal" @click="close()">
             <i class="fa fa-window-close"></i> Cancel
           </button>
           <button type="button" class="btn btn-success" @click="save()">
@@ -203,23 +203,23 @@
       }
     },
     methods: {
-      cancel() {
-
+      close() {
+        this.$emit('close');
       },
       save() {
         if(this.$store.getters.firstStart) {
           this.$store.dispatch('addHireItem', {
-            // hireRate: this.basicHire,
-            fromDate: {time: this.deliveryDate.time, date: this.deliveryDate.date}, 
+            fromDate: this.$store.getters.deliveryDate, 
             toDate: {time: this.deliveryDate.time, date: this.deliveryDate.date}            
           });
           this.$store.dispatch('setFirstStart', false); 
         }
         
+        this.$store.dispatch('updateHireRate', {index: 0, value: this.basicHire});
+        
         this.$store.dispatch('setDeliveryDate', this.deliveryDate);
         this.$store.dispatch('setRedeliveryDate', this.redeliveryDate);
         this.$store.dispatch('setBasicHire', this.basicHire);
-        this.$store.dispatch('updateHireRate', {index: 0, value: this.basicHire});
         this.$store.dispatch('setBallastBonus', {
           status: this.checkbox.ballastBonus,
           value: this.ballastBonus
@@ -233,7 +233,7 @@
           status: this.checkbox.brkComm,
           value: this.brkComm 
         });        
-        this.$emit('save');
+        this.close();
       }
     }
   }
@@ -275,5 +275,4 @@
   .bg-grey {
     background-color: rgba(16, 47, 65, 0.37);
   }
-
 </style>

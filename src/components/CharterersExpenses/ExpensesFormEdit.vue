@@ -73,7 +73,7 @@ export default {
     }
   },
   created(){
-    const item = this.$store.getters.charterersExpensesList[this.index]
+    const item = this.$store.getters.charterersExpensesItems[this.index]
     this.editedItem.description = item.description;
     this.editedItem.value =  item.value;
   },

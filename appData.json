@@ -32,7 +32,15 @@
     "cpDate": "26.06.2019"
   },
   "hire": [],
-  "charterersExpenses": [],
+  "charterersExpenses": [{
+    "description": "On-hire bunker survey",
+    "value": "450"
+  }],
   "ownersExpenses": [],
-  "holdsCleaning": []
+  "holdsCleaning": [],
+  "remittances": [{
+    "description": "1st hire",
+    "date": "2019-07-08",
+    "value": 251254.12
+  }]
 }

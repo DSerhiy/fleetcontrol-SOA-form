@@ -1,98 +1,34 @@
 <template>
   <div class="modal-layer">
-    <div class="modal-dialog">
+    <div class="modal-dialog" @keydown.enter="ok()">
       <div class="modal-content border-success">
 
         <div class="modal-header bg-success">
           <h2 class="modal-title text-white">New Hire Add Form</h2>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="cancel()">
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="close()">
             <span aria-hidden="true">×</span>
           </button>
         </div>
 
         <div class="modal-body bg-grey">
-          <div class="row">
-            <div class="col-lg-12">
-              <form>
-                <h4 class="mb-3">Delivery Time:</h4>
-                <div class="form-group row justify-content-center">
-                  <label class="col-sm-2 col-form-label">Time:</label>
-                  <div class="col-sm-3">
-                    <input type="Time" class="form-control" @input="getTime($event.target.value)">
-                  </div>
-                  <label class="col-sm-2 col-form-label">Date:</label>
-                  <div class="col-sm-3">
-                    <input type="date" class="form-control" @input="getDate($event.target.value)">
-                  </div>
-                </div>
-                <hr>
-
-                <h4 class="mb-3">Hire, C/E/V, Ballast Bonus:</h4>
-                <div class="form-group row justify-content-center">
-                  <label class="col-sm-2 col-form-label">Hire Rate:</label>
-                  <div class="col-sm-3">
-                    <input type="number" class="form-control" placeholder="Enter Hire Rate">
-                  </div>
-                  <label class="col-sm-2 col-form-label">C/E/V:</label>
-                  <div class="col-sm-3">
-                    <input type="number" class="form-control" placeholder="Enter C/E/V">
-                  </div>                  
-                </div>
-                <div class="form-group row justify-content-center">
-                  <div class="col-sm-3">
-                    <div class="icheck-material-white">
-                      <input type="checkbox" id="user-checkbox1" v-model="checkbox.ballastBonus">
-                      <label for="user-checkbox1">Ballast bonus</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <input type="number" 
-                           class="form-control" 
-                           placeholder="Enter Ballast Bonus" 
-                           :disabled="!checkbox.ballastBonus">
-                  </div>                                    
-                </div>                
-                <hr>
-
-                <h4>Commission:</h4>
-                <div class="form-group row justify-content-center">
-                  <div class="col-sm-3">
-                    <div class="icheck-material-white">
-                      <input type="checkbox" id="user-checkbox2" v-model="checkbox.addComm">
-                      <label for="user-checkbox2">Add comm:</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <input type="number" 
-                           class="form-control" 
-                           placeholder="Enter Add Comm"
-                           :disabled="!checkbox.addComm">
-                  </div>                                    
-                </div>  
-                <div class="form-group row justify-content-center">
-                  <div class="col-sm-3">
-                    <div class="icheck-material-white">
-                      <input type="checkbox" id="user-checkbox3" v-model="checkbox.brkComm">
-                      <label for="user-checkbox3">BRK comm: </label>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <input type="number" 
-                           class="form-control" 
-                           placeholder="Enter BRK Comm"
-                           :disabled="!checkbox.brkComm">
-                  </div>                                    
-                </div>               
-              </form>
-            </div>
-          </div>          
-        </div>
+          <div class="row mb-2 align-items-center">
+            <div class="col-2"></div> 
+            <div class="col-3">Hire rate:</div> 
+            <div class="col-4">
+              <input type="number" 
+                    class="form-control"
+                    placeholder="Enter Hire Rate" 
+                    @input="hireRate = Number($event.target.value)">
+            </div> 
+            <div class="col-2 text-center"></div> 
+          </div>
+         </div>
 
         <div class="modal-footer bg-grey">
-          <button type="button" class="btn btn-normal" @click="cancel()">
+          <button type="button" class="btn btn-normal" @click="close()">
             <i class="fa fa-window-close"></i> Cancel
           </button>
-          <button type="button" class="btn btn-success" @click="save()">
+          <button type="button" class="btn btn-success" @click="ok()">
             <i class="fa fa-check"></i> Save
           </button>
         </div>
@@ -104,34 +40,25 @@
   export default {
     data() {
       return {
-        checkbox: {
-          ballastBonus: false,
-          addComm: false,
-          brkComm: false
-        },
-        time: null,
-        date: null,
-        deliveryDate: null
+        hireRate: 1500
       }
     },
     methods: {
-      getTime(value) {
-        this.time = value;
-        this.setDeliveryDate();
-      },
-      getDate(value) {
-        this.date = value;
-        this.setDeliveryDate();
-      },
-      setDeliveryDate() {
+      ok() {
+        const index = this.$store.getters.hireItems.length;
+        const fromDate = this.$store.getters.hireItems[index - 1].toDate;
 
-        if(this.date && this.time)
-          this.deliveryDate = new Date(this.date + ':' + this.time + 'Z');
-          
-        console.dir(this.deliveryDate)
+        this.$store.dispatch('addHireItem', {
+          hireRate: this.hireRate,
+          fromDate: fromDate,
+          toDate: { time: fromDate.time, date: fromDate.date }
+        });
+        this.close();        
+      },
+      close() {
+        this.$emit('close');
       }
     }
-
   }
 
 </script>

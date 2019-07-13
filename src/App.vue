@@ -1,22 +1,18 @@
 <template>
 <div v-if="loaded" class="container"> 
-  <div>loaded</div>
-  <app-header 
-    @clickSettings="showSettingsForm = true">
-  </app-header>
-  <app-settings-form 
-    v-if="showSettingsForm || firstStart"
-    @save="showSettingsForm = false">
+  <app-header @clickSettings="showSettingsForm = true"></app-header>
+  <app-settings-form v-if="showSettingsForm || firstStart"
+                     @close="showSettingsForm = false">
   </app-settings-form>
   <template v-else>
     <app-hire></app-hire>
     <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
-    <!-- <app-holds-cleaning></app-holds-cleaning> -->
-    <!-- <app-charterers-expenses></app-charterers-expenses> -->
-    <!-- <app-owners-expenses></app-owners-expenses> -->
+    <app-holds-cleaning></app-holds-cleaning>
+    <app-charterers-expenses></app-charterers-expenses>
+    <app-owners-expenses></app-owners-expenses>
     <!-- <app-off-hire></app-off-hire> -->
     <!-- <app-speed-claim></app-speed-claim> -->
-    <!-- <app-remittances></app-remittances> -->
+    <app-remittances></app-remittances>
   </template>
 </div> 
 </template>
@@ -56,6 +52,7 @@ export default {
         this.$store.dispatch('initCharterersExpenses', appData.charterersExpenses);
         this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);
         this.$store.dispatch('initHoldsCleaning', appData.holdsCleaning);
+        this.$store.dispatch('initRemittances', appData.remittances);
         this.loaded = true;        
       });              
   },

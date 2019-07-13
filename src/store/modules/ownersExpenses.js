@@ -4,7 +4,7 @@ const state = {
 
 const getters = {
   // OwnersExpenses component
-  ownersExpensesItmes(state) {
+  ownersExpensesItems(state) {
     return state.ownersExpenses;
   }
 };
