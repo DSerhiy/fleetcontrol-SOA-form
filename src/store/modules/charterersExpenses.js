@@ -24,7 +24,8 @@ const mutations = {
     state.charterersExpenses.push(item);
   },   
   updateCharterersItem(state, item) {
-    state.charterersExpenses[item.index] = item.data;
+    state.charterersExpenses[item.index].value = item.data.value;
+    state.charterersExpenses[item.index].description = item.data.description;
   }, 
   deleteCharterersItem(state, index) {
     state.charterersExpenses.splice(index, 1);

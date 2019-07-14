@@ -15,10 +15,11 @@ const mutations = {
     state.holdsCleaning = data
   },
   addHoldCleaningItem(state, item) {
-    state.holdsCleaning.push(item);
+    state.holdsCleaning.push(item); 
   },
   updateHoldCleaningItem(state, item) {
-    state.holdsCleaning[item.index] = item.data;
+   state.holdsCleaning[item.index].description = item.data.description;
+   state.holdsCleaning[item.index].value = item.data.value;
   },
   deleteHoldCleaningItem(state, index) {
     state.holdsCleaning.splice(index, 1);

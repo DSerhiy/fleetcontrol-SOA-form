@@ -84,23 +84,19 @@ export default {
       return (toDate - fromDate) / 60 / 60 / 24 / 1000;
     }, 
     hireResult() {
-      const result = this.hireDays * this.hireRate;
-      return result;
+      return this.hireDays * this.hireRate;
     }, 
     addCommResult() {
-      const result = (this.hireRate * this.hireDays + this.ballastBonus.value) * this.addComm.value / 100;
-      return result;
+      return (this.hireRate * this.hireDays + Number(this.ballastBonus.value)) * this.addComm.value / 100;      
     },
     brkCommResult() {
-      const result = (this.hireRate * this.hireDays + this.ballastBonus.value) * this.brkComm.value / 100;
-      return result;
+      return (this.hireRate * this.hireDays + Number(this.ballastBonus.value)) * this.brkComm.value / 100;
     }, 
     cev() {
       return this.$store.getters.cevRate;
     },
     cevResult() {
-      const result = this.cev / 30 * this.hireDays;
-      return result;
+      return this.cev / 30 * this.hireDays;      
     }, 
     ballastBonus() {
       return this.$store.getters.ballastBonus;

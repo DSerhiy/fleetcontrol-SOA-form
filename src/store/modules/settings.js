@@ -56,19 +56,34 @@ const mutations = {
     state.settings.redeliveryDate.date = redeliveryDate.date;
   },
   setAddComm(state, addComm) {
-    state.settings.addComm.status = addComm.status;
-    state.settings.addComm.value = addComm.value;
+    if(addComm.status) {
+      state.settings.addComm.status = true;
+      state.settings.addComm.value = addComm.value;
+    } else {
+      state.settings.addComm.status = false;
+      state.settings.addComm.value = 0;
+    }
   },
   setBrkComm(state, brkComm) {
-    state.settings.brkComm.status = brkComm.status;
-    state.settings.brkComm.value = brkComm.value;
+    if(brkComm.status) {
+      state.settings.brkComm.status = true;
+      state.settings.brkComm.value = brkComm.value;
+    } else {
+      state.settings.brkComm.status = false;
+      state.settings.brkComm.value = 0;
+    } 
   },    
   setCevRate(state, cevRate) {
     state.settings.cevRate = cevRate;
   },
   setBallastBonus(state, ballastBonus) {
-    state.settings.ballastBonus.status = ballastBonus.status;
-    state.settings.ballastBonus.value = ballastBonus.value;
+    if(ballastBonus.status) {
+      state.settings.ballastBonus.status = true;
+      state.settings.ballastBonus.value = ballastBonus.value;
+    } else {
+      state.settings.ballastBonus.status = false;
+      state.settings.ballastBonus.value = 0;
+    }
   }, 
   setIlohc(state, ilohc) {
     state.settings.ilohc = ilohc

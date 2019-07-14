@@ -25,7 +25,7 @@
 
         <div class="row justify-content-center">
           <div class="col-9">
-            <input type="text" 
+            <input type="text" autofocus 
                    class="form-control"
                    placeholder="Enter Item Description"                  
                    @input="newExpenses.description = $event.target.value">

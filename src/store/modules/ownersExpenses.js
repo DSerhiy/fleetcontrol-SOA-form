@@ -18,7 +18,8 @@ const mutations = {
     state.ownersExpenses.push(item);
   },
   updateOwnersItem(state, item) {
-    state.ownersExpenses[item.index] = item.data;
+    state.ownersExpenses[item.index].description = item.data.description;
+    state.ownersExpenses[item.index].value = item.data.value;
   }, 
   deleteOwnersItem(state, index) {
     state.ownersExpenses.splice(index, 1);

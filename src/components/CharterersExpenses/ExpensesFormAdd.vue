@@ -1,7 +1,7 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="save()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -23,7 +23,7 @@
         <hr>
         <div class="row justify-content-center">
           <div class="col-9">
-            <input type="text" 
+            <input type="text" autofocus
                    class="form-control"
                    placeholder="Enter Item Description"                  
                    @input="newExpenses.description = $event.target.value">

@@ -1,7 +1,7 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog">
+  <div class="modal-dialog" @keydown.enter="update()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">

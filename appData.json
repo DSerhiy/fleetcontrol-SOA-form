@@ -1,6 +1,6 @@
 {
   "settings": {
-    "firstStart": true,
+    "firstStart": false,
     "basicHire": 9250,
     "deliveryDate": {
       "time": "12:00",
@@ -31,7 +31,17 @@
     "charterersName": "BPG Shipping Company DMCC",
     "cpDate": "26.06.2019"
   },
-  "hire": [],
+  "hire": [{
+    "hireRate": 9250,
+    "fromDate": {
+      "time": "12:00",
+      "date": "2019-07-08"
+    },
+    "toDate": {
+      "time": "12:00",
+      "date": "2019-07-08"
+    } 
+  }],
   "charterersExpenses": [{
     "description": "On-hire bunker survey",
     "value": "450"
