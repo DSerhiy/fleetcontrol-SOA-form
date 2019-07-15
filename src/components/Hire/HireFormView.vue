@@ -1,9 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="btn-add"
-           @click="addItem()">
-        <i class="zmdi zmdi-collection-plus"></i>
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title d-flex justify-content-between align-items-center">
+        HIRE :
+        <div class="btn-add"
+             @click="addItem()">
+          <i class="zmdi zmdi-collection-plus"></i>
+        </div>  
       </div>
       <app-hire-item 
         v-for="(item, index) in hireData" 
@@ -12,8 +15,7 @@
         :hireRate="item.hireRate"
         :fromDate="item.fromDate"
         :toDate="calcToDate(index)"
-        @edit="editItem(index)"
-        >
+        @edit="editItem(index)">
       </app-hire-item>    
     </div>
     <app-form-edit v-if="showEditForm"
@@ -66,13 +68,5 @@
     }
   }
 </script>
-<style scoped>
-  .btn-add {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    color: white;
-    z-index: 1;
-  }
-</style>
+
 
