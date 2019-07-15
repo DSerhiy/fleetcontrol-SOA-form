@@ -25,6 +25,23 @@ const hire = [
     // }
 ];
 
+const offHire = [ 
+  {
+    share: {status: true, value: 100},
+    hireRate: 5000,
+    fromDate: { time: '01:01', date: '2019-06-01' }, 
+    toDate: { time: '01:01', date: '2019-06-01' },
+    bunkers: {
+      status: false,
+      grades: [{
+        desc: '', 
+        price: 450,
+        qtty: 100
+      }]
+    }  
+  }
+];
+
 const charterersExpenses = [ 
     // {description: null, value: null},    
 ];
@@ -45,6 +62,7 @@ export {
   settings,
   header,
   hire,
+  offHire,
   charterersExpenses,
   ownersExpenses,
   holdsCleaning,

@@ -1,7 +1,9 @@
 <template>
+<div>
+  <hr>
   <table class="table">
     <tr>
-      <th>CHARTER HIRE :</th>
+      <th>HIRE # {{index + 1}} </th>
       <td colspan="2" align="right">Rate, USD/day :</td>
       <td align="center">
         {{ hireRate }}
@@ -25,7 +27,7 @@
       <td align="right">To:</td>
       <td align="center">{{ toDate.time }}</td>
       <td align="center">{{ new Date(toDate.date) }}</td>   
-      <td align="center">{{ $myLib.formatNum(hireDays) }}</td>
+      <td align="center"> <input type="text" :value="$myLib.formatNum(hireDays)" readonly></td>
       <td class="debit-col"></td>
       <td class="credit-col text-right">{{ $myLib.formatNum(hireResult) }}</td>
     </tr>
@@ -38,14 +40,14 @@
       <td colspan="6" class="not-bordered"></td>
     </tr>
     <tr v-if="addComm.status">
-      <th> ADD COMM : </th>
+      <td> ADD COMM : </td>
       <td colspan="2"></td>
       <td align="center">{{ $myLib.formatNum(addComm.value) + '%' }}</td>          
       <td class="debit-col text-right">{{ $myLib.formatNum(addCommResult) }}</td>
       <td class="credit-col"></td>
     </tr>
     <tr v-if="brkComm.status">
-      <th>BRK COMM :</th>
+      <td>BRK COMM :</td>
       <td colspan="2"></td>
       <td align="center">{{ $myLib.formatNum(brkComm.value) + '%' }}</td>          
       <td class="debit-col text-right">{{ $myLib.formatNum(brkCommResult) }}</td>
@@ -55,13 +57,14 @@
       <td colspan="6" class="not-bordered"></td>
     </tr>
     <tr>
-      <th>C/E/V :</th>
+      <td>C/E/V :</td>
       <td colspan="2" align="right">Rate, USD/PMPR:</td>
       <td align="center">{{ cev }} </td>          
       <td class="debit-col"></td>
       <td class="credit-col text-right">{{ $myLib.formatNum(cevResult) }}</td>
     </tr>
   </table>
+</div>
 </template>
 <script>
 export default {
@@ -103,21 +106,29 @@ export default {
 }
 </script>
 <style scoped>
-  input[type="time"] {
-    max-width: 100px;
+  table {
+    position: relative;
+  }
+  input[type="text"] {
+    text-align: center;
+    max-width: 80px;
   }  
   .btn-edit {
     border-radius: 5px;
     padding: 5px;
     position: absolute;
-    right: 5px; 
-    top: 45px; 
+    right: -35px; 
+    top: 0px; 
     cursor: pointer;
     transition: 0.2s;
   }
   .btn-edit:hover {
     font-size: 1.5rem;
     padding: 0;
+  }
+  hr{
+    background: rgba(20, 19, 19, 0.767);
+    height: 2px;
   }
 </style>
 
