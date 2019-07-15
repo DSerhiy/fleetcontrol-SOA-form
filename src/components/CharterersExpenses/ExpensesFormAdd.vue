@@ -1,7 +1,8 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog" @keydown.enter="save()">
+  <div class="modal-dialog" @keydown.enter="save()"
+                            @keydown.esc="close()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -23,7 +24,7 @@
         <hr>
         <div class="row justify-content-center">
           <div class="col-9">
-            <input type="text" autofocus
+            <input type="text" v-focus
                    class="form-control"
                    placeholder="Enter Item Description"                  
                    @input="newExpenses.description = $event.target.value">

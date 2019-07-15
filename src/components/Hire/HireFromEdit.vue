@@ -1,7 +1,8 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog" @keydown.enter="update()">
+  <div class="modal-dialog" @keydown.enter="update()"
+                            @keydown.esc="close()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -53,7 +54,7 @@
             <input type="time" class="form-control" v-model="toDate.time">
           </div> 
           <div class="col-4">
-            <input type="date" class="form-control" v-model="toDate.date">
+            <input type="date" class="form-control" v-model="toDate.date" v-focus>
           </div> 
           <div class="col-2 text-center">{{total}}</div> 
         </div> 

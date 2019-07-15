@@ -10,7 +10,7 @@
     <app-holds-cleaning></app-holds-cleaning>
     <app-charterers-expenses></app-charterers-expenses>
     <app-owners-expenses></app-owners-expenses>
-    <!-- <app-off-hire></app-off-hire> -->
+    <app-off-hire></app-off-hire>
     <!-- <app-speed-claim></app-speed-claim> -->
     <app-remittances></app-remittances>
   </template>
@@ -73,6 +73,10 @@ export default {
 
 <style>
 
+  .container {
+    max-width: 1000px;
+  }
+
  .card {
    padding-right: 20px;
  }
@@ -83,8 +87,8 @@ export default {
   #soa-form-layout td,
   #soa-form-layout th {
     border: 1px solid #464D54;
-    padding: 7px;
-    font-size: 1rem;
+    padding: 4px;
+    font-size: 0.9rem;
   }
   #soa-form-layout input{
     display: block;

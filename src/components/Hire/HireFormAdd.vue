@@ -1,6 +1,7 @@
 <template>
   <div class="modal-layer">
-    <div class="modal-dialog" @keydown.enter="ok()">
+    <div class="modal-dialog" @keydown.enter="ok()"
+                              @keydown.esc="close()">
       <div class="modal-content border-success">
 
         <div class="modal-header bg-success">
@@ -15,7 +16,7 @@
             <div class="col-2"></div> 
             <div class="col-3">Hire rate:</div> 
             <div class="col-4">
-              <input type="number" 
+              <input type="number" v-focus
                     class="form-control"
                     placeholder="Enter Hire Rate" 
                     @input="hireRate = Number($event.target.value)">

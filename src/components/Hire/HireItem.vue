@@ -41,15 +41,15 @@
         </tr>
         <tr v-if="addComm.status">
           <th> ADD COMM : </th>
-          <td align="center">{{ $myLib.formatNum(addComm.value) + '%' }}</td>
           <td colspan="2"></td>
+          <td align="center">{{ $myLib.formatNum(addComm.value) + '%' }}</td>          
           <td class="debit-col text-right">{{ $myLib.formatNum(addCommResult) }}</td>
           <td class="credit-col"></td>
         </tr>
         <tr v-if="brkComm.status">
           <th>BRK COMM :</th>
-          <td align="center">{{ $myLib.formatNum(brkComm.value) + '%' }}</td>
           <td colspan="2"></td>
+          <td align="center">{{ $myLib.formatNum(brkComm.value) + '%' }}</td>          
           <td class="debit-col text-right">{{ $myLib.formatNum(brkCommResult) }}</td>
           <td class="credit-col"></td>
         </tr>
@@ -58,9 +58,8 @@
         </tr>
         <tr>
           <th>C/E/V :</th>
-          <td align="right">Rate, USD/PMPR:</td>
-          <td align="center">{{ cev }} </td>
-          <td align="center"></td>
+          <td colspan="2" align="right">Rate, USD/PMPR:</td>
+          <td align="center">{{ cev }} </td>          
           <td class="debit-col"></td>
           <td class="credit-col text-right">{{ $myLib.formatNum(cevResult) }}</td>
         </tr>
@@ -110,12 +109,8 @@ export default {
 <style scoped>
   input[type="time"] {
     max-width: 100px;
-  }
-  /* td {
-    position: relative;
-  } */
+  }  
   .btn-edit {
-    /* border: 1px solid red; */
     border-radius: 5px;
     padding: 5px;
     position: absolute;
@@ -124,7 +119,6 @@ export default {
     cursor: pointer;
     transition: 0.2s;
   }
-
   .btn-edit:hover {
     font-size: 1.5rem;
     padding: 0;

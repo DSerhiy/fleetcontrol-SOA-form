@@ -1,7 +1,8 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog" @keydown.enter="save()">
+  <div class="modal-dialog" @keydown.enter="save()"
+                            @keydown.esc="close()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -33,7 +34,7 @@
             </select>
           </div>
           <div class="col">
-            <input type="text" autofocus
+            <input type="text" v-focus
                    class="form-control"                   
                    @input="newItem.description = $event.target.value">
           </div>
@@ -67,7 +68,8 @@
 export default {
   data() {
     return {
-      newItem: { description: null, value: null, type: 'ILOHC' }
+      newItem: { description: null, value: null, type: 'ILOHC' },
+      autofocut: null
     }
   }, 
   methods: {
@@ -76,7 +78,7 @@ export default {
        this.close();
      }, 
      close() {
-       this.$emit('close');
+      this.$emit('close');
      }     
    }
 }

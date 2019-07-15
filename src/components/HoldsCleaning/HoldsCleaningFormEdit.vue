@@ -1,7 +1,8 @@
 <template>
 
 <div class="modal-layer">
-  <div class="modal-dialog" @keydown.enter="update()">
+  <div class="modal-dialog" @keydown.enter="update()"
+                            @keydown.esc="close()">
     <div class="modal-content border-success">
 
       <div class="modal-header bg-success">
@@ -33,7 +34,7 @@
             </select>
           </div>
           <div class="col">
-            <input type="text" 
+            <input type="text" v-focus
                    class="form-control"                  
                    :value="editedItem.description"
                    @input="editedItem.description = $event.target.value">
