@@ -4,20 +4,20 @@
     <table class="table">
       <tbody>
         <tr>
-          <th colspan="6">OFF-HIRE #1 (Due to ME out of order)
+          <th colspan="6">OFF-HIRE #{{index + 1}} ({{description}})
             <div class="btn-edit" 
                  @click="$emit('edit', index)">
               <i class="fa fa-edit"></i> 
             </div>
           </th>          
         </tr>
-        <tr>
+        <tr v-if="share.status">
           <td colspan="3" align="right">Share:</td>
-          <td></td>
+          <td align="center">{{ share.value }}%</td>
         </tr>
         <tr>
           <td colspan="3" align="right">Rate, USD/day:</td>
-          <td></td>
+          <td align="center">{{ hireRate }}</td>
         </tr>
         <tr>
           <td class="not-bordered"></td>
@@ -25,39 +25,42 @@
         </tr>
         <tr>
           <td align="right">From:</td>
-          <td></td>
-          <td></td>
+          <td align="center">{{ fromDate.time }}</td>
+          <td align="center">{{ new Date(fromDate.date) }}</td>
           <td align="center">Days</td>
         </tr>
         <tr>
           <td align="right">To:</td>
-          <td></td>
-          <td></td>
-          <td align="center"><input type="text" readonly=""></td>
+          <td align="center">{{ toDate.time}}</td>
+          <td align="center">{{ new Date(fromDate.date)}}</td>
+          <td align="center"><input type="text" :value="$myLib.formatNum(hireDays)" readonly></td>
           <td class="debit-col"></td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(offHireResult) }}</td>
+        </tr>
+        <tr>
+          <td colspan="6" class="not-bordered"></td>
+        </tr>
+        <tr v-if="addComm.status">
+          <td colspan="3">ADD COMM OFF-HIRE PERIODS :</td>
+          <td align="center">{{ $myLib.formatNum(addComm.value) }}%</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(addCommResult) }}</td>
+          <td class="credit-col"></td>
+        </tr>
+        <tr v-if="brkComm.status">
+          <td colspan="3">BRK COMM OFF-HIRE PERIODS :</td>
+          <td align="center">{{ brkComm.value }}%</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(brkCommResult) }}</td>
           <td class="credit-col"></td>
         </tr>
         <tr>
           <td colspan="6" class="not-bordered"></td>
         </tr>
         <tr>
-          <td colspan="3">ADD COMM OFF-HIRE PERIODS :</td>
-          <td></td>
-          <td class="debit-col"></td>
-          <td class="credit-col"></td>
-        </tr>
-        <tr>
-          <td colspan="3">BRK COMM OFF-HIRE PERIODS :</td>
-          <td></td>
-          <td class="debit-col"></td>
-          <td class="credit-col"></td>
-        </tr>
-        <tr>
           <td colspan="2">C/E/V OFF-HIRE PERIOD :</td>
           <td>Rate, USD/PMPR</td>
-          <td></td>
+          <td align="center">{{ cevRate }}</td>
           <td class="debit-col"></td>
-          <td class="credit-col"></td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(cevResult) }}</td>
         </tr>
         <tr>
           <td colspan="6" class="not-bordered"></td>
@@ -67,7 +70,7 @@
           <td>Price, USD/mt</td>
         </tr>
         <tr>
-          <td>IFO</td>
+          <td align="center">IFO</td>
           <td></td>
           <td>MT</td>
           <td></td>
@@ -75,7 +78,7 @@
           <td class="credit-col"></td>
         </tr>
         <tr>
-          <td>MDO</td>
+          <td align="center">MDO</td>
           <td></td>
           <td>MT</td>
           <td></td>
@@ -88,7 +91,35 @@
 </template>
 <script>
 export default {
-  
+  props: ['description', 'hireRate', 'share', 'fromDate', 'toDate', 'index'],
+  computed: {
+    hireDays() {
+      const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
+      const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
+      return (toDate - fromDate) / 60 / 60 / 24 / 1000 * (this.share.value / 100);
+    },
+    offHireResult() {
+      return this.hireRate * this.hireDays; 
+    }, 
+    addComm() {
+      return this.$store.getters.addComm;
+    },
+    addCommResult() {
+      return this.offHireResult * this.addComm.value / 100;
+    },
+    brkComm() {
+      return this.$store.getters.brkComm;
+    },
+    brkCommResult() {
+      return this.offHireResult * this.brkComm.value / 100;
+    },
+    cevRate() {
+      return this.$store.getters.cevRate;
+    },
+    cevResult() {
+      return this.hireDays * this.cevRate / 30;      
+    },
+  }
 }
 </script>
 <style scoped>
@@ -112,7 +143,6 @@ export default {
     font-size: 1.5rem;
     padding: 0;
   }
-
   hr{
     background: rgba(20, 19, 19, 0.767);
     height: 2px;

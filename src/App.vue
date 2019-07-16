@@ -49,6 +49,7 @@ export default {
         this.$store.dispatch('initHeader', appData.header);
         this.$store.dispatch('initSettings', appData.settings);
         this.$store.dispatch('initHire', appData.hire);
+        this.$store.dispatch('initOffHire', appData.offHire);
         this.$store.dispatch('initCharterersExpenses', appData.charterersExpenses);
         this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);
         this.$store.dispatch('initHoldsCleaning', appData.holdsCleaning);

@@ -42,6 +42,18 @@
       "date": "2019-07-08"
     } 
   }],
+  "offHire": [
+    { "description": "due to M/E breakdown",
+      "hireRate": 9250,
+      "share": {"status": true, "value": 100},
+      "fromDate": {
+        "time": "18:00",
+        "date": "2019-08-01" },
+      "toDate": {
+        "time": "06:00",
+        "date": "2019-08-02" } 
+    }
+  ],
   "charterersExpenses": [{
     "description": "On-hire bunker survey",
     "value": "450"
