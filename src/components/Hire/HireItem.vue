@@ -53,9 +53,9 @@
       <td class="debit-col text-right">{{ $myLib.formatNum(brkCommResult) }}</td>
       <td class="credit-col"></td>
     </tr>
-    <tr>
+    <!-- <tr v-if="brkComm.status || addComm.status">
       <td colspan="6" class="not-bordered"></td>
-    </tr>
+    </tr> -->
     <tr>
       <td>C/E/V :</td>
       <td colspan="2" align="right">Rate, USD/PMPR:</td>

@@ -16,13 +16,17 @@
         :share="item.share"
         :fromDate="item.fromDate"
         :toDate="item.toDate"
+        :bunkers="item.bunkers"
         :index="index">
       </app-off-hire-item>
     </div>
+    <app-off-hire-form-add></app-off-hire-form-add>
   </div>
 </template>
 <script>
 import OffHireItem from './OffHireItem.vue';
+import OffHireFormAdd from './OffHireFormAdd.vue';
+
 export default {
   computed: {
     offHireItems() {
@@ -30,7 +34,8 @@ export default {
     }
   },
   components: {
-    appOffHireItem: OffHireItem
+    appOffHireItem: OffHireItem,
+    appOffHireFormAdd: OffHireFormAdd
   }  
 }
 </script>

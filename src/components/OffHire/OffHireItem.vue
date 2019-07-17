@@ -4,7 +4,7 @@
     <table class="table">
       <tbody>
         <tr>
-          <th colspan="6">OFF-HIRE #{{index + 1}} ({{description}})
+          <th class="not-bordered" colspan="6">OFF-HIRE #{{ index + 1 }} ({{ description }})
             <div class="btn-edit" 
                  @click="$emit('edit', index)">
               <i class="fa fa-edit"></i> 
@@ -34,8 +34,8 @@
           <td align="center">{{ toDate.time}}</td>
           <td align="center">{{ new Date(fromDate.date)}}</td>
           <td align="center"><input type="text" :value="$myLib.formatNum(hireDays)" readonly></td>
-          <td class="debit-col"></td>
-          <td class="credit-col" align="right">{{ $myLib.formatNum(offHireResult) }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(offHireResult) }}</td>
+          <td class="credit-col"></td>
         </tr>
         <tr>
           <td colspan="6" class="not-bordered"></td>
@@ -43,55 +43,51 @@
         <tr v-if="addComm.status">
           <td colspan="3">ADD COMM OFF-HIRE PERIODS :</td>
           <td align="center">{{ $myLib.formatNum(addComm.value) }}%</td>
-          <td class="debit-col" align="right">{{ $myLib.formatNum(addCommResult) }}</td>
-          <td class="credit-col"></td>
+          <td class="debit-col"></td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(addCommResult) }}</td>
         </tr>
         <tr v-if="brkComm.status">
           <td colspan="3">BRK COMM OFF-HIRE PERIODS :</td>
           <td align="center">{{ brkComm.value }}%</td>
-          <td class="debit-col" align="right">{{ $myLib.formatNum(brkCommResult) }}</td>
-          <td class="credit-col"></td>
+          <td class="debit-col"></td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(brkCommResult) }}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td colspan="6" class="not-bordered"></td>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="2">C/E/V OFF-HIRE PERIOD :</td>
           <td>Rate, USD/PMPR</td>
           <td align="center">{{ cevRate }}</td>
-          <td class="debit-col"></td>
-          <td class="credit-col" align="right">{{ $myLib.formatNum(cevResult) }}</td>
-        </tr>
-        <tr>
-          <td colspan="6" class="not-bordered"></td>
-        </tr>
-        <tr>
-          <th colspan="3">BUNKERS CONSUMED DURING OFF-HIRE :</th>
-          <td>Price, USD/mt</td>
-        </tr>
-        <tr>
-          <td align="center">IFO</td>
-          <td></td>
-          <td>MT</td>
-          <td></td>
-          <td class="debit-col"></td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(cevResult) }}</td>
           <td class="credit-col"></td>
-        </tr>
-        <tr>
-          <td align="center">MDO</td>
-          <td></td>
-          <td>MT</td>
-          <td></td>
-          <td class="debit-col"></td>
-          <td class="credit-col"></td>
-        </tr>
+        </tr>              
       </tbody>
     </table>
+    <table class="table" v-if="bunkers.status">
+      <tbody>
+        <tr>
+          <td colspan="4" class="not-bordered"></td>
+        </tr>  
+        <tr>
+          <th colspan="3">BUNKERS CONSUMED DURING OFF-HIRE :</th>
+          <td align="center">Price, USD/mt</td>
+        </tr>
+        <tr v-for="(grade, index) in bunkers.grades" :key="index">
+          <td align="center"></td>
+          <td align="center">{{ grade.name }}</td>
+          <td align="right" class="pr-4">{{ $myLib.formatNum(grade.qtty) }} MT</td>
+          <td align="center">{{ grade.price }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(grade.qtty * grade.price) }}</td>
+          <td class="credit-col"></td>
+        </tr>        
+      </tbody>
+    </table>      
   </div>
 </template>
 <script>
 export default {
-  props: ['description', 'hireRate', 'share', 'fromDate', 'toDate', 'index'],
+  props: ['description', 'hireRate', 'share', 'fromDate', 'toDate', 'bunkers', 'index'],
   computed: {
     hireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
@@ -146,6 +142,7 @@ export default {
   hr{
     background: rgba(20, 19, 19, 0.767);
     height: 2px;
+    margin-bottom: 8px;
   }
 </style>
 
