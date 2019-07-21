@@ -1,23 +1,28 @@
 <template>
-<div v-if="loaded" class="container"> 
-  <app-header @clickSettings="showSettingsForm = true"></app-header>
-  <app-settings-form v-if="showSettingsForm || firstStart"
-                     @close="showSettingsForm = false">
-  </app-settings-form>
-  <template v-else>
-    <app-hire></app-hire>
-    <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
-    <app-holds-cleaning></app-holds-cleaning>
-    <app-charterers-expenses></app-charterers-expenses>
-    <app-owners-expenses></app-owners-expenses>
-    <app-off-hire></app-off-hire>
-    <!-- <app-speed-claim></app-speed-claim> -->
-    <app-remittances></app-remittances>
-  </template>
-</div> 
+<div v-if="loaded" class="container">
+  <app-settings-form></app-settings-form>  
+</div>
 </template>
 
 <script>
+
+// <div v-if="false" class="container"> 
+//     <app-header @clickSettings="showSettingsForm = true"></app-header>
+//     <app-settings-form v-if="showSettingsForm || firstStart"
+//                       @close="showSettingsForm = false">
+//     </app-settings-form>
+//     <template v-else>
+//       <app-hire></app-hire>
+//       <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
+//       <app-holds-cleaning></app-holds-cleaning>
+//       <app-charterers-expenses></app-charterers-expenses>
+//       <app-owners-expenses></app-owners-expenses>
+//       <app-off-hire></app-off-hire>
+//       <!-- <app-speed-claim></app-speed-claim> -->
+//       <app-remittances></app-remittances>
+//     </template>
+//   </div>
+
 import SettingsForm from './components/SettingsForm.vue';
 import Header from './components/Header.vue';
 import Hire from './components/Hire/HireFormView.vue';

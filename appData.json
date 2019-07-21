@@ -1,30 +1,49 @@
 {
-  "settings": {
-    "firstStart": false,
-    "basicHire": 9250,
-    "deliveryDate": {
-      "time": "12:00",
-      "date": "2019-07-08"
+  "settings": {    
+    "firstStart": true,
+    "componentsOn": {
+      "ownersExpenses": false,
+      "charterersExpenses": false, 
+      "holdsCleaning": false,
+      "bunkers": false,
+      "offHire": false,
+      "speedClaim": false
+    }, 
+    "finance": {
+      "basicHire": null,
+      "cevRate": { "value": null, "days": 30.416 }, 
+      "addComm": { "on": false, "value": null },
+      "brkComm": { "on": false, "value": null },
+      "ballastBonus": { "on": false, "value": null }
     },
-    "redeliveryDate": {
+    "delivery": {
+      "status": "estimated",
       "time": null,
       "date": null
     },
-    "addComm": {
-      "status": true,
-      "value": 3.75
+    "redelivery": {
+      "status": "estimated",
+      "time": null,
+      "date": null
     },
-    "brkComm": {
-      "status": true,
-      "value": 1.25
+    "bunkersOnDelivery": {
+      "status": "estimated",
+      "grades": [
+        {"name": "IFO", "qtty": 0, "price": 0},
+        {"name": "MGO", "qtty": 0, "price": 0} 
+      ]
     },
-    "cevRate": 1250,
-    "ballastBonus": {
-      "status": true,
-      "value": 125000
+    "bunkersOnRedelivery": {
+      "status": "estimated",
+      "grades": [
+        {"name": "IFO", "qtty": 0, "price": 0},
+        {"name": "MGO", "qtty": 0, "price": 0} 
+      ]
     },
-    "ilohc": 4500,
-    "ilihc": 3500
+    "holdsCleaning": {
+      "ilohc": null, 
+      "ilihc": null
+    }  
   },
   "header": {
     "vesselName": "Marika",
@@ -42,25 +61,7 @@
       "date": "2019-07-08"
     } 
   }],
-  "offHire": [
-    { "description": "due to M/E breakdown",
-      "hireRate": 9250,
-      "share": {"status": false, "value": 100},
-      "fromDate": {
-        "time": "18:00",
-        "date": "2019-08-01" },
-      "toDate": {
-        "time": "06:00",
-        "date": "2019-08-02" },
-        "bunkers": {
-          "status": true,
-          "grades": [
-            {"name": "IFO", "qtty": 5.5, "price": 450},
-            {"name": "MDO", "qtty": 10.2, "price": 650}
-          ]
-        } 
-    }
-  ],
+  "offHire": [],
   "charterersExpenses": [{
     "description": "On-hire bunker survey",
     "value": "450"

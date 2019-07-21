@@ -20,7 +20,9 @@
         :index="index">
       </app-off-hire-item>
     </div>
-    <app-off-hire-form-add></app-off-hire-form-add>
+    <app-off-hire-form-add v-if="showAddForm" 
+                           @close="showAddForm = false">
+    </app-off-hire-form-add>
   </div>
 </template>
 <script>
@@ -28,9 +30,19 @@ import OffHireItem from './OffHireItem.vue';
 import OffHireFormAdd from './OffHireFormAdd.vue';
 
 export default {
+  data() {
+    return {
+      showAddForm: false
+    }
+  },
   computed: {
     offHireItems() {
       return this.$store.getters.offHireItems;
+    }
+  },
+  methods: {
+    addItem() {
+      this.showAddForm = true;
     }
   },
   components: {
