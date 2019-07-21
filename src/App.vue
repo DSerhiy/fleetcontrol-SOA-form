@@ -1,39 +1,14 @@
 <template>
-<div v-if="loaded" class="container">
-  <app-settings-form></app-settings-form>  
-</div>
+  <div v-if="loaded" class="container">
+    <app-header></app-header>    
+    <router-view></router-view>    
+    
+  </div>
 </template>
 
 <script>
-
-// <div v-if="false" class="container"> 
-//     <app-header @clickSettings="showSettingsForm = true"></app-header>
-//     <app-settings-form v-if="showSettingsForm || firstStart"
-//                       @close="showSettingsForm = false">
-//     </app-settings-form>
-//     <template v-else>
-//       <app-hire></app-hire>
-//       <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
-//       <app-holds-cleaning></app-holds-cleaning>
-//       <app-charterers-expenses></app-charterers-expenses>
-//       <app-owners-expenses></app-owners-expenses>
-//       <app-off-hire></app-off-hire>
-//       <!-- <app-speed-claim></app-speed-claim> -->
-//       <app-remittances></app-remittances>
-//     </template>
-//   </div>
-
 import SettingsForm from './components/SettingsForm.vue';
 import Header from './components/Header.vue';
-import Hire from './components/Hire/HireFormView.vue';
-import BunkersDelivery from './components/Bunkers/BunkersDeliveryFormView.vue';
-import HoldsCleaning from './components/HoldsCleaning/HoldsCleaningFromView.vue';
-import CharterersExpenses from './components/CharterersExpenses/ExpensesFormView.vue';
-import OwnersExpenses from './components/OwnersExpenses/ExpensesFormView.vue';
-import OffHire from './components/OffHire/OffHireFromView.vue';
-import SpeedClaim from './components/SpeedClaim/SpeedClaimFromView.vue';
-import Remittances from './components/Remittances/RemittancesFormView.vue';
-
 
 export default {
   data() {
@@ -47,6 +22,11 @@ export default {
       return this.$store.getters.firstStart;
     }    
   },
+  methods: {
+    setFirstStart(setup) {
+      this.$store.dispatch('setFirstStart', setup);
+    }
+  },
   mounted() {
     fetch('../appData.json')
       .then(response => response.json())
@@ -59,20 +39,18 @@ export default {
         this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);
         this.$store.dispatch('initHoldsCleaning', appData.holdsCleaning);
         this.$store.dispatch('initRemittances', appData.remittances);
-        this.loaded = true;        
-      });              
+        this.loaded = true;
+        
+        if(this.firstStart) {                  
+          this.$router.push('/settings');
+          this.setFirstStart(false);
+        }                          
+      });
+
   },
   components: {
     appSettingsForm: SettingsForm,
-    appHeader: Header, 
-    appHire: Hire,
-    appBunkersDelivery: BunkersDelivery,
-    appHoldsCleaning: HoldsCleaning,    
-    appCharterersExpenses: CharterersExpenses, 
-    appOwnersExpenses: OwnersExpenses,
-    appOffHire: OffHire,
-    appSpeedClaim: SpeedClaim,
-    appRemittances: Remittances    
+    appHeader: Header    
   }
 }
 </script>

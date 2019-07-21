@@ -19,12 +19,15 @@
           <table class="table">
             <tr>
               <td colspan="4" class="not-bordered">
-                <div class="btn-settings" @click="$emit('clickSettings')">
-                  <i class="zmdi zmdi-settings"></i> <span>settings</span>
-                </div>
-              </td>
-              <th scope="col" class="debit-col text-center">DEBIT, USD</th>
-              <th scope="col" class="credit-col text-center">CREDIT, USD</th>
+                <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link" active-class="active" exact>SOA</router-link>                  
+                </li>
+                <li class="nav-item">
+                  <router-link to='/settings' class="nav-link" active-class="active">Settings</router-link>
+                </li>              
+              </ul>               
+              </td>              
             </tr>
           </table>          
         </div>

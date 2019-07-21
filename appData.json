@@ -50,27 +50,12 @@
     "charterersName": "BPG Shipping Company DMCC",
     "cpDate": "26.06.2019"
   },
-  "hire": [{
-    "hireRate": 9250,
-    "fromDate": {
-      "time": "12:00",
-      "date": "2019-07-08"
-    },
-    "toDate": {
-      "time": "12:00",
-      "date": "2019-07-08"
-    } 
-  }],
+  "hire": [],
   "offHire": [],
-  "charterersExpenses": [{
-    "description": "On-hire bunker survey",
-    "value": "450"
-  }],
+  "charterersExpenses": [],
   "ownersExpenses": [],
   "holdsCleaning": [],
-  "remittances": [{
-    "description": "1st hire",
-    "date": "2019-07-08",
-    "value": 251254.12
-  }]
+  "remittances": []
 }
+
+ 

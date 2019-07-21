@@ -31,7 +31,7 @@
       <td class="debit-col"></td>
       <td class="credit-col text-right">{{ $myLib.formatNum(hireResult) }}</td>
     </tr>
-    <tr v-if="ballastBonus.status && index === 0">
+    <tr v-if="ballastBonus.on && index === 0">
       <th colspan="4">GROSS BALLAST BONUS :</th>
       <td class="debit-col"></td>
       <td class="credit-col text-right">{{ $myLib.formatNum(ballastBonusValue) }}</td>
@@ -39,14 +39,14 @@
     <tr>
       <td colspan="6" class="not-bordered"></td>
     </tr>
-    <tr v-if="addComm.status">
+    <tr v-if="addComm.on">
       <td> ADD COMM : </td>
       <td colspan="2"></td>
       <td align="center">{{ $myLib.formatNum(addComm.value) + '%' }}</td>          
       <td class="debit-col text-right">{{ $myLib.formatNum(addCommResult) }}</td>
       <td class="credit-col"></td>
     </tr>
-    <tr v-if="brkComm.status">
+    <tr v-if="brkComm.on">
       <td>BRK COMM :</td>
       <td colspan="2"></td>
       <td align="center">{{ $myLib.formatNum(brkComm.value) + '%' }}</td>          
@@ -59,7 +59,7 @@
     <tr>
       <td>C/E/V :</td>
       <td colspan="2" align="right">Rate, USD/PMPR:</td>
-      <td align="center">{{ cev }} </td>          
+      <td align="center">{{ cev.value }} </td>          
       <td class="debit-col"></td>
       <td class="credit-col text-right">{{ $myLib.formatNum(cevResult) }}</td>
     </tr>
@@ -71,10 +71,10 @@ export default {
   props: ['hireRate', 'fromDate', 'toDate', 'index'],
   computed: {
     addComm(){  
-      return this.$store.getters.addComm;
+      return this.$store.getters.finance.addComm;
     },
     brkComm() {
-      return this.$store.getters.brkComm;
+      return this.$store.getters.finance.brkComm;
     },
     hireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
@@ -91,13 +91,13 @@ export default {
       return (this.hireRate * this.hireDays + Number(this.ballastBonus.value)) * this.brkComm.value / 100;
     }, 
     cev() {
-      return this.$store.getters.cevRate;
+      return this.$store.getters.finance.cevRate;
     },
     cevResult() {
-      return this.cev / 30 * this.hireDays;      
+      return this.cev.value / this.cev.days * this.hireDays;      
     }, 
     ballastBonus() {
-      return this.$store.getters.ballastBonus;
+      return this.$store.getters.finance.ballastBonus;
     }, 
     ballastBonusValue() {
       return this.ballastBonus.value;

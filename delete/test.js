@@ -27,3 +27,22 @@ const date = '2019-05-01';
 const jsDate = new Date(date);
 jsDate.setDate(jsDate.getDate() - 1);
 console.log(jsDate.toString());
+
+
+// {
+//   "hireRate": 9250,
+//   "fromDate": {
+//     "time": "12:00",
+//     "date": "2019-07-08"
+//   },
+//   "toDate": {
+//     "time": "12:00",
+//     "date": "2019-07-08"
+//   } 
+// }
+
+// {
+//   "description": "1st hire",
+//   "date": "2019-07-08",
+//   "value": 251254.12
+// }

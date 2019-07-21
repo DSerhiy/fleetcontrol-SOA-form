@@ -1,11 +1,5 @@
 <template>
-  <div class="container"> 
-
-    <div class="row pt-2 pb-2">
-        <div class="col">
-		      <h4 class="page-title">SOA Settings</h4>       
-        </div>
-    </div>
+  <div class="container">   
     
     <!-- Components -->
     <div class="row">
@@ -19,7 +13,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="1" 
-                      :value="componentsOn.ownersExpenses"
+                      :checked="componentsOn.ownersExpenses"
                       @click="setOwnersExpensesOn($event.target.checked)">
                     <label for="1">Owners' Expenses</label>
                   </div>
@@ -27,7 +21,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="2" 
-                      :value="componentsOn.charterersExpenses"
+                      :checked="componentsOn.charterersExpenses"
                       @click="setCharterersExpensesOn($event.target.checked)">
                     <label for="2">Charterers' Expenses</label>
                   </div>
@@ -35,7 +29,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="3" 
-                      :value="componentsOn.holdsCleaning"
+                      :checked="componentsOn.holdsCleaning"
                       @click="setHoldsCleaningOn($event.target.checked)">
                     <label for="3">Holds Cleaning</label>
                   </div>
@@ -48,7 +42,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="6" 
-                    :value="componentsOn.bunkers"
+                    :checked="componentsOn.bunkers"
                     @click="setBunkersOn($event.target.checked)">
                     <label for="6">Bunkers</label>
                   </div>
@@ -57,7 +51,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="4" 
-                    :value="componentsOn.offHire"
+                    :checked="componentsOn.offHire"
                     @click="setOffHireOn($event.target.checked)">
                     <label for="4">Off-hire</label>
                   </div>
@@ -65,7 +59,7 @@
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="5" 
-                    :value="componentsOn.speedClaim"
+                    :checked="componentsOn.speedClaim"
                     @click="setSpeedClaimOn($event.target.checked)">
                     <label for="5">Speed Claim</label>
                   </div>
@@ -87,7 +81,7 @@
             <div class="col-12">
               <div class="icheck-material-white">
                 <input type="checkbox" id="7"
-                  :value="finance.addComm.on"
+                  :checked="finance.addComm.on"
                   @click="setAddCommOn($event.target.checked)">
                 <label for="7">Address commission</label>
               </div>
@@ -95,7 +89,7 @@
             <div class="col-12">
               <div class="icheck-material-white">
                 <input type="checkbox" id="8" 
-                  :value="finance.brkComm.on"
+                  :checked="finance.brkComm.on"
                   @click="setBrkCommOn($event.target.checked)">
                 <label for="8">Brokerage commision</label>
               </div>
@@ -103,7 +97,7 @@
             <div class="col-12">
               <div class="icheck-material-white">
                 <input type="checkbox" id="9" 
-                  :value="finance.ballastBonus.on"
+                  :checked="finance.ballastBonus.on"
                   @click="setBallastBonusOn($event.target.checked)">
                 <label for="9">Ballast Bonus</label>
               </div>
@@ -433,6 +427,13 @@
       return {
       }
     },
+    beforeDestroy() {
+      this.$store.dispatch('addHireItem', { 
+        hireRate: this.$store.getters.finance.basicHire, 
+        fromDate: this.$store.getters.delivery, 
+        toDate: {time: this.$store.getters.delivery.time, date: this.$store.getters.delivery.date} 
+      });  
+    }, 
     computed:{
       ...mapGetters([
         'componentsOn',
@@ -519,47 +520,7 @@
         // Holds cleaning
         'setHoldsCleaningIlohc',
         'setHoldsCleaningIlihc'
-      ]),    
-      close() {
-        this.$emit('close');
-      },
-      save() {
-        this.$store.dispatch('setComponents', this.componentsOn);
-        this.$store.dispatch('setFinance', this.finance);
-        this.$store.dispatch('setDelivery', this.delivery);
-        this.$store.dispatch('setRedelivery', this.redelivery);
-        this.$store.dispatch('setBunkersOnDelivery', this.bunkersOnDelivery);
-        this.$store.dispatch('setBunkersOnRedelivery', this.bunkersOnRedelivery);
-        this.$store.dispatch('setHoldsCleaning', this.holdsCleaning);
-
-        // if(this.$store.getters.firstStart) {
-        //   this.$store.dispatch('addHireItem', {
-        //     fromDate: this.$store.getters.deliveryDate, 
-        //     toDate: {time: this.deliveryDate.time, date: this.deliveryDate.date}            
-        //   });
-        //   this.$store.dispatch('setFirstStart', false); 
-        // }
-        
-        // this.$store.dispatch('updateHireRate', {index: 0, value: this.basicHire});
-        
-        // this.$store.dispatch('setDeliveryDate', this.deliveryDate);
-        // this.$store.dispatch('setRedeliveryDate', this.redeliveryDate);
-        // this.$store.dispatch('setBasicHire', this.basicHire);
-        // this.$store.dispatch('setBallastBonus', {
-        //   status: this.checkbox.ballastBonus,
-        //   value: this.ballastBonus
-        // });
-        // this.$store.dispatch('setCevRate', this.cevRate);
-        // this.$store.dispatch('setAddComm', {
-        //   status: this.checkbox.addComm,
-        //   value: this.addComm 
-        // });
-        // this.$store.dispatch('setBrkComm', {
-        //   status: this.checkbox.brkComm,
-        //   value: this.brkComm 
-        // });        
-        this.close();
-      }
+      ]),          
     }
   }
 

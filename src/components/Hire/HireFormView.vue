@@ -1,6 +1,13 @@
 <template>
   <div class="card">
     <div class="card-body">
+      <table class="table">
+        <tr>
+          <td colspan="4" class="not-bordered"></td>
+          <th scope="col" class="debit-col text-center">DEBIT, USD</th>
+          <th scope="col" class="credit-col text-center">CREDIT, USD</th>
+        </tr>
+      </table>          
       <div class="card-title d-flex justify-content-between align-items-center">
         CHARTER HIRE :
         <div class="btn-add"
@@ -55,8 +62,8 @@
         this.showAddForm = true;
       },
       calcToDate(index) {
-        if(index === this.hireData.length - 1 && this.$store.getters.redeliveryDate.date)
-          return this.$store.getters.redeliveryDate;
+        // if(index === this.hireData.length - 1 && this.$store.getters.redelivery.date)
+        //   return this.$store.getters.redelivery;
         
         return this.hireData[index].toDate;
       }
@@ -68,5 +75,13 @@
     }
   }
 </script>
+<style scoped>
+  .btn-add {
+    position: relative;
+    top: 10px;
+    right: -27px;
+  }
+</style>
+
 
 
