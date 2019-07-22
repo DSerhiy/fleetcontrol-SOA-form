@@ -117,6 +117,33 @@
             </div>                            
           </div>
 
+          <div class="row mb-3 align-items-center">
+            <label class="col-4">c/e/v:</label> 
+            <div class="col-3 input-group-sm">
+              <input type="number" 
+              class="form-control" 
+              placeholder="Enter C/E/V"
+              @input="setCevValue(Number($event.target.value))"
+              :value="finance.cevRate.value">
+            </div> 
+            <div class="col-2 text-right">
+              <div class="icheck-material-white icheck-inline">
+                <input type="radio" id="radio1" 
+                  :value="30.416" 
+                  v-model="cevDays">
+                <label for="radio1">(365 / 12)</label>
+              </div>                                
+            </div>
+            <div class="col-2">
+              <div class="icheck-material-white icheck-inline">
+                <input type="radio" id="radio2"                  
+                  :value="30" 
+                  v-model="cevDays">
+                <label for="radio2">30</label>
+              </div>
+            </div>            
+          </div> 
+
           <div class="row mb-3 align-items-center" v-if="finance.addComm.on">
             <label class="col-4">Add comm:</label>
             <div class="col-3 input-group-sm">
@@ -152,35 +179,6 @@
                       :disabled="!finance.ballastBonus.on">
             </div> 
           </div> 
-
-          <div class="row mb-3 align-items-center">
-            <label class="col-4">c/e/v:</label>                
-            
-            <div class="col-3 input-group-sm">
-              <input type="number" 
-              class="form-control" 
-              placeholder="Enter C/E/V"
-              @input="setCevValue(Number($event.target.value))"
-              :value="finance.cevRate.value">
-            </div>  
-
-            <div class="col-2 text-right">
-              <div class="icheck-material-white icheck-inline">
-                <input type="radio" id="radio1" 
-                  :value="30.416" 
-                  v-model="cevDays">
-                <label for="radio1">(365 / 12)</label>
-              </div>                                
-            </div>
-            <div class="col-2">
-              <div class="icheck-material-white icheck-inline">
-                <input type="radio" id="radio2"                  
-                  :value="30" 
-                  v-model="cevDays">
-                <label for="radio2">30</label>
-              </div>
-            </div>            
-          </div>          
 
         </div>
       </div>       
@@ -235,9 +233,7 @@
             </div> 
           </div> 
         </div>
-      </div>
-
-       
+      </div>       
     </div>
 
     <!-- Redelivery details -->
@@ -329,8 +325,7 @@
               <div class="col-2">
                 <div @click="addGrade('delivery')" class="btn btn-success btn-delete">+</div>
               </div>              
-            </div> 
-
+            </div>
         </div>
       </div>       
     </div>
@@ -384,7 +379,6 @@
                 <div @click="addGrade('redelivery')" class="btn btn-success btn-delete">+</div>
               </div>              
             </div> 
-
         </div>
       </div>       
     </div> 
@@ -416,6 +410,7 @@
         </div>
       </div>       
     </div> 
+
   </div>
 </template>
 <script>
@@ -426,14 +421,7 @@
     data() {
       return {
       }
-    },
-    beforeDestroy() {
-      this.$store.dispatch('addHireItem', { 
-        hireRate: this.$store.getters.finance.basicHire, 
-        fromDate: this.$store.getters.delivery, 
-        toDate: {time: this.$store.getters.delivery.time, date: this.$store.getters.delivery.date} 
-      });  
-    }, 
+    },    
     computed:{
       ...mapGetters([
         'componentsOn',
@@ -526,6 +514,7 @@
 
 </script>
 <style scoped>
+ 
   .border-success {
     border-color: rgba(182, 255, 200, 0.514) !important;
   }

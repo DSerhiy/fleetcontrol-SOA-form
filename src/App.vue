@@ -1,20 +1,36 @@
 <template>
-  <div v-if="loaded" class="container">
-    <app-header></app-header>    
-    <router-view></router-view>    
-    
-  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <hr>
+      <h2 class="page-title font-weight-normal" align="center">
+        M/V <b>Marika</b> / <b>BPG Shipping Company DMCC</b> CP DD <b>22.07.2019</b>
+      </h2>
+      <h1 class="page-title" align="center">
+        STATEMENT OF ACCOUNTS
+      </h1>
+      <hr>
+    </div>
+  </div> 
+
+  <div v-if="loaded" class="container">    
+    <app-initial-setup v-if="firstStart"></app-initial-setup>
+    <template v-else>
+      <app-header></app-header>
+      <router-view></router-view>
+    </template>
+  </div>  
+</div>
 </template>
 
 <script>
-import SettingsForm from './components/SettingsForm.vue';
 import Header from './components/Header.vue';
+import InitialSetupForm from './components/InitialSetupForm.vue';
 
 export default {
   data() {
     return {
-      loaded: false,
-      showSettingsForm: false
+      loaded: false
     }
   },
   computed: {
@@ -39,31 +55,22 @@ export default {
         this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);
         this.$store.dispatch('initHoldsCleaning', appData.holdsCleaning);
         this.$store.dispatch('initRemittances', appData.remittances);
-        this.loaded = true;
-        
-        if(this.firstStart) {                  
-          this.$router.push('/settings');
-          this.setFirstStart(false);
-        }                          
+        this.loaded = true;    
       });
 
   },
   components: {
-    appSettingsForm: SettingsForm,
-    appHeader: Header    
+    appHeader: Header,    
+    appInitialSetup: InitialSetupForm,
   }
 }
 </script>
 
 <style>
 
-  .container {
-    max-width: 1000px;
-  }
-
- .card {
-   padding-right: 20px;
- }
+  html { overflow-y: scroll }
+  .container { max-width: 1000px }
+  .card { padding-right: 20px }
 
   #soa-form-layout table{
     table-layout: fixed;
@@ -76,7 +83,7 @@ export default {
   }
   #soa-form-layout input{
     display: block;
-    width: 100%;
+    /* width: 100%; */
     padding: 0 .75rem;
     font-size: 0.9rem;
     line-height: 1.5;
