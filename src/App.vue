@@ -57,7 +57,6 @@ export default {
         this.$store.dispatch('initRemittances', appData.remittances);
         this.loaded = true;    
       });
-
   },
   components: {
     appHeader: Header,    
@@ -67,11 +66,9 @@ export default {
 </script>
 
 <style>
-
   html { overflow-y: scroll }
   .container { max-width: 1000px }
-  .card { padding-right: 20px }
-
+  .card { padding-right: 20px; margin-bottom: 10px; }
   #soa-form-layout table{
     table-layout: fixed;
   }

@@ -145,7 +145,7 @@
       return {
         calcType: 'manual',
         description: null,        
-        hireRate: this.$store.getters.basicHire,
+        hireRate: this.$store.getters.finance.basicHire,
         share: { status: false, value: 100 },
         toDate: { time: null, date: null}, 
         fromDate: { time: null, date: null}, 

@@ -6,10 +6,10 @@
       <div class="card col-12">
         <div class="card-header text-uppercase">Components :</div>
         <div class="card-body">
+          
           <div class="row">
             <div class="col-6">
-              <div class="row">
-               
+              <div class="row">               
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="1" 
@@ -33,8 +33,7 @@
                       @click="setHoldsCleaningOn($event.target.checked)">
                     <label for="3">Holds Cleaning</label>
                   </div>
-                </div>
-                     
+                </div>                     
               </div>
             </div>  
             <div class="col-6">
@@ -46,8 +45,7 @@
                     @click="setBunkersOn($event.target.checked)">
                     <label for="6">Bunkers</label>
                   </div>
-                </div>
-                
+                </div>                
                 <div class="col-12">
                   <div class="icheck-material-white">
                     <input type="checkbox" id="4" 
@@ -77,35 +75,7 @@
         <div class="card-header text-uppercase">Finance :</div>
         <div class="card-body">
 
-          <div class="row">
-            <div class="col-12">
-              <div class="icheck-material-white">
-                <input type="checkbox" id="7"
-                  :checked="finance.addComm.on"
-                  @click="setAddCommOn($event.target.checked)">
-                <label for="7">Address commission</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="icheck-material-white">
-                <input type="checkbox" id="8" 
-                  :checked="finance.brkComm.on"
-                  @click="setBrkCommOn($event.target.checked)">
-                <label for="8">Brokerage commision</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="icheck-material-white">
-                <input type="checkbox" id="9" 
-                  :checked="finance.ballastBonus.on"
-                  @click="setBallastBonusOn($event.target.checked)">
-                <label for="9">Ballast Bonus</label>
-              </div>
-            </div>
-          </div>
-
-          <hr>
-
+          
           <div class="row mb-3 align-items-center">
             <label class="col-4">Basic Hire Rate:</label>            
             <div class="col-3 input-group-sm">
@@ -144,7 +114,38 @@
             </div>            
           </div> 
 
-          <div class="row mb-3 align-items-center" v-if="finance.addComm.on">
+          <hr>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="icheck-material-white">
+                <input type="checkbox" id="7"
+                  :checked="finance.addComm.on"
+                  @click="setAddCommOn($event.target.checked)">
+                <label for="7">Address commission</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="icheck-material-white">
+                <input type="checkbox" id="8" 
+                  :checked="finance.brkComm.on"
+                  @click="setBrkCommOn($event.target.checked)">
+                <label for="8">Brokerage commision</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="icheck-material-white">
+                <input type="checkbox" id="9" 
+                  :checked="finance.ballastBonus.on"
+                  @click="setBallastBonusOn($event.target.checked)">
+                <label for="9">Ballast Bonus</label>
+              </div>
+            </div>
+          </div>
+          
+          <hr>
+
+          <div class="row mb-3 align-items-center" v-if="finance.addComm.on">           
             <label class="col-4">Add comm:</label>
             <div class="col-3 input-group-sm">
               <input type="number" 

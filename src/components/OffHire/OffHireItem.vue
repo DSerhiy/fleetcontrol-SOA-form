@@ -40,13 +40,13 @@
         <tr>
           <td colspan="6" class="not-bordered"></td>
         </tr>
-        <tr v-if="addComm.status">
+        <tr v-if="addComm.on">
           <td colspan="3">ADD COMM OFF-HIRE PERIODS :</td>
           <td align="center">{{ $myLib.formatNum(addComm.value) }}%</td>
           <td class="debit-col"></td>
           <td class="credit-col" align="right">{{ $myLib.formatNum(addCommResult) }}</td>
         </tr>
-        <tr v-if="brkComm.status">
+        <tr v-if="brkComm.on">
           <td colspan="3">BRK COMM OFF-HIRE PERIODS :</td>
           <td align="center">{{ brkComm.value }}%</td>
           <td class="debit-col"></td>
@@ -58,7 +58,7 @@
         <tr>
           <td colspan="2">C/E/V OFF-HIRE PERIOD :</td>
           <td>Rate, USD/PMPR</td>
-          <td align="center">{{ cevRate }}</td>
+          <td align="center">{{ cevRate.value }}</td>
           <td class="debit-col" align="right">{{ $myLib.formatNum(cevResult) }}</td>
           <td class="credit-col"></td>
         </tr>              
@@ -98,22 +98,22 @@ export default {
       return this.hireRate * this.hireDays; 
     }, 
     addComm() {
-      return this.$store.getters.addComm;
+      return this.$store.getters.finance.addComm;
     },
     addCommResult() {
       return this.offHireResult * this.addComm.value / 100;
     },
     brkComm() {
-      return this.$store.getters.brkComm;
+      return this.$store.getters.finance.brkComm;
     },
     brkCommResult() {
       return this.offHireResult * this.brkComm.value / 100;
     },
     cevRate() {
-      return this.$store.getters.cevRate;
+      return this.$store.getters.finance.cevRate;
     },
     cevResult() {
-      return this.hireDays * this.cevRate / 30;      
+      return this.hireDays * this.cevRate.value / this.cevRate.days;      
     },
   }
 }
