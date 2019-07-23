@@ -6,7 +6,7 @@
   <app-charterers-expenses v-if="componentsOn.charterersExpenses"></app-charterers-expenses>
   <app-owners-expenses v-if="componentsOn.ownersExpenses"></app-owners-expenses>
   <app-off-hire v-if="componentsOn.offHire"></app-off-hire>    
-  <!-- <app-remittances></app-remittances> -->
+  <app-remittances></app-remittances>
 
   <!-- <app-speed-claim></app-speed-claim> -->
   <!-- <app-bunkers-delivery></app-bunkers-delivery> -->

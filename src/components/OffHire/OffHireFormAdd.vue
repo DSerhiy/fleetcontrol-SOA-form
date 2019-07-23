@@ -164,7 +164,7 @@
         const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
         const share = this.share.status ? this.share.value : 100;
         return (toDate - fromDate) / 60 / 60 / 24 / 1000 * (share / 100);
-      }, 
+      },
     },
     methods: {    
       bunkerResult(grade) {

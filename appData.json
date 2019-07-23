@@ -1,6 +1,6 @@
 {
   "settings": {    
-    "firstStart": true,
+    "firstStart": false,
     "componentsOn": {
       "ownersExpenses": false,
       "charterersExpenses": false, 
@@ -10,16 +10,16 @@
       "speedClaim": false
     }, 
     "finance": {
-      "basicHire": null,
-      "cevRate": { "value": null, "days": 30.416 }, 
+      "basicHire": 5000,
+      "cevRate": { "value": 1250, "days": 30.416 }, 
       "addComm": { "on": false, "value": null },
       "brkComm": { "on": false, "value": null },
       "ballastBonus": { "on": false, "value": null }
     },
     "delivery": {
       "status": "estimated",
-      "time": null,
-      "date": null
+      "time": "01:01",
+      "date": "2019-10-15"
     },
     "redelivery": {
       "status": "estimated",
@@ -45,7 +45,11 @@
       "ilihc": null
     }  
   },  
-  "hire": [],
+  "hire": [{
+    "hireRate": 500,
+    "toDate": { "time": "01:01", "date": "2019-10-15"},
+    "fromDate": { "time": "01:01", "date": "2019-10-15"}
+  }],
   "offHire": [],
   "charterersExpenses": [],
   "ownersExpenses": [],

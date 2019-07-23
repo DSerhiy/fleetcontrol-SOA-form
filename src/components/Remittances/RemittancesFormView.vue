@@ -40,41 +40,41 @@ export default {
     },
     credit() {  
       // Hire calculation
-      let crHire = 0;
+      let hire = 0;
       this.$store.getters.hireItems.forEach((item) => {
         const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
         const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
         const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
         
-        crHire += days * (Number(this.$store.getters.cevRate) / 30 + Number(item.hireRate));
+        hire += days * (Number(this.$store.getters.cevRate.value) / this.$store.getters.cevRate.dyas + Number(item.hireRate));
       });
 
-      if(this.$store.getters.ballastBonus.status)
-          crHire += Number(this.$store.getters.ballastBonus.value);
+      if(this.$store.getters.finance.ballastBonus.on)
+          hire += Number(this.$store.getters.finance.ballastBonus.value);
 
       // Charterers expenses calculations
-      let crChrExp = 0;
+      let chrExps = 0;
 
       this.$store.getters.charterersExpensesItems.forEach(item => {
-        crChrExp += Number(item.value);
+        chrExps += Number(item.value);
       });
 
       // Holds cleaning calculations
-      let crHolds = 0;
+      let holdsCleaning = 0;
 
       this.$store.getters.holdsCleaningItems.forEach(item => {
-        crHolds += Number(item.value);
+        holdsCleaning += Number(item.value);
       });
       
-      return crHire + crChrExp + crHolds;
+      return hire + chrExps + holdsCleaning;
     },
     debit() {
       // Hire calculations 
       let debitHire = 0;
       
-      if(this.$store.getters.addComm.status || this.$store.getters.brkComm.status) {
-        const addComm = this.$store.getters.addComm.status ? Number(this.$store.getters.addComm.value) : 0;
-        const brkComm = this.$store.getters.brkComm.status ? Number(this.$store.getters.brkComm.value) : 0;
+      if(this.$store.getters.finance.addComm.on || this.$store.getters.finance.brkComm.on) {
+        const addComm = this.$store.getters.finance.addComm.on ? Number(this.$store.getters.finance.addComm.value) : 0;
+        const brkComm = this.$store.getters.finance.brkComm.on ? Number(this.$store.getters.finance.brkComm.value) : 0;
         
         this.$store.getters.hireItems.forEach((item) => {
           const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
@@ -85,8 +85,8 @@ export default {
           debitHire += hireRate * days * (addComm + brkComm) / 100;
         });
 
-        if(this.$store.getters.ballastBonus.status)
-          debitHire += Number(this.$store.getters.ballastBonus.value) * (addComm + brkComm) / 100;
+        if(this.$store.getters.finance.ballastBonus.on)
+          debitHire += Number(this.$store.getters.finance.ballastBonus.value) * (addComm + brkComm) / 100;
       };
 
       // Owners expenses calculations
@@ -98,9 +98,6 @@ export default {
       
       return debitHire + debitOwnExp;
     }
-  },
-  watch: {
-    
   },
   components: {
     appRemittanceItem: remittanceItem
