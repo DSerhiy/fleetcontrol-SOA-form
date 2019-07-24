@@ -21,7 +21,7 @@ const getters = {
 const mutations = {
   // Hire component 
   initHire(state, data) {
-    state.hire = data
+    state.hire = data;    
   },
   addHireItem(state, hireItem) {
     state.hire.push(hireItem);
@@ -31,15 +31,15 @@ const mutations = {
       state.hire[index + 1].fromDate = state.hire[index - 1].toDate;
 
     state.hire.splice(index, 1);
-  },     
-  updateToDate(state, newToDate) {
-    state.hire[newToDate.index].toDate.time = newToDate.time;
-    state.hire[newToDate.index].toDate.date = newToDate.date;
-  },
+  },  
   updateFromDate(state, newFromDate) {
     state.hire[newFromDate.index].fromDate.time = newFromDate.time;
     state.hire[newFromDate.index].fromDate.date = newFromDate.date;
-  },
+  },   
+  updateToDate(state, newToDate) {
+    state.hire[newToDate.index].toDate.time = newToDate.time;
+    state.hire[newToDate.index].toDate.date = newToDate.date;
+  },  
   updateHireRate(state, newHireRate) {
     state.hire[newHireRate.index].hireRate = newHireRate.value; 
   },         

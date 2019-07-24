@@ -18,8 +18,8 @@
         </tr>
         <tr>
           <th colspan="4">BALANCE DUE TO OWNERS :</th>
-          <td class="debit-col"></td>
-          <td class="credit-col" align="right">8 750.00</td>
+          <td class="debit-col" align="right">{{result < 0? $myLib.formatNum(Math.abs(result)): null}}</td>
+          <td class="credit-col" align="right">{{result >= 0? $myLib.formatNum(result): ''}}</td>
         </tr>
       </table>
     </div>
@@ -46,7 +46,7 @@ export default {
         const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
         const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
         
-        hire += days * (Number(this.$store.getters.cevRate.value) / this.$store.getters.cevRate.dyas + Number(item.hireRate));
+        hire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
       });
 
       if(this.$store.getters.finance.ballastBonus.on)
@@ -97,6 +97,9 @@ export default {
       });       
       
       return debitHire + debitOwnExp;
+    },
+    result() {
+      return this.credit - this.debit;
     }
   },
   components: {

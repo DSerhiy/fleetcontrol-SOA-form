@@ -232,7 +232,7 @@ export default {
                       
       this.$store.dispatch('addHireItem', { 
         hireRate: this.$store.getters.finance.basicHire, 
-        fromDate: this.$store.getters.delivery, 
+        fromDate: {time: this.$store.getters.delivery.time, date: this.$store.getters.delivery.date}, 
         toDate: {time: this.$store.getters.delivery.time, date: this.$store.getters.delivery.date} 
       });   
       this.$store.dispatch('setFirstStart', false);

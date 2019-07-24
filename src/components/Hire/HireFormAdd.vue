@@ -41,7 +41,7 @@
   export default {
     data() {
       return {
-        hireRate: 1500
+        hireRate: null
       }
     },
     methods: {
@@ -51,7 +51,7 @@
 
         this.$store.dispatch('addHireItem', {
           hireRate: this.hireRate,
-          fromDate: fromDate,
+          fromDate: { time: fromDate.time, date: fromDate.date },
           toDate: { time: fromDate.time, date: fromDate.date }
         });
         this.close();        

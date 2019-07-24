@@ -205,7 +205,7 @@ const actions = {
     commit('setDeliveryStatus', status);
   },
   setDeliveryTime({ commit }, time) {
-    commit('setDeliveryTime', time);
+    commit('setDeliveryTime', time);    
   },
   setDeliveryDate({ commit }, date) {
     commit('setDeliveryDate', date);

@@ -141,7 +141,14 @@ export default {
     update() {
       this.$store.dispatch('updateToDate', {index: this.index, time: this.toDate.time, date: this.toDate.date});
       this.$store.dispatch('updateHireRate', {index: this.index, value: this.hireRate});
-      
+
+      if(this.$store.getters.hireItems.length > this.index + 1 )
+        this.$store.dispatch('updateFromDate', {
+          index: this.index + 1,
+          time: this.toDate.time,
+          date: this.toDate.date
+        });
+
       if (this.index === 0) 
         this.$store.dispatch('setBasicHire', this.hireRate);
       

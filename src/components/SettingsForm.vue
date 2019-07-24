@@ -422,6 +422,17 @@
     data() {
       return {
       }
+    },
+    destroyed() {
+      this.$store.dispatch('updateFromDate', {
+        index: 0,
+        time: this.$store.getters.delivery.time,
+        date: this.$store.getters.delivery.date
+      }),
+      this.$store.dispatch('updateHireRate', {
+        index: 0,
+        value: this.$store.getters.finance.basicHire
+      })
     },    
     computed:{
       ...mapGetters([
