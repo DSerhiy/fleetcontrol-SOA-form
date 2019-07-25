@@ -74,9 +74,8 @@
       <div class="card col-12">
         <div class="card-header text-uppercase">Finance :</div>
         <div class="card-body">
-
           
-          <div class="row mb-3 align-items-center">
+          <div class="row mb-1 align-items-center">
             <label class="col-4">Basic Hire Rate:</label>            
             <div class="col-3 input-group-sm">
               <input type="number" 
@@ -86,8 +85,7 @@
               :value="finance.basicHire">
             </div>                            
           </div>
-
-          <div class="row mb-3 align-items-center">
+          <div class="row align-items-center">
             <label class="col-4">c/e/v:</label> 
             <div class="col-3 input-group-sm">
               <input type="number" 
@@ -116,8 +114,8 @@
 
           <hr>
 
-          <div class="row">
-            <div class="col-12">
+          <div class="row mb-1">
+            <div class="col-4">
               <div class="icheck-material-white">
                 <input type="checkbox" id="7"
                   :checked="finance.addComm.on"
@@ -125,29 +123,7 @@
                 <label for="7">Address commission</label>
               </div>
             </div>
-            <div class="col-12">
-              <div class="icheck-material-white">
-                <input type="checkbox" id="8" 
-                  :checked="finance.brkComm.on"
-                  @click="setBrkCommOn($event.target.checked)">
-                <label for="8">Brokerage commision</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="icheck-material-white">
-                <input type="checkbox" id="9" 
-                  :checked="finance.ballastBonus.on"
-                  @click="setBallastBonusOn($event.target.checked)">
-                <label for="9">Ballast Bonus</label>
-              </div>
-            </div>
-          </div>
-          
-          <hr>
-
-          <div class="row mb-3 align-items-center" v-if="finance.addComm.on">           
-            <label class="col-4">Add comm:</label>
-            <div class="col-3 input-group-sm">
+            <div class="col-3 input-group-sm" v-if="finance.addComm.on">
               <input type="number" 
                       class="form-control" 
                       placeholder="Enter Add Comm"
@@ -155,23 +131,35 @@
                       :value="finance.addComm.value"
                       :disabled="!finance.addComm.on">
             </div> 
-          </div>                
-
-          <div class="row mb-3 align-items-center" v-if="finance.brkComm.on">
-            <label class="col-4">Brk comm:</label>
-            <div class="col-3 input-group-sm">
+          </div>
+          <div class="row mb-1">
+            <div class="col-4">
+              <div class="icheck-material-white">
+                <input type="checkbox" id="8" 
+                  :checked="finance.brkComm.on"
+                  @click="setBrkCommOn($event.target.checked)">
+                <label for="8">Brokerage commision</label>
+              </div>
+            </div>
+            <div class="col-3 input-group-sm" v-if="finance.brkComm.on">
               <input type="number" 
                       class="form-control" 
                       placeholder="Enter BRK Comm"
                       @input="setBrkCommValue(Number($event.target.value))"
                       :value="finance.brkComm.value"
                       :disabled="!finance.brkComm.on">
-            </div> 
-          </div>  
-
-          <div class="row mb-3 align-items-center" v-if="finance.ballastBonus.on">
-            <label class="col-4">Ballast bonus:</label>
-            <div class="col-3 input-group-sm">
+            </div>
+          </div>
+          <div class="row"> 
+            <div class="col-4">
+              <div class="icheck-material-white">
+                <input type="checkbox" id="9" 
+                  :checked="finance.ballastBonus.on"
+                  @click="setBallastBonusOn($event.target.checked)">
+                <label for="9">Ballast Bonus</label>
+              </div>
+            </div>
+            <div class="col-3 input-group-sm" v-if="finance.ballastBonus.on">
               <input type="number" 
                       class="form-control" 
                       placeholder="Enter ballast bonus"
@@ -212,7 +200,7 @@
 
           <hr>
 
-          <div class="row mb-3 align-items-center">
+          <div class="row mb-1 align-items-center">
             <label class="col-4">time:</label>            
             <div class="col-3 input-group-sm">
               <input type="time" 
@@ -221,9 +209,7 @@
                       :value="delivery.time">
             </div>                            
           </div>
-
-
-          <div class="row mb-3 align-items-center">
+          <div class="row mb-1 align-items-center">
             <label class="col-4">date:</label>                
             
             <div class="col-3 input-group-sm">
@@ -233,6 +219,7 @@
                       :value="delivery.date">
             </div> 
           </div> 
+
         </div>
       </div>       
     </div>
@@ -260,7 +247,7 @@
 
           <hr>
 
-          <div class="row mb-3 align-items-center">
+          <div class="row mb-1 align-items-center">
             <label class="col-4">time:</label>            
             <div class="col-3 input-group-sm">
               <input type="time" 
@@ -269,8 +256,7 @@
                       :value="redelivery.time">
             </div>                            
           </div>
-
-          <div class="row mb-3 align-items-center">
+          <div class="row mb-1 align-items-center">
             <label class="col-4">date:</label>                
             
             <div class="col-3 input-group-sm">
@@ -280,6 +266,7 @@
                       :value="redelivery.date">
             </div> 
           </div> 
+
         </div>
       </div>       
     </div>

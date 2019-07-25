@@ -4,7 +4,7 @@
     <div class="col-lg-12">
       <hr>
       <h2 class="page-title font-weight-normal" align="center">
-        M/V <b>Marika</b> / <b>BPG Shipping Company DMCC</b> CP DD <b>22.07.2019</b>
+        M/V <b>Sea Lady</b> / <b>BPG Shipping Company DMCC</b> CP DD <b>16.07.2019</b>
       </h2>
       <h1 class="page-title" align="center">
         STATEMENT OF ACCOUNTS

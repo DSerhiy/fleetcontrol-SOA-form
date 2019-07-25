@@ -54,7 +54,7 @@
   "charterersExpenses": [],
   "ownersExpenses": [],
   "holdsCleaning": [],
-  "remittances": []
+  "remittances": [{"description": "1st hire", "date": "2019-07-25", "value": 12500}]
 }
 
  

@@ -18,8 +18,8 @@
         </tr>
         <tr>
           <th colspan="4">BALANCE DUE TO OWNERS :</th>
-          <td class="debit-col" align="right">{{result < 0? $myLib.formatNum(Math.abs(result)): null}}</td>
-          <td class="credit-col" align="right">{{result >= 0? $myLib.formatNum(result): ''}}</td>
+          <td class="debit-col" align="right">{{ result < 0? $myLib.formatNum(Math.abs(result)): null}}</td>
+          <td class="credit-col" align="right">{{result >= 0? $myLib.formatNum(result): null}}</td>
         </tr>
       </table>
     </div>
@@ -69,25 +69,38 @@ export default {
       return hire + chrExps + holdsCleaning;
     },
     debit() {
-      // Hire calculations 
-      let debitHire = 0;
-      
-      if(this.$store.getters.finance.addComm.on || this.$store.getters.finance.brkComm.on) {
-        const addComm = this.$store.getters.finance.addComm.on ? Number(this.$store.getters.finance.addComm.value) : 0;
-        const brkComm = this.$store.getters.finance.brkComm.on ? Number(this.$store.getters.finance.brkComm.value) : 0;
-        
-        this.$store.getters.hireItems.forEach((item) => {
-          const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
-          const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
-          const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
-          const hireRate = Number(item.hireRate);          
-                
-          debitHire += hireRate * days * (addComm + brkComm) / 100;
-        });
 
-        if(this.$store.getters.finance.ballastBonus.on)
-          debitHire += Number(this.$store.getters.finance.ballastBonus.value) * (addComm + brkComm) / 100;
-      };
+      const addComm = this.$store.getters.finance.addComm.on ? 
+                      Number(this.$store.getters.finance.addComm.value) : 0;
+      const brkComm = this.$store.getters.finance.brkComm.on ? 
+                      Number(this.$store.getters.finance.brkComm.value) : 0;
+
+      // Hire calculations 
+      let debitHire = 0;      
+     
+      this.$store.getters.hireItems.forEach((item) => {
+        const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
+        const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
+        const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
+        const hireRate = Number(item.hireRate);          
+              
+        debitHire += hireRate * days * (addComm + brkComm) / 100;
+      });
+
+      if(this.$store.getters.finance.ballastBonus.on)
+        debitHire += Number(this.$store.getters.finance.ballastBonus.value) * (addComm + brkComm) / 100;
+    
+
+      // Off-hire calculations
+      let debitOffhire = 0;
+
+      this.$store.getters.offHireItems.forEach((item) => {
+        const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
+        const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
+        const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
+        
+        hire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
+      });
 
       // Owners expenses calculations
       let debitOwnExp = 0;
@@ -96,7 +109,7 @@ export default {
         debitOwnExp += Number(item.value);
       });       
       
-      return debitHire + debitOwnExp;
+      return debitHire + debitOwnExp + debitOffhire;
     },
     result() {
       return this.credit - this.debit;
