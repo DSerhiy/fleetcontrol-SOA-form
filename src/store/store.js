@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 // import modules
 import settings from './modules/settings.js';
-import header from './modules/header.js';
 import hire from './modules/hire.js';
 import offHire from './modules/offHire.js';
 import charterersExpenses from './modules/charterersExpenses.js';
@@ -36,7 +35,6 @@ export const store = new Vuex.Store( {
   }, 
   modules: {
     settings,
-    header,
     hire,
     offHire,
     charterersExpenses,

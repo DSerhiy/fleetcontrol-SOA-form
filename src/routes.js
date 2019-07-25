@@ -1,5 +1,5 @@
 import MainPage from './components/MainPage.vue';
-import Settings from './components/SettingsForm.vue'
+import Settings from './components/SettingsPage.vue'
 
 export const routes = [
   { path: '', component: MainPage },

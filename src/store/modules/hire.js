@@ -8,7 +8,7 @@
 // ];
 
 const state = {
-  hire: null
+  hire: []
 }
 
 const getters = {

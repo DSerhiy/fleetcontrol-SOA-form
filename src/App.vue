@@ -47,7 +47,6 @@ export default {
     fetch('../appData.json')
       .then(response => response.json())
       .then(appData => {        
-        this.$store.dispatch('initHeader', appData.header);
         this.$store.dispatch('initSettings', appData.settings);
         this.$store.dispatch('initHire', appData.hire);
         this.$store.dispatch('initOffHire', appData.offHire);

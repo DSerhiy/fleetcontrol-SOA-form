@@ -22,19 +22,10 @@
     </div>
   </div>
 </template>
-<script>
-import { mapGetters } from 'vuex';
 
-export default {
-  computed:{
-    ...mapGetters([
-      'vesselName',
-      'charterersName',
-      'cpDate'
-    ])
-  },
-}
+<script>
 </script>
+
 <style scoped>
   .btn-settings {
     cursor: pointer;

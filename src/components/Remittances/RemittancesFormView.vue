@@ -29,11 +29,6 @@
 import remittanceItem from './RemittanceItem.vue';
 
 export default {  
-  data() {
-    return {
-
-    }
-  },
   computed: {
     items() {
       return this.$store.getters.remittancesItems;
@@ -99,7 +94,7 @@ export default {
         const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
         const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
         
-        hire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
+        debitOffhire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
       });
 
       // Owners expenses calculations
