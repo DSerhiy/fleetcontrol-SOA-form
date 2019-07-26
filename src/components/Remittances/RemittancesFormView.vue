@@ -47,6 +47,11 @@ export default {
       if(this.$store.getters.finance.ballastBonus.on)
           hire += Number(this.$store.getters.finance.ballastBonus.value);
 
+      // Off-hire calculations
+      let offHire = 0;
+
+      
+
       // Charterers expenses calculations
       let chrExps = 0;
 
@@ -102,9 +107,13 @@ export default {
 
       this.$store.getters.ownersExpensesItems.forEach(item => {
         debitOwnExp += Number(item.value);
-      });       
+      });  
+
+      // Remittances 
+      let remittance = 0;
+      this.items.forEach(item => remittance += item.value);
       
-      return debitHire + debitOwnExp + debitOffhire;
+      return debitHire + debitOwnExp + debitOffhire + remittance;
     },
     result() {
       return this.credit - this.debit;
