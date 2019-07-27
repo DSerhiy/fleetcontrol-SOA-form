@@ -187,7 +187,9 @@
           share: this.share,
           toDate: this.toDate, 
           fromDate: this.fromDate, 
-          bunkers: this.bunkers
+          bunkers: this.bunkers,
+          credit: null,
+          debit: null
         });
         this.close();        
       },

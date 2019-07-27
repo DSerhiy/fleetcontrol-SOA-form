@@ -19,8 +19,8 @@
     </tr>
     <tr>
       <td align="right">From:</td>
-      <td align="center">{{ fromDate.time }}</td>
-      <td align="center">{{ new Date(fromDate.date) }}</td> 
+      <td align="center" :class="{estimated: isEstimated}">{{ fromDate.time }}</td>
+      <td align="center" :class="{estimated: isEstimated}">{{ new Date(fromDate.date) }}</td> 
       <td align="center">Days</td>  
     </tr>
     <tr>
@@ -69,13 +69,15 @@
 <script>
 export default {
   props: ['hireRate', 'fromDate', 'toDate', 'index'],
+  mounted() {
+    this.$store.dispatch('updateHireDebit', {index: this.index, value: this.debit});
+    this.$store.dispatch('updateHireCredit', {index: this.index, value: this.credit});    
+  },
+  updated() {
+    this.$store.dispatch('updateHireDebit', {index: this.index, value: this.debit});
+    this.$store.dispatch('updateHireCredit', {index: this.index, value: this.credit});    
+  },
   computed: {
-    addComm(){  
-      return this.$store.getters.finance.addComm;
-    },
-    brkComm() {
-      return this.$store.getters.finance.brkComm;
-    },
     hireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
       const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
@@ -84,11 +86,29 @@ export default {
     hireResult() {
       return this.hireDays * this.hireRate;
     }, 
+    addComm(){  
+      return this.$store.getters.finance.addComm;
+    },
+    addCommValue() {
+      return this.addComm.on ? this.addComm.value: 0;
+    },
     addCommResult() {
-      return (this.hireRate * this.hireDays + Number(this.ballastBonus.value)) * this.addComm.value / 100;      
+      return (this.hireResult + this.ballastBonusValue) * this.addCommValue / 100;      
+    },
+    brkComm() {
+      return this.$store.getters.finance.brkComm;
+    },
+    brkCommValue() {
+      return this.brkComm.on ? this.brkComm.value: 0;
     },
     brkCommResult() {
-      return (this.hireRate * this.hireDays + Number(this.ballastBonus.value)) * this.brkComm.value / 100;
+      return (this.hireResult + this.ballastBonusValue) * this.brkCommValue / 100;
+    }, 
+    ballastBonus() {
+      return this.$store.getters.finance.ballastBonus;
+    }, 
+    ballastBonusValue() {
+      return this.ballastBonus.on ? this.ballastBonus.value : 0;
     }, 
     cev() {
       return this.$store.getters.finance.cevRate;
@@ -96,12 +116,18 @@ export default {
     cevResult() {
       return this.cev.value / this.cev.days * this.hireDays;      
     }, 
-    ballastBonus() {
-      return this.$store.getters.finance.ballastBonus;
+    debit() {
+      return this.addCommResult + this.brkCommResult;
     }, 
-    ballastBonusValue() {
-      return this.ballastBonus.value;
-    }    
+    credit(){
+      return this.hireResult + this.cevResult + this.ballastBonusValue;
+    }, 
+    isEstimated() {
+      if (this.index === 0 && this.$store.getters.delivery.status === 'estimated')
+        return true;
+      
+      return false;
+    }
   }
 }
 </script>
@@ -129,6 +155,9 @@ export default {
   hr{
     background: rgba(20, 19, 19, 0.767);
     height: 2px;
+  }
+  .estimated {
+    color: rgba(255, 128, 89, 0.842);
   }
 </style>
 

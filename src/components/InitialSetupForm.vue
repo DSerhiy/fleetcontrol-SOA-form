@@ -57,9 +57,7 @@
           </div> 
         </div> 
       </div>
-    </div>
-
-      
+    </div>      
   </div>
 
   <!-- Finance -->
@@ -228,8 +226,7 @@ export default {
       'setDeliveryTime',
       'setDeliveryDate'      
     ]), 
-    save() {
-                      
+    save() {                      
       this.$store.dispatch('addHireItem', { 
         hireRate: this.$store.getters.finance.basicHire, 
         fromDate: {time: this.$store.getters.delivery.time, date: this.$store.getters.delivery.date}, 

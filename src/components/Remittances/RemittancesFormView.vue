@@ -33,87 +33,43 @@ export default {
     items() {
       return this.$store.getters.remittancesItems;
     },
-    credit() {  
-      // Hire calculation
-      let hire = 0;
-      this.$store.getters.hireItems.forEach((item) => {
-        const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
-        const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
-        const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
-        
-        hire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
-      });
-
-      if(this.$store.getters.finance.ballastBonus.on)
-          hire += Number(this.$store.getters.finance.ballastBonus.value);
-
-      // Off-hire calculations
-      let offHire = 0;
-
+    credit() {            
+      const hire = this.$store.getters.hireItems.reduce((sum, cur) => {
+        return sum + cur.credit;
+      }, 0);          
       
+      const offHire = this.$store.getters.offHireItems.reduce((sum, cur) => {
+        return sum + cur.credit;
+      }, 0); 
 
-      // Charterers expenses calculations
-      let chrExps = 0;
-
-      this.$store.getters.charterersExpensesItems.forEach(item => {
-        chrExps += Number(item.value);
-      });
-
-      // Holds cleaning calculations
-      let holdsCleaning = 0;
-
-      this.$store.getters.holdsCleaningItems.forEach(item => {
-        holdsCleaning += Number(item.value);
-      });
+      const chrExps = this.$store.getters.charterersExpensesItems.reduce((sum, cur) => {
+        return sum + cur.value;
+      }, 0);   
       
-      return hire + chrExps + holdsCleaning;
+      const holdsCleaning = this.$store.getters.holdsCleaningItems.reduce((sum, cur) => {
+        return sum + cur.value;
+      }, 0);     
+      
+      return hire + offHire + chrExps + holdsCleaning;
     },
     debit() {
+      const hire =  this.$store.getters.hireItems.reduce((sum, cur) => {
+        return sum + cur.debit;
+      }, 0);        
 
-      const addComm = this.$store.getters.finance.addComm.on ? 
-                      Number(this.$store.getters.finance.addComm.value) : 0;
-      const brkComm = this.$store.getters.finance.brkComm.on ? 
-                      Number(this.$store.getters.finance.brkComm.value) : 0;
-
-      // Hire calculations 
-      let debitHire = 0;      
-     
-      this.$store.getters.hireItems.forEach((item) => {
-        const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
-        const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
-        const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
-        const hireRate = Number(item.hireRate);          
-              
-        debitHire += hireRate * days * (addComm + brkComm) / 100;
-      });
-
-      if(this.$store.getters.finance.ballastBonus.on)
-        debitHire += Number(this.$store.getters.finance.ballastBonus.value) * (addComm + brkComm) / 100;
+      const offhire = this.$store.getters.offHireItems.reduce((sum, cur) => {
+        return sum + cur.debit;
+      }, 0);      
     
-
-      // Off-hire calculations
-      let debitOffhire = 0;
-
-      this.$store.getters.offHireItems.forEach((item) => {
-        const fromDate = new Date(item.fromDate.date + ':' + item.fromDate.time + 'Z');
-        const toDate = new Date(item.toDate.date + ':' + item.toDate.time + 'Z');
-        const days = (toDate - fromDate) / 60 / 60 / 24 / 1000;
-        
-        debitOffhire += days * (Number(this.$store.getters.finance.cevRate.value) / this.$store.getters.finance.cevRate.days + Number(item.hireRate));
-      });
-
-      // Owners expenses calculations
-      let debitOwnExp = 0;
-
-      this.$store.getters.ownersExpensesItems.forEach(item => {
-        debitOwnExp += Number(item.value);
-      });  
-
-      // Remittances 
-      let remittance = 0;
-      this.items.forEach(item => remittance += item.value);
+      const ownExp = this.$store.getters.ownersExpensesItems.reduce((sum, cur) => {
+        return sum + cur.value;
+      }, 0);   
+     
+      const remittance = this.items.reduce((sum, cur) => {
+        return sum + cur.value
+      }, 0);      
       
-      return debitHire + debitOwnExp + debitOffhire + remittance;
+      return hire + ownExp + offhire + remittance;
     },
     result() {
       return this.credit - this.debit;
@@ -122,7 +78,6 @@ export default {
   components: {
     appRemittanceItem: remittanceItem
   }
-
 }
 </script>
 

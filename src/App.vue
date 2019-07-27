@@ -115,7 +115,6 @@ export default {
   #soa-form-layout .credit-col input{
     border-color: rgba(255, 202, 81, .4);
   }
-
   .btn-add {
     position: absolute;
     right: 15px;

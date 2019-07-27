@@ -52,7 +52,9 @@
         this.$store.dispatch('addHireItem', {
           hireRate: this.hireRate,
           fromDate: { time: fromDate.time, date: fromDate.date },
-          toDate: { time: fromDate.time, date: fromDate.date }
+          toDate: { time: fromDate.time, date: fromDate.date }, 
+          debit: null, 
+          credit: null
         });
         this.close();        
       },

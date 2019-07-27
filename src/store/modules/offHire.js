@@ -36,6 +36,12 @@ const mutations = {
   }, 
   addOffHire(state, data) {
     state.offHire.push(data)
+  },
+  updateOffHireCredit(state, data) {
+    state.offHire[data.index].credit = data.value;
+  }, 
+  updateOffHireDebit(state, data) {
+    state.offHire[data.index].debit = data.value;
   }
 };
 
@@ -45,7 +51,13 @@ const actions = {
   }, 
   addOffHire({ commit }, data) {
     commit('addOffHire', data);
-  }
+  },
+  updateOffHireCredit({ commit }, data) {
+    commit('updateOffHireCredit', data);
+  }, 
+  updateOffHireDebit({ commit }, data) {
+    commit('updateOffHireDebit', data);
+  }, 
 };
 
 export default {

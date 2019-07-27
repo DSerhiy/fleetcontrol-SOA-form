@@ -33,7 +33,7 @@
           <td align="right">To:</td>
           <td align="center">{{ toDate.time}}</td>
           <td align="center">{{ new Date(fromDate.date)}}</td>
-          <td align="center"><input type="text" :value="$myLib.formatNum(hireDays)" readonly></td>
+          <td align="center"><input type="text" :value="$myLib.formatNum(offHireDays)" readonly></td>
           <td class="debit-col" align="right">{{ $myLib.formatNum(offHireResult) }}</td>
           <td class="credit-col"></td>
         </tr>
@@ -48,7 +48,7 @@
         </tr>
         <tr v-if="brkComm.on">
           <td colspan="3">BRK COMM OFF-HIRE PERIODS :</td>
-          <td align="center">{{ brkComm.value }}%</td>
+          <td align="center">{{ $myLib.formatNum(brkComm.value) }}%</td>
           <td class="debit-col"></td>
           <td class="credit-col" align="right">{{ $myLib.formatNum(brkCommResult) }}</td>
         </tr>
@@ -88,33 +88,53 @@
 <script>
 export default {
   props: ['description', 'hireRate', 'share', 'fromDate', 'toDate', 'bunkers', 'index'],
+  mounted() {    
+    this.$store.dispatch('updateOffHireDebit', { index: this.index, value: this.debit });
+    this.$store.dispatch('updateOffHireCredit', { index: this.index, value: this.credit });    
+  },
+  updated() {    
+    this.$store.dispatch('updateOffHireDebit', { index: this.index, value: this.debit });
+    this.$store.dispatch('updateOffHireCredit', { index: this.index, value: this.debit });    
+  },
   computed: {
-    hireDays() {
+    offHireDays() {
       const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
       const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
       return (toDate - fromDate) / 60 / 60 / 24 / 1000 * (this.share.value / 100);
     },
     offHireResult() {
-      return this.hireRate * this.hireDays; 
+      return this.hireRate * this.offHireDays; 
     }, 
     addComm() {
       return this.$store.getters.finance.addComm;
     },
+    addCommValue() {
+      return this.addComm.on ? this.addComm.value: 0;
+    },
     addCommResult() {
-      return this.offHireResult * this.addComm.value / 100;
+      return this.offHireResult * this.addCommValue / 100;
     },
     brkComm() {
       return this.$store.getters.finance.brkComm;
     },
+    brkCommValue() {
+      return this.brkComm.on ? this.brkComm.value: 0;
+    },
     brkCommResult() {
-      return this.offHireResult * this.brkComm.value / 100;
+      return this.offHireResult * this.brkCommValue / 100;
     },
     cevRate() {
       return this.$store.getters.finance.cevRate;
     },
     cevResult() {
-      return this.hireDays * this.cevRate.value / this.cevRate.days;      
+      return this.offHireDays * this.cevRate.value / this.cevRate.days;      
     },
+    debit() {
+     return this.offHireResult + this.cevResult;  
+    }, 
+    credit() {
+      return this.addCommResult + this.brkCommResult;
+    }   
   }
 }
 </script>

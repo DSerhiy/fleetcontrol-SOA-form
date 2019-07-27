@@ -162,8 +162,7 @@ export default {
       const toDate = this.$store.getters.hireItems[this.index].toDate;
       this.toDate.time = toDate.time;
       this.toDate.date = toDate.date;
-    }
-   
+    }   
   }
 }
 </script>

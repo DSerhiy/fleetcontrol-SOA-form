@@ -42,7 +42,13 @@ const mutations = {
   },  
   updateHireRate(state, newHireRate) {
     state.hire[newHireRate.index].hireRate = newHireRate.value; 
-  },         
+  },
+  updateHireDebit(state, data) {
+    state.hire[data.index].debit = data.value;
+  }, 
+  updateHireCredit(state, data) {
+    state.hire[data.index].credit = data.value;
+  }         
 };
 
 const actions = {
@@ -64,7 +70,13 @@ const actions = {
   },
   updateHireRate(context, newHireRate) {
     context.commit('updateHireRate', newHireRate);
-  }
+  },
+  updateHireDebit(context, data) {
+    context.commit('updateHireDebit', data);
+  },
+  updateHireCredit(context, data) {
+    context.commit('updateHireCredit', data);
+  },
 };
 
 export default {

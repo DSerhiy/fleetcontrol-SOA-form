@@ -48,7 +48,9 @@
   "hire": [{
     "hireRate": 5000,
     "toDate": { "time": "01:01", "date": "2019-10-16"},
-    "fromDate": { "time": "01:01", "date": "2019-10-15"}
+    "fromDate": { "time": "01:01", "date": "2019-10-15"},
+    "debit": null,
+    "credit": null
   }],
   "offHire": [],
   "charterersExpenses": [],
