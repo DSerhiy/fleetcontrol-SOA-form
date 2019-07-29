@@ -20,8 +20,9 @@
         :index="index">
       </app-off-hire-item>
     </div>
-    <app-off-hire-form-add v-if="showAddForm" 
-                           @close="showAddForm = false">
+    <app-off-hire-form-add 
+      v-if="showAddForm" 
+      @close="showAddForm = false">
     </app-off-hire-form-add>
   </div>
 </template>

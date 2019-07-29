@@ -37,6 +37,12 @@ const mutations = {
   addOffHire(state, data) {
     state.offHire.push(data)
   },
+  deleteOffHireItem(state, index) {
+    state.offHire.splice(index, 1);
+  },  
+  updateOffHire(state, data) {
+    state.offHire.splice(data.index, 1, data.offHire);
+  }, 
   updateOffHireCredit(state, data) {
     state.offHire[data.index].credit = data.value;
   }, 
@@ -51,6 +57,12 @@ const actions = {
   }, 
   addOffHire({ commit }, data) {
     commit('addOffHire', data);
+  },
+  deleteOffHireItem(context, index) {
+    context.commit('deleteOffHireItem', index);
+  },
+  updateOffHire({ commit }, data) {
+    commit('updateOffHire', data);
   },
   updateOffHireCredit({ commit }, data) {
     commit('updateOffHireCredit', data);

@@ -5,7 +5,7 @@
       <div class="modal-content border-success">
 
         <div class="modal-header bg-success">
-          <h2 class="modal-title text-white">New Off-hire Add Form</h2>
+          <h2 class="modal-title text-white">New Off-hire Edit Form</h2>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" @click="close()">
             <span aria-hidden="true">×</span>
           </button>
@@ -18,7 +18,7 @@
               <input type="text" v-focus
                     class="form-control"
                     placeholder="Enter Off-hire Description" 
-                    @input="description = $event.target.value">
+                    v-model="description">
             </div>         
             <div class="col-2"></div> 
           </div>
@@ -126,8 +126,14 @@
               </div>              
             </div> 
           </template>         
-        </div>        
-        <div class="modal-footer bg-grey">
+        </div>                
+        <div class="modal-footer bg-grey">          
+          <button type="button" 
+            class="btn btn-danger  waves-effect waves-light"
+            @click="deleteItem()">
+            <i class="zmdi zmdi-delete"></i>  
+            Delete Item
+          </button>        
           <button type="button" class="btn btn-normal" @click="close()">
             <i class="fa fa-window-close"></i> Cancel
           </button>
@@ -139,23 +145,41 @@
     </div>
   </div>
 </template>
+
 <script>
   export default {
+    props: ['index'],
     data() {
       return {
         calcType: 'manual',
         description: null,        
-        hireRate: this.$store.getters.finance.basicHire,
-        share: { status: false, value: 100 },
+        hireRate: null,
+        share: { status: false, value: null },
         toDate: { time: null, date: null}, 
         fromDate: { time: null, date: null}, 
         bunkers: {
-          status: false,
-          grades: [
-            {name: 'IFO', qtty: 0, price: 0},
-            {name: 'MGO', qtty: 0, price: 0} 
-          ]
+          status: null,
+          grades: []
         }               
+      }
+    },
+    mounted() {
+      const offHireData = this.$store.getters.offHireItems[this.index];
+      this.description = offHireData.description;
+      this.hireRate = offHireData.hireRate;
+      this.share.status = offHireData.share.status;
+      this.share.value = offHireData.share.value;
+      this.toDate.time = offHireData.toDate.time;
+      this.toDate.date = offHireData.toDate.date;
+      this.fromDate.time = offHireData.fromDate.time;
+      this.fromDate.date = offHireData.fromDate.date;
+
+      this.bunkers.status = offHireData.bunkers.status;
+
+      if(this.bunkers.status) {
+        offHireData.bunkers.grades.forEach(item => {
+          this.bunkers.grades.push({ name: item.name, qtty: item.qtty, price: item.price })
+        })
       }
     },
     computed: {
@@ -180,16 +204,23 @@
       addGrade() {
         this.bunkers.grades.push({ name: null, qtty: 0, price: 0 });
       },
+      deleteItem(){
+        this.$store.dispatch('deleteOffHireItem', this.index);
+        this.close();
+      },
       ok() {        
-        this.$store.dispatch('addOffHire', {
-          description: this.description,        
-          hireRate: this.hireRate,
-          share: this.share,
-          toDate: this.toDate, 
-          fromDate: this.fromDate, 
-          bunkers: this.bunkers,
-          credit: null,
-          debit: null
+        this.$store.dispatch('updateOffHire', {
+          index: this.index,
+          offHire: {
+            description: this.description,        
+            hireRate: this.hireRate,
+            share: this.share,
+            toDate: this.toDate, 
+            fromDate: this.fromDate, 
+            bunkers: this.bunkers,
+            credit: null,
+            debit: null
+          }
         });
         this.close();        
       },

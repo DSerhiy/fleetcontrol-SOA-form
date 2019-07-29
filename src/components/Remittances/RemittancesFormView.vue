@@ -48,9 +48,15 @@ export default {
       
       const holdsCleaning = this.$store.getters.holdsCleaningItems.reduce((sum, cur) => {
         return sum + cur.value;
-      }, 0);     
+      }, 0); 
       
-      return hire + offHire + chrExps + holdsCleaning;
+      const bunkersOnDelivery = 
+        this.$store.getters.bunkersOnDelivery.show && this.$store.getters.componentsOn.bunkers ?
+        this.$store.getters.bunkersOnDelivery.grades.reduce((sum, cur) => {
+          return sum + (cur.qtty * cur.price);
+        }, 0): 0;
+      
+      return hire + offHire + chrExps + holdsCleaning + bunkersOnDelivery;
     },
     debit() {
       const hire =  this.$store.getters.hireItems.reduce((sum, cur) => {
@@ -67,9 +73,15 @@ export default {
      
       const remittance = this.items.reduce((sum, cur) => {
         return sum + cur.value
-      }, 0);      
+      }, 0);  
       
-      return hire + ownExp + offhire + remittance;
+      const bunkersOnRedelivery = 
+        this.$store.getters.bunkersOnRedelivery.show && this.$store.getters.componentsOn.bunkers ?
+        this.$store.getters.bunkersOnRedelivery.grades.reduce((sum, cur) => {
+          return sum + (cur.qtty * cur.price);
+        }, 0): 0;
+      
+      return hire + ownExp + offhire + remittance + bunkersOnRedelivery;
     },
     result() {
       return this.credit - this.debit;

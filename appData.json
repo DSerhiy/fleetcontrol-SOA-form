@@ -1,6 +1,6 @@
 {
   "settings": {    
-    "firstStart": false,
+    "firstStart": true,
     "componentsOn": {
       "ownersExpenses": false,
       "charterersExpenses": false, 
@@ -10,23 +10,24 @@
       "speedClaim": false
     }, 
     "finance": {
-      "basicHire": 5000,
-      "cevRate": { "value": 1250, "days": 30.416 }, 
+      "basicHire": null,
+      "cevRate": { "value": null, "days": 30.416 }, 
       "addComm": { "on": false, "value": null },
       "brkComm": { "on": false, "value": null },
       "ballastBonus": { "on": false, "value": null }
     },
     "delivery": {
       "status": "estimated",
-      "time": "01:01",
-      "date": "2019-10-15"
+      "time": null,
+      "date": null
     },
-    "redelivery": {
+    "redelivery": {      
       "status": "estimated",
       "time": null,
       "date": null
     },
     "bunkersOnDelivery": {
+      "show": false,
       "status": "estimated",
       "grades": [
         {"name": "IFO", "qtty": 0, "price": 0},
@@ -34,6 +35,7 @@
       ]
     },
     "bunkersOnRedelivery": {
+      "show": false,
       "status": "estimated",
       "grades": [
         {"name": "IFO", "qtty": 0, "price": 0},
@@ -45,18 +47,12 @@
       "ilihc": null
     }  
   },  
-  "hire": [{
-    "hireRate": 5000,
-    "toDate": { "time": "01:01", "date": "2019-10-16"},
-    "fromDate": { "time": "01:01", "date": "2019-10-15"},
-    "debit": null,
-    "credit": null
-  }],
+  "hire": [],
   "offHire": [],
   "charterersExpenses": [],
   "ownersExpenses": [],
   "holdsCleaning": [],
-  "remittances": [{"description": "1st hire", "date": "2019-07-25", "value": 12500}]
+  "remittances": []
 }
 
  

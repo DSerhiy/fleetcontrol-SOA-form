@@ -117,6 +117,12 @@ const mutations = {
   setBunkersOnRedeliveryStatus(state, status) {
     state.settings.bunkersOnRedelivery.status = status;  
   },
+  setBunkersOnDeliveryShow(state, value) {
+    state.settings.bunkersOnDelivery.show = value;
+  },
+  setBunkersOnRedeliveryShow(state, value) {
+    state.settings.bunkersOnRedelivery.show = value;  
+  },
   removeGrade(state, grade) {
     if (grade.flag === 'delivery')
       state.settings.bunkersOnDelivery.grades.splice(grade.index, 1);
@@ -228,6 +234,12 @@ const actions = {
   },
   setBunkersOnRedeliveryStatus({ commit }, status) {
     commit('setBunkersOnRedeliveryStatus', status);
+  },
+  setBunkersOnDeliveryShow({ commit }, status) {
+    commit('setBunkersOnDeliveryShow', status);
+  },
+  setBunkersOnRedeliveryShow({ commit }, status) {
+    commit('setBunkersOnRedeliveryShow', status);
   },
   removeGrade({ commit }, grade) {
     commit('removeGrade', grade);

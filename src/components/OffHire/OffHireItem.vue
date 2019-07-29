@@ -6,7 +6,7 @@
         <tr>
           <th class="not-bordered" colspan="6">OFF-HIRE #{{ index + 1 }} ({{ description }})
             <div class="btn-edit" 
-                 @click="$emit('edit', index)">
+                 @click="showEditForm = true">
               <i class="fa fa-edit"></i> 
             </div>
           </th>          
@@ -82,12 +82,27 @@
           <td class="credit-col"></td>
         </tr>        
       </tbody>
-    </table>      
+    </table>
+    <appOffHireFormEdit 
+      v-if="showEditForm"
+      @close="showEditForm = false"
+      :index="index">
+    </appOffHireFormEdit>      
   </div>
 </template>
 <script>
+import OffHireFormEdit from './OffHireFormEdit.vue';
+
 export default {
+  components: {
+    appOffHireFormEdit: OffHireFormEdit,
+  },
   props: ['description', 'hireRate', 'share', 'fromDate', 'toDate', 'bunkers', 'index'],
+  data() {
+    return {
+      showEditForm: false
+    }
+  },
   mounted() {    
     this.$store.dispatch('updateOffHireDebit', { index: this.index, value: this.debit });
     this.$store.dispatch('updateOffHireCredit', { index: this.index, value: this.credit });    

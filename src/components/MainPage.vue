@@ -1,7 +1,8 @@
 <template>
 
 <div>
-  <app-hire></app-hire>   
+  <app-hire></app-hire>  
+  <app-bunkers v-if="componentsOn.bunkers"></app-bunkers> 
   <app-holds-cleaning v-if="componentsOn.holdsCleaning"></app-holds-cleaning>
   <app-charterers-expenses v-if="componentsOn.charterersExpenses"></app-charterers-expenses>
   <app-owners-expenses v-if="componentsOn.ownersExpenses"></app-owners-expenses>
@@ -9,7 +10,7 @@
   <app-remittances></app-remittances>
 
   <!-- <app-speed-claim></app-speed-claim> -->
-  <!-- <app-bunkers-delivery></app-bunkers-delivery> -->
+  
   <!-- <app-settings-form></app-settings-form>   -->
 </div>
   
@@ -18,7 +19,7 @@
 <script>
 
 import Hire from './Hire/HireFormView.vue';
-import BunkersDelivery from './Bunkers/BunkersDeliveryFormView.vue';
+import Bunkers from './Bunkers/BunkersFormView.vue';
 import HoldsCleaning from './HoldsCleaning/HoldsCleaningFromView.vue';
 import CharterersExpenses from './CharterersExpenses/ExpensesFormView.vue';
 import OwnersExpenses from './OwnersExpenses/ExpensesFormView.vue';
@@ -35,7 +36,7 @@ export default {
   },
   components: {
     appHire: Hire,
-    appBunkersDelivery: BunkersDelivery,
+    appBunkers: Bunkers,
     appHoldsCleaning: HoldsCleaning,    
     appCharterersExpenses: CharterersExpenses, 
     appOwnersExpenses: OwnersExpenses,
