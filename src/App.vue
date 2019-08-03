@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    fetch('../appData.json')
+    fetch('http://localhost:3000/data')
       .then(response => response.json())
       .then(appData => {        
         this.$store.dispatch('initSettings', appData.settings);

@@ -9,9 +9,12 @@
   <app-off-hire v-if="componentsOn.offHire"></app-off-hire>    
   <app-remittances></app-remittances>
 
-  <!-- <app-speed-claim></app-speed-claim> -->
-  
-  <!-- <app-settings-form></app-settings-form>   -->
+  <button type="button" 
+          class="btn btn-success"
+          @click="save()">
+    <i class="fa fa-check"></i> Save
+  </button>
+  <!-- <app-speed-claim></app-speed-claim> -->  
 </div>
   
 </template>
@@ -32,8 +35,23 @@ export default {
     componentsOn() {
       return this.$store.getters.componentsOn;
     }
-
   },
+  methods: {
+    
+    save() {
+      const rowData = this.$store.state
+      const data = {};
+      for (let key in rowData) { data[key] = rowData[key][key] }
+      
+      fetch('http://localhost:3000/data', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });      
+    }
+  }, 
   components: {
     appHire: Hire,
     appBunkers: Bunkers,

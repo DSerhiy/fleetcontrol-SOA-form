@@ -1,58 +1,152 @@
 {
-  "settings": {    
-    "firstStart": true,
-    "componentsOn": {
-      "ownersExpenses": false,
-      "charterersExpenses": false, 
-      "holdsCleaning": false,
-      "bunkers": false,
-      "offHire": false,
-      "speedClaim": false
-    }, 
-    "finance": {
-      "basicHire": null,
-      "cevRate": { "value": null, "days": 30.416 }, 
-      "addComm": { "on": false, "value": null },
-      "brkComm": { "on": false, "value": null },
-      "ballastBonus": { "on": false, "value": null }
+  "data": {
+    "settings": {
+      "firstStart": false,
+      "componentsOn": {
+        "ownersExpenses": true,
+        "charterersExpenses": true,
+        "holdsCleaning": false,
+        "bunkers": false,
+        "offHire": true,
+        "speedClaim": false
+      },
+      "finance": {
+        "basicHire": 5000,
+        "cevRate": {
+          "value": 1250,
+          "days": 30
+        },
+        "addComm": {
+          "on": true,
+          "value": 3.75
+        },
+        "brkComm": {
+          "on": true,
+          "value": 1.25
+        },
+        "ballastBonus": {
+          "on": false,
+          "value": null
+        }
+      },
+      "delivery": {
+        "status": "estimated",
+        "time": "01:01",
+        "date": "2019-01-01"
+      },
+      "redelivery": {
+        "status": "estimated",
+        "time": null,
+        "date": null
+      },
+      "bunkersOnDelivery": {
+        "show": true,
+        "status": "estimated",
+        "grades": [
+          {
+            "name": "IFO",
+            "qtty": "350",
+            "price": "470"
+          },
+          {
+            "name": "MGO",
+            "qtty": "25",
+            "price": "710"
+          }
+        ]
+      },
+      "bunkersOnRedelivery": {
+        "show": false,
+        "status": "estimated",
+        "grades": [
+          {
+            "name": "IFO",
+            "qtty": null,
+            "price": null
+          },
+          {
+            "name": "MGO",
+            "qtty": null,
+            "price": null
+          }
+        ]
+      },
+      "holdsCleaning": {
+        "ilohc": null,
+        "ilihc": null
+      }
     },
-    "delivery": {
-      "status": "estimated",
-      "time": null,
-      "date": null
-    },
-    "redelivery": {      
-      "status": "estimated",
-      "time": null,
-      "date": null
-    },
-    "bunkersOnDelivery": {
-      "show": false,
-      "status": "estimated",
-      "grades": [
-        {"name": "IFO", "qtty": 0, "price": 0},
-        {"name": "MGO", "qtty": 0, "price": 0} 
-      ]
-    },
-    "bunkersOnRedelivery": {
-      "show": false,
-      "status": "estimated",
-      "grades": [
-        {"name": "IFO", "qtty": 0, "price": 0},
-        {"name": "MGO", "qtty": 0, "price": 0} 
-      ]
-    },
-    "holdsCleaning": {
-      "ilohc": null, 
-      "ilihc": null
-    }  
-  },  
-  "hire": [],
-  "offHire": [],
-  "charterersExpenses": [],
-  "ownersExpenses": [],
-  "holdsCleaning": [],
-  "remittances": []
+    "hire": [
+      {
+        "hireRate": 5000,
+        "fromDate": {
+          "time": "01:01",
+          "date": "2019-01-01"
+        },
+        "toDate": {
+          "time": "01:01",
+          "date": "2019-01-16"
+        },
+        "debit": 3750,
+        "credit": 75625
+      }
+    ],
+    "offHire": [
+      {
+        "description": "ME breakdown",
+        "hireRate": 5000,
+        "share": {
+          "status": false,
+          "value": 100
+        },
+        "toDate": {
+          "time": "12:00",
+          "date": "2019-01-01"
+        },
+        "fromDate": {
+          "time": "00:00",
+          "date": "2019-01-01"
+        },
+        "bunkers": {
+          "status": false,
+          "grades": [
+            {
+              "name": "IFO",
+              "qtty": 0,
+              "price": 0
+            },
+            {
+              "name": "MGO",
+              "qtty": 0,
+              "price": 0
+            }
+          ]
+        },
+        "credit": 125,
+        "debit": 2520.8333333333335
+      }
+    ],
+    "charterersExpenses": [
+      {
+        "description": "On-hire bunker survey ",
+        "value": 500
+      },
+      {
+        "description": "Crew bonus",
+        "value": 4580
+      }
+    ],
+    "ownersExpenses": [
+      {
+        "description": "Off-hire bunker survey",
+        "value": 450
+      },
+      {
+        "description": "FW supply",
+        "value": 1350
+      }
+    ],
+    "holdsCleaning": [],
+    "remittances": []
+  }
 }
-
- 

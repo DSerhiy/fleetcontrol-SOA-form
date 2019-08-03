@@ -1,0 +1,86 @@
+{
+  "data": {
+    "settings": {
+      "firstStart": true,
+      "componentsOn": {
+        "ownersExpenses": false,
+        "charterersExpenses": false,
+        "holdsCleaning": false,
+        "bunkers": false,
+        "offHire": false,
+        "speedClaim": false
+      },
+      "finance": {
+        "basicHire": null,
+        "cevRate": {
+          "value": null,
+          "days": 30
+        },
+        "addComm": {
+          "on": false,
+          "value": null
+        },
+        "brkComm": {
+          "on": false,
+          "value": null
+        },
+        "ballastBonus": {
+          "on": false,
+          "value": null
+        }
+      },
+      "delivery": {
+        "status": "estimated",
+        "time": null,
+        "date": null
+      },
+      "redelivery": {
+        "status": "estimated",
+        "time": null,
+        "date": null
+      },
+      "bunkersOnDelivery": {
+        "show": true,
+        "status": "estimated",
+        "grades": [
+          {
+            "name": "IFO",
+            "qtty": null,
+            "price": null
+          },
+          {
+            "name": "MGO",
+            "qtty": null,
+            "price": null
+          }
+        ]
+      },
+      "bunkersOnRedelivery": {
+        "show": false,
+        "status": "estimated",
+        "grades": [
+          {
+            "name": "IFO",
+            "qtty": null,
+            "price": null
+          },
+          {
+            "name": "MGO",
+            "qtty": null,
+            "price": null
+          }
+        ]
+      },
+      "holdsCleaning": {
+        "ilohc": null,
+        "ilihc": null
+      }
+    },
+    "hire": [],
+    "offHire": [],
+    "charterersExpenses": [],
+    "ownersExpenses": [],
+    "holdsCleaning": [],
+    "remittances": []
+  }
+}
