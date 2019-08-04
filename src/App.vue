@@ -49,6 +49,7 @@ export default {
       .then(appData => {        
         this.$store.dispatch('initSettings', appData.settings);
         this.$store.dispatch('initHire', appData.hire);
+        this.$store.dispatch('initSpeedClaim', appData.speedClaim);
         this.$store.dispatch('initOffHire', appData.offHire);
         this.$store.dispatch('initCharterersExpenses', appData.charterersExpenses);
         this.$store.dispatch('initOwnersExpeses', appData.ownersExpenses);

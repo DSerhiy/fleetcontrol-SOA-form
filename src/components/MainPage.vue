@@ -6,7 +6,8 @@
   <app-holds-cleaning v-if="componentsOn.holdsCleaning"></app-holds-cleaning>
   <app-charterers-expenses v-if="componentsOn.charterersExpenses"></app-charterers-expenses>
   <app-owners-expenses v-if="componentsOn.ownersExpenses"></app-owners-expenses>
-  <app-off-hire v-if="componentsOn.offHire"></app-off-hire>    
+  <app-off-hire v-if="componentsOn.offHire"></app-off-hire> 
+  <app-speed-claim v-if="componentsOn.speedClaim"></app-speed-claim>  
   <app-remittances></app-remittances>
 
   <button type="button" 
@@ -14,7 +15,7 @@
           @click="save()">
     <i class="fa fa-check"></i> Save
   </button>
-  <!-- <app-speed-claim></app-speed-claim> -->  
+    
 </div>
   
 </template>

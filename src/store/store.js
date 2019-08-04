@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import settings from './modules/settings.js';
 import hire from './modules/hire.js';
 import offHire from './modules/offHire.js';
+import speedClaim from './modules/speedClaim.js';
 import charterersExpenses from './modules/charterersExpenses.js';
 import ownersExpenses from './modules/ownersExpenses.js';
 import holdsCleaning from './modules/holdsCleaning.js';
@@ -37,6 +38,7 @@ export const store = new Vuex.Store( {
     settings,
     hire,
     offHire,
+    speedClaim,
     charterersExpenses,
     ownersExpenses,
     holdsCleaning,

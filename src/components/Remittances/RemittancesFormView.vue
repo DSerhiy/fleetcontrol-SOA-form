@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+
 import remittanceItem from './RemittanceItem.vue';
 
 export default {  
@@ -38,17 +39,23 @@ export default {
         return sum + cur.credit;
       }, 0);          
       
-      const offHire = this.$store.getters.offHireItems.reduce((sum, cur) => {
-        return sum + cur.credit;
-      }, 0); 
+      const offHire = 
+        this.$store.getters.componentsOn.offHire ?
+        this.$store.getters.offHireItems.reduce((sum, cur) => {
+          return sum + cur.credit;
+        }, 0) : 0; 
 
-      const chrExps = this.$store.getters.charterersExpensesItems.reduce((sum, cur) => {
-        return sum + cur.value;
-      }, 0);   
+      const chrExps = 
+        this.$store.getters.componentsOn.charterersExpenses ?
+        this.$store.getters.charterersExpensesItems.reduce((sum, cur) => {
+          return sum + cur.value;
+        }, 0) : 0;   
       
-      const holdsCleaning = this.$store.getters.holdsCleaningItems.reduce((sum, cur) => {
-        return sum + cur.value;
-      }, 0); 
+      const holdsCleaning = 
+        this.$store.getters.componentsOn.holdsCleaning ?
+        this.$store.getters.holdsCleaningItems.reduce((sum, cur) => {
+          return sum + cur.value;
+        }, 0) : 0; 
       
       const bunkersOnDelivery = 
         this.$store.getters.bunkersOnDelivery.show && this.$store.getters.componentsOn.bunkers ?
@@ -63,23 +70,27 @@ export default {
         return sum + cur.debit;
       }, 0);        
 
-      const offhire = this.$store.getters.offHireItems.reduce((sum, cur) => {
-        return sum + cur.debit;
-      }, 0);      
+      const offhire =
+        this.$store.getters.componentsOn.offHire ? 
+        this.$store.getters.offHireItems.reduce((sum, cur) => {
+          return sum + cur.debit;
+        }, 0) : 0;      
     
-      const ownExp = this.$store.getters.ownersExpensesItems.reduce((sum, cur) => {
-        return sum + cur.value;
-      }, 0);   
-     
-      const remittance = this.items.reduce((sum, cur) => {
-        return sum + cur.value
-      }, 0);  
+      const ownExp = 
+        this.$store.getters.componentsOn.ownersExpenses ? 
+        this.$store.getters.ownersExpensesItems.reduce((sum, cur) => {
+          return sum + cur.value;
+        }, 0) : 0;  
       
       const bunkersOnRedelivery = 
         this.$store.getters.bunkersOnRedelivery.show && this.$store.getters.componentsOn.bunkers ?
         this.$store.getters.bunkersOnRedelivery.grades.reduce((sum, cur) => {
           return sum + (cur.qtty * cur.price);
         }, 0): 0;
+     
+      const remittance = this.items.reduce((sum, cur) => {
+        return sum + cur.value
+      }, 0);        
       
       return hire + ownExp + offhire + remittance + bunkersOnRedelivery;
     },

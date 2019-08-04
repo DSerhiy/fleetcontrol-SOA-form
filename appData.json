@@ -4,11 +4,11 @@
       "firstStart": false,
       "componentsOn": {
         "ownersExpenses": true,
-        "charterersExpenses": true,
+        "charterersExpenses": false,
         "holdsCleaning": false,
         "bunkers": false,
-        "offHire": true,
-        "speedClaim": false
+        "offHire": false,
+        "speedClaim": true
       },
       "finance": {
         "basicHire": 5000,
@@ -17,11 +17,11 @@
           "days": 30
         },
         "addComm": {
-          "on": true,
+          "on": false,
           "value": 3.75
         },
         "brkComm": {
-          "on": true,
+          "on": false,
           "value": 1.25
         },
         "ballastBonus": {
@@ -87,7 +87,7 @@
           "time": "01:01",
           "date": "2019-01-16"
         },
-        "debit": 3750,
+        "debit": 0,
         "credit": 75625
       }
     ],
@@ -124,6 +124,39 @@
         },
         "credit": 125,
         "debit": 2520.8333333333335
+      }
+    ],
+    "speedClaim": [
+      {
+        "description": "route Saleef to Suez",
+        "hireRate": 5000,
+        "share": {
+          "on": false,
+          "value": 100
+        },
+        "time": {
+          "value": 20,
+          "flag": false
+        },
+        "bunkers": {
+          "on": true,
+          "grades": [
+            {
+              "name": "IFO",
+              "saved": true,
+              "qtty": 150,
+              "price": 100
+            },
+            {
+              "name": "MGO",
+              "saved": false,
+              "qtty": 3,
+              "price": 200
+            }
+          ]
+        },
+        "credit": 0,
+        "debit": 4201.38888888889
       }
     ],
     "charterersExpenses": [
