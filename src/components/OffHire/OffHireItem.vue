@@ -145,7 +145,11 @@ export default {
       return this.offHireDays * this.cevRate.value / this.cevRate.days;      
     },
     debit() {
-     return this.offHireResult + this.cevResult;  
+      const bunkers = this.bunkers.on ? this.bunkers.grades.reduce((sum, grade) => {
+        return sum + grade.price * grade.qtty;
+      }, 0) : 0;
+      
+     return this.offHireResult + this.cevResult + bunkers;  
     }, 
     credit() {
       return this.addCommResult + this.brkCommResult;

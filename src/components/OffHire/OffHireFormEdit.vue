@@ -154,11 +154,11 @@
         calcType: 'manual',
         description: null,        
         hireRate: null,
-        share: { status: false, value: null },
+        share: { on: false, value: null },
         toDate: { time: null, date: null}, 
         fromDate: { time: null, date: null}, 
         bunkers: {
-          status: null,
+          on: null,
           grades: []
         }               
       }
@@ -167,16 +167,16 @@
       const offHireData = this.$store.getters.offHireItems[this.index];
       this.description = offHireData.description;
       this.hireRate = offHireData.hireRate;
-      this.share.status = offHireData.share.status;
+      this.share.on = offHireData.share.on;
       this.share.value = offHireData.share.value;
       this.toDate.time = offHireData.toDate.time;
       this.toDate.date = offHireData.toDate.date;
       this.fromDate.time = offHireData.fromDate.time;
       this.fromDate.date = offHireData.fromDate.date;
 
-      this.bunkers.status = offHireData.bunkers.status;
+      this.bunkers.on = offHireData.bunkers.on;
 
-      if(this.bunkers.status) {
+      if(this.bunkers.on) {
         offHireData.bunkers.grades.forEach(item => {
           this.bunkers.grades.push({ name: item.name, qtty: item.qtty, price: item.price })
         })
@@ -186,7 +186,7 @@
       offHireDays() {
         const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
         const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
-        const share = this.share.status ? this.share.value : 100;
+        const share = this.share.on ? this.share.value : 100;
         return (toDate - fromDate) / 60 / 60 / 24 / 1000 * (share / 100);
       }
     },

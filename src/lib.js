@@ -1,6 +1,9 @@
 export default {
   formatNum(number, acc) {
 
+    if(number === null) 
+      return null;
+
     let strNum = (Math.round(number * 100) / 100).toString();
   
     if(!strNum.includes('.'))

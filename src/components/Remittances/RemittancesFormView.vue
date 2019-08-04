@@ -45,6 +45,12 @@ export default {
           return sum + cur.credit;
         }, 0) : 0; 
 
+      const speedClaim =
+        this.$store.getters.componentsOn.speedClaim ? 
+        this.$store.getters.speedClaimItems.reduce((sum, cur) => {
+          return sum + cur.credit;
+        }, 0) : 0;
+
       const chrExps = 
         this.$store.getters.componentsOn.charterersExpenses ?
         this.$store.getters.charterersExpensesItems.reduce((sum, cur) => {
@@ -63,18 +69,24 @@ export default {
           return sum + (cur.qtty * cur.price);
         }, 0): 0;
       
-      return hire + offHire + chrExps + holdsCleaning + bunkersOnDelivery;
+      return hire + offHire + chrExps + holdsCleaning + bunkersOnDelivery + speedClaim;
     },
     debit() {
       const hire =  this.$store.getters.hireItems.reduce((sum, cur) => {
         return sum + cur.debit;
       }, 0);        
 
-      const offhire =
+      const offHire =
         this.$store.getters.componentsOn.offHire ? 
         this.$store.getters.offHireItems.reduce((sum, cur) => {
           return sum + cur.debit;
-        }, 0) : 0;      
+        }, 0) : 0; 
+        
+      const speedClaim =
+        this.$store.getters.componentsOn.speedClaim ? 
+        this.$store.getters.speedClaimItems.reduce((sum, cur) => {
+          return sum + cur.debit;
+        }, 0) : 0;
     
       const ownExp = 
         this.$store.getters.componentsOn.ownersExpenses ? 
@@ -92,7 +104,7 @@ export default {
         return sum + cur.value
       }, 0);        
       
-      return hire + ownExp + offhire + remittance + bunkersOnRedelivery;
+      return hire + ownExp + offHire + remittance + bunkersOnRedelivery + speedClaim;
     },
     result() {
       return this.credit - this.debit;

@@ -1,4 +1,5 @@
 <template>
+<!-- Header -->
   <div class="modal-layer">
     <div class="modal-dialog" @keydown.enter="ok()"
                               @keydown.esc="close()">
@@ -10,7 +11,8 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-
+<!-- Body -->
+  <!-- Description -->
         <div class="modal-body bg-grey">
           <div class="row mb-2 align-items-center justify-content-left">
             <h5 class="col-3">Description:</h5> 
@@ -23,6 +25,7 @@
             <div class="col-2"></div> 
           </div>
           <hr>
+  <!-- Hire Rate -->
           <div class="row mb-2 align-items-center justify-content-left">
             <h5 class="col-3">Hire rate:</h5> 
             <div class="col-2 input-group-sm">
@@ -32,13 +35,13 @@
                     :value="hireRate"
                     @input="hireRate = Number($event.target.value)">
             </div> 
-            <h5 class="col-2">    
-              <div class="icheck-material-white d-inline ml-2">
-                <input type="checkbox" id="share" v-model="share.status">
-                <label for="share"></label>                
-              </div> Share :
-            </h5> 
-            <div v-if="share.status" class="col-2 input-group-sm">              
+            <div class="col-2">    
+              <div class="icheck-material-white d-inline">
+                <input type="checkbox" id="share" v-model="share.on">
+                <label for="share">Share :</label>                
+              </div>
+            </div> 
+            <div v-if="share.on" class="col-2 input-group-sm">              
               <input type="number"
                     class="form-control"
                     placeholder="Enter Hire Rate" 
@@ -47,6 +50,7 @@
             </div> 
           </div>
           <hr>
+  <!-- Off-hire period -->
           <div class="row align-items-center">
             <h5 class="col-4">Off-hire period:</h5> 
           </div>
@@ -81,14 +85,15 @@
             <div class="col-2 text-center">{{ $myLib.formatNum(offHireDays) }}</div> 
           </div> 
           <hr>
+  <!-- Bunkers -->
           <div class="row align-items-center mb-3">
             <div class="col-4 text-left">
               <div class="icheck-material-white">
-                <input type="checkbox" id="white" v-model="bunkers.status">
+                <input type="checkbox" id="white" v-model="bunkers.on">
                 <label for="white">Bunkers:</label>
               </div>  
             </div> 
-            <template v-if="bunkers.status">
+            <template v-if="bunkers.on">
               <div class="col-2">
                 <div class="icheck-material-primary icheck-inline">
                   <input type="radio" id="radio1" value="manual" v-model="calcType">
@@ -103,7 +108,7 @@
               </div>
             </template>
           </div> 
-          <template v-if="bunkers.status">
+          <template v-if="bunkers.on">
             <div class="row mb-2 justify-content-center">
               <div class="col-1"></div>
               <div class="col-2">Grade</div> 
@@ -125,8 +130,14 @@
                 <div @click="addGrade()" class="btn btn-success btn-delete">+</div>
               </div>              
             </div> 
-          </template>         
-        </div>        
+          </template> 
+          <hr>
+  <!-- Result -->
+          <div class="row align-items-center">
+            <h5 class="col-12">Result: usd {{ $myLib.formatNum(result) }} / {{ $myLib.formatNum(result / hireRate) }} days</h5>         
+          </div>       
+        </div>
+<!-- Footer with save / cancel btn -->
         <div class="modal-footer bg-grey">
           <button type="button" class="btn btn-normal" @click="close()">
             <i class="fa fa-window-close"></i> Cancel
@@ -146,24 +157,50 @@
         calcType: 'manual',
         description: null,        
         hireRate: this.$store.getters.finance.basicHire,
-        share: { status: false, value: 100 },
+        share: { on: false, value: 100 },
         toDate: { time: null, date: null}, 
         fromDate: { time: null, date: null}, 
         bunkers: {
-          status: false,
-          grades: [
-            {name: 'IFO', qtty: 0, price: 0},
-            {name: 'MGO', qtty: 0, price: 0} 
-          ]
+          on: false,
+          grades: []
         }               
       }
     },
+    mounted() {
+      const bunkersDelivery =  this.$store.getters.bunkersOnDelivery.grades;
+      const bunkersOffHire = this.bunkers.grades;
+
+      bunkersDelivery.forEach((item, index) => {
+        bunkersOffHire.push({
+          name: item.name,
+          qtty: 0,
+          price: item.price
+        })
+      })
+    }, 
     computed: {
+      shareValue() {
+        return this.share.on ? this.share.value / 100 : 1;
+      },
       offHireDays() {
         const fromDate = new Date(this.fromDate.date + ':' + this.fromDate.time + 'Z');
         const toDate = new Date(this.toDate.date + ':' + this.toDate.time + 'Z');
-        const share = this.share.status ? this.share.value : 100;
-        return (toDate - fromDate) / 60 / 60 / 24 / 1000 * (share / 100);
+        if(isNaN(fromDate) || isNaN(toDate))
+          return 0;
+
+        return (toDate - fromDate) / 60 / 60 / 24 / 1000 * this.shareValue;
+      },
+      result() {
+        const timeTotal = this.hireRate * this.offHireDays;
+        const bunkerTotal = this.bunkers.on ? 
+          this.bunkers.grades.reduce((sum, grade) => {
+            if(this.calcType === 'manual')
+              return sum + grade.price * grade.qtty;
+
+            const consumption = grade.qtty;  
+            return sum + grade.price * consumption * this.offHireDays;
+          }, 0) : 0;
+        return timeTotal + bunkerTotal;
       }
     },
     methods: {    

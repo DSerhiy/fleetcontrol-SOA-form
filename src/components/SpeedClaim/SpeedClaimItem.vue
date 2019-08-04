@@ -29,8 +29,8 @@
           <td>Time {{ timeFlag }}:</td>
           <td align="center">{{ $myLib.formatNum(time.value) }}</td>
           <td align="center"><input type="text" :value="$myLib.formatNum(daysLost)" readonly=""></td>
-          <td class="debit-col" align="right">{{ timeLostResult }}</td>
-          <td class="credit-col" align="right">{{ timeSavedResult }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(timeLostResult) }}</td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(timeSavedResult) }}</td>
         </tr>
         <tr>
           <td colspan="6" class="not-bordered"></td>
@@ -39,15 +39,15 @@
           <td>ADD COMM :</td>
           <td colspan="2"></td>
           <td align="center">{{ $myLib.formatNum(addComm.value) }}%</td>
-          <td class="debit-col" align="right">{{ addCommSavedResult }}</td>
-          <td class="credit-col" align="right">{{ addCommLostResult }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(addCommSavedResult) }}</td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(addCommLostResult) }}</td>
         </tr>
         <tr v-if="brkComm.on">
           <td>BRK COMM :</td>
           <td colspan="2"></td>
           <td align="center">{{ $myLib.formatNum(brkComm.value) }}%</td>
-          <td class="debit-col" align="right">{{ brkCommSavedResult }}</td>
-          <td class="credit-col" align="right">{{ brkCommLostResult }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(brkCommSavedResult) }}</td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(brkCommLostResult) }}</td>
         </tr>
         <!-- <tr>
           <td colspan="6" class="not-bordered"></td>
@@ -56,8 +56,8 @@
           <td>C/E/V :</td>
           <td colspan="2" align="right">Rate, USD/PMPR:</td>
           <td align="center">{{ cevRate.value }}</td>
-          <td class="debit-col" align="right">{{ cevLostResult }}</td>
-          <td class="credit-col" align="right">{{ cevSavedResult }}</td>
+          <td class="debit-col" align="right">{{ $myLib.formatNum(cevLostResult) }}</td>
+          <td class="credit-col" align="right">{{ $myLib.formatNum(cevSavedResult) }}</td>
         </tr>              
       </tbody>
     </table>
@@ -120,10 +120,10 @@ export default {
       return this.hireRate * this.daysLost;
     },
     timeLostResult() {      
-      return this.timeFlag === 'lost' ? this.$myLib.formatNum(this.timeResult) : null;
+      return this.timeFlag === 'lost' ? this.timeResult : null;
     }, 
     timeSavedResult() {      
-      return this.timeFlag === 'saved' ? this.$myLib.formatNum(this.timeResult) : null;
+      return this.timeFlag === 'saved' ? this.timeResult : null;
     },
     addComm() {
       return this.$store.getters.finance.addComm;
@@ -135,10 +135,10 @@ export default {
       return this.timeResult * this.addCommValue / 100;
     }, 
     addCommLostResult() {
-      return this.timeFlag === 'lost' ? this.$myLib.formatNum(this.addCommResult) : null;
+      return this.timeFlag === 'lost' ? this.addCommResult : null;
     },
     addCommSavedResult() {      
-      return this.timeFlag === 'saved' ? this.$myLib.formatNum(this.addCommResult) : null;
+      return this.timeFlag === 'saved' ? this.addCommResult : null;
     },
     brkComm() {
       return this.$store.getters.finance.brkComm;
@@ -150,10 +150,10 @@ export default {
       return this.timeResult * this.brkCommValue / 100;
     },
     brkCommLostResult() {
-      return this.timeFlag === 'lost' ? this.$myLib.formatNum(this.brkCommResult) : null;
+      return this.timeFlag === 'lost' ? this.brkCommResult : null;
     },
     brkCommSavedResult() {      
-      return this.timeFlag === 'saved' ? this.$myLib.formatNum(this.brkCommResult) : null;
+      return this.timeFlag === 'saved' ? this.brkCommResult : null;
     },
     cevRate() {
       return this.$store.getters.finance.cevRate;
@@ -162,16 +162,32 @@ export default {
       return this.daysLost * this.cevRate.value / this.cevRate.days;      
     },
     cevLostResult() {
-      return this.timeFlag === 'lost' ? this.$myLib.formatNum(this.cevResult) : null;
+      return this.timeFlag === 'lost' ? this.cevResult : null;
     },
     cevSavedResult() {      
-      return this.timeFlag === 'saved' ? this.$myLib.formatNum(this.cevResult) : null;
+      return this.timeFlag === 'saved' ? this.cevResult : null;
     },
     debit() {
-     return this.timeResult + this.cevResult;  
+      const bunkers = this.bunkers.on ? this.bunkers.grades.reduce((sum, grade) => {
+        return grade.saved ? sum + 0 : sum + grade.price * grade.qtty;
+      }, 0) : 0;
+
+      return this.timeLostResult + 
+             this.cevLostResult + 
+             this.brkCommSavedResult + 
+             this.addCommSavedResult + 
+             bunkers;  
     }, 
     credit() {
-      return this.addCommResult + this.brkCommResult;
+      const bunkers = this.bunkers.on ? this.bunkers.grades.reduce((sum, grade) => {
+        return grade.saved ? sum + grade.price * grade.qtty : sum + 0;
+      }, 0) : 0;
+
+      return this.timeSavedResult + 
+             this.cevSavedResult + 
+             this.brkCommLostResult + 
+             this.addCommLostResult + 
+             bunkers;
     }   
   }
 }

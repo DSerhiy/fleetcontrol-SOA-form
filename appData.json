@@ -3,7 +3,7 @@
     "settings": {
       "firstStart": false,
       "componentsOn": {
-        "ownersExpenses": true,
+        "ownersExpenses": false,
         "charterersExpenses": false,
         "holdsCleaning": false,
         "bunkers": false,
@@ -85,10 +85,10 @@
         },
         "toDate": {
           "time": "01:01",
-          "date": "2019-01-16"
+          "date": "2019-01-01"
         },
         "debit": 0,
-        "credit": 75625
+        "credit": 0
       }
     ],
     "offHire": [
@@ -155,8 +155,8 @@
             }
           ]
         },
-        "credit": 0,
-        "debit": 4201.38888888889
+        "credit": 15000,
+        "debit": 4801.38888888889
       }
     ],
     "charterersExpenses": [

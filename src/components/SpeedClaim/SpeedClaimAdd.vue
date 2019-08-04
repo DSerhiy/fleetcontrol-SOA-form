@@ -1,4 +1,5 @@
 <template>
+<!-- Header -->
   <div class="modal-layer">
     <div class="modal-dialog" @keydown.enter="ok()"
                               @keydown.esc="close()">
@@ -10,9 +11,9 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-
-        <div class="modal-body bg-grey">
-<!-- Description -->
+<!-- Body -->
+  <!-- Description -->
+        <div class="modal-body bg-grey">       
           <div class="row mb-2 align-items-center justify-content-left">
             <h5 class="col-3">Description:</h5> 
             <div class="col-8 input-group-sm">
@@ -25,7 +26,7 @@
           </div>
           <hr>
 
-<!-- Hire Rate -->
+  <!-- Hire Rate -->
           <div class="row mb-2 align-items-center justify-content-left">
             <h5 class="col-3">Hire rate:</h5> 
             <div class="col-2 input-group-sm">
@@ -51,7 +52,7 @@
           </div>
           <hr>
 
-<!-- Time lost / saved -->
+  <!-- Time lost / saved -->
           <div class="row align-items-center">
             <h5 class="col-3">Time, hrs:</h5>
             <div class="col-2 input-group-sm">
@@ -69,7 +70,7 @@
           </div>          
           <hr>
 
-<!-- Bunkers -->
+  <!-- Bunkers -->
           <div class="row align-items-center mb-3">
             <div class="col-4 text-left">
               <div class="icheck-material-white">
@@ -85,7 +86,7 @@
               <div class="col-2">Quantity</div>
               <div class="col-2">Price</div> 
               <div class="col-1 p-0">Saved</div> 
-              <div class="col-2">Value</div> 
+              <div class="col-2 text-center">Value</div> 
             </div>
             <div class="row mb-2 justify-content-center" v-for="(grade, index) in bunkers.grades" :key="index">
               <div class="col-1"><div @click="removeGrade(index)" class="btn btn-danger btn-delete">x</div></div>
@@ -98,7 +99,7 @@
                   <label :for="index"></label>
                 </div>                            
               </div> 
-              <div class="col-2">{{ $myLib.formatNum(bunkerResult(grade)) }}</div>             
+              <div class="col-2 pr-4 text-right">{{ $myLib.formatNum(bunkerResult(grade)) }}</div>             
             </div>
             <div class="row justify-content-left">
               <div class="col-2">
@@ -108,13 +109,12 @@
           </template> 
           <hr>
 
-<!-- Result  -->
+  <!-- Result  -->
           <div class="row align-items-center">
-            <h5 class="col-3">Result: {{ $myLib.formatNum(result)}}</h5>         
-          </div> 
-
+            <h5 class="col-12">Result: usd {{ $myLib.formatNum(result)}} / {{ $myLib.formatNum(result / hireRate) }} days </h5>         
+          </div>
         </div>     
-
+<!-- Footer with save / cancel btn -->
         <div class="modal-footer bg-grey">
           <button type="button" class="btn btn-normal" @click="close()">
             <i class="fa fa-window-close"></i> Cancel
