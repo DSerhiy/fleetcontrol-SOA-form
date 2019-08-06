@@ -123,4 +123,7 @@ export default {
     font-size: 1.1rem;
     cursor: pointer;
   }
+  .estimated {
+    color: rgba(255, 128, 89, 0.842);
+  }
 </style>

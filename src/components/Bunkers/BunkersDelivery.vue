@@ -13,7 +13,7 @@
         <tr v-for="(grade, index) in bunkers.grades" :key="index">
           <td align="center"></td>
           <td align="center">{{ grade.name }}</td>
-          <td align="right" class="pr-4">{{ $myLib.formatNum(grade.qtty) }} MT</td>
+          <td align="right" class="pr-4" :class="{ estimated: isEstimated }">{{ $myLib.formatNum(grade.qtty) }} MT</td>
           <td align="center">{{ grade.price }}</td>
           <td class="debit-col" align="right"></td>
           <td class="credit-col" align="right">{{ $myLib.formatNum(grade.qtty * grade.price) }}</td>
@@ -27,6 +27,12 @@ export default {
   computed: {
     bunkers() {
       return this.$store.getters.bunkersOnDelivery;
+    }, 
+    isEstimated() {
+      if (this.bunkers.status === 'estimated')
+        return true;
+      
+      return false;
     }
   }
   

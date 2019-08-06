@@ -19,8 +19,8 @@
     </tr>
     <tr>
       <td align="right">From:</td>
-      <td align="center" :class="{estimated: isEstimated}">{{ fromDate.time }}</td>
-      <td align="center" :class="{estimated: isEstimated}">{{ new Date(fromDate.date) }}</td> 
+      <td align="center" :class="{ estimated: isEstimated }">{{ fromDate.time }}</td>
+      <td align="center" :class="{ estimated: isEstimated }">{{ new Date(fromDate.date) }}</td> 
       <td align="center">Days</td>  
     </tr>
     <tr>
@@ -155,10 +155,7 @@ export default {
   hr{
     background: rgba(20, 19, 19, 0.767);
     height: 2px;
-  }
-  .estimated {
-    color: rgba(255, 128, 89, 0.842);
-  }
+  }  
 </style>
 
         

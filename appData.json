@@ -1,28 +1,28 @@
 {
   "data": {
     "settings": {
-      "firstStart": false,
+      "firstStart": true,
       "componentsOn": {
         "ownersExpenses": false,
         "charterersExpenses": false,
         "holdsCleaning": false,
         "bunkers": false,
         "offHire": false,
-        "speedClaim": true
+        "speedClaim": false
       },
       "finance": {
-        "basicHire": 5000,
+        "basicHire": null,
         "cevRate": {
-          "value": 1250,
+          "value": null,
           "days": 30
         },
         "addComm": {
           "on": false,
-          "value": 3.75
+          "value": null
         },
         "brkComm": {
           "on": false,
-          "value": 1.25
+          "value": null
         },
         "ballastBonus": {
           "on": false,
@@ -31,8 +31,8 @@
       },
       "delivery": {
         "status": "estimated",
-        "time": "01:01",
-        "date": "2019-01-01"
+        "time": null,
+        "date": null
       },
       "redelivery": {
         "status": "estimated",
@@ -40,18 +40,18 @@
         "date": null
       },
       "bunkersOnDelivery": {
-        "show": true,
+        "show": false,
         "status": "estimated",
         "grades": [
           {
             "name": "IFO",
-            "qtty": "350",
-            "price": "470"
+            "qtty": null,
+            "price": null
           },
           {
             "name": "MGO",
-            "qtty": "25",
-            "price": "710"
+            "qtty": null,
+            "price": null
           }
         ]
       },
@@ -76,109 +76,11 @@
         "ilihc": null
       }
     },
-    "hire": [
-      {
-        "hireRate": 5000,
-        "fromDate": {
-          "time": "01:01",
-          "date": "2019-01-01"
-        },
-        "toDate": {
-          "time": "01:01",
-          "date": "2019-01-01"
-        },
-        "debit": 0,
-        "credit": 0
-      }
-    ],
-    "offHire": [
-      {
-        "description": "ME breakdown",
-        "hireRate": 5000,
-        "share": {
-          "status": false,
-          "value": 100
-        },
-        "toDate": {
-          "time": "12:00",
-          "date": "2019-01-01"
-        },
-        "fromDate": {
-          "time": "00:00",
-          "date": "2019-01-01"
-        },
-        "bunkers": {
-          "status": false,
-          "grades": [
-            {
-              "name": "IFO",
-              "qtty": 0,
-              "price": 0
-            },
-            {
-              "name": "MGO",
-              "qtty": 0,
-              "price": 0
-            }
-          ]
-        },
-        "credit": 125,
-        "debit": 2520.8333333333335
-      }
-    ],
-    "speedClaim": [
-      {
-        "description": "route Saleef to Suez",
-        "hireRate": 5000,
-        "share": {
-          "on": false,
-          "value": 100
-        },
-        "time": {
-          "value": 20,
-          "flag": false
-        },
-        "bunkers": {
-          "on": true,
-          "grades": [
-            {
-              "name": "IFO",
-              "saved": true,
-              "qtty": 150,
-              "price": 100
-            },
-            {
-              "name": "MGO",
-              "saved": false,
-              "qtty": 3,
-              "price": 200
-            }
-          ]
-        },
-        "credit": 15000,
-        "debit": 4801.38888888889
-      }
-    ],
-    "charterersExpenses": [
-      {
-        "description": "On-hire bunker survey ",
-        "value": 500
-      },
-      {
-        "description": "Crew bonus",
-        "value": 4580
-      }
-    ],
-    "ownersExpenses": [
-      {
-        "description": "Off-hire bunker survey",
-        "value": 450
-      },
-      {
-        "description": "FW supply",
-        "value": 1350
-      }
-    ],
+    "hire": [],
+    "offHire": [],
+    "speedClaim": [],
+    "charterersExpenses": [],
+    "ownersExpenses": [],
     "holdsCleaning": [],
     "remittances": []
   }
